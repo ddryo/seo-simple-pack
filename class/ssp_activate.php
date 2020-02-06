@@ -34,7 +34,6 @@ class SSP_Activate {
             // $SSP_ogp      = get_option( SSP_Data::DB_NAME[ 'ogp' ] );
 
         }
-
     }
 
 
@@ -42,8 +41,7 @@ class SSP_Activate {
      * プラグイン停止時の処理
      * Function for the plugin deactivated.
      */
-    public static function plugin_deactivate() {
-    }
+    public static function plugin_deactivate() {}
 
 
     /**
@@ -55,7 +53,5 @@ class SSP_Activate {
             delete_option( $db_name );
         }
     }
-
-
 
 }
