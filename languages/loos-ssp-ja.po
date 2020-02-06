@@ -1,0 +1,78 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: SEO SIMPLE PACK\n"
+"POT-Creation-Date: 2019-12-22 17:26+0900\n"
+"PO-Revision-Date: 2019-12-22 17:28+0900\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"Language: ja\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Poedit 2.2.4\n"
+"X-Poedit-Basepath: ..\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+"X-Poedit-Flags-xgettext: --add-comments=translators:\n"
+"X-Poedit-WPHeader: seo-simple-pack.php\n"
+"X-Poedit-SourceCharset: UTF-8\n"
+"X-Poedit-KeywordsList: __;_e;_n:1,2;_x:1,2c;_ex:1,2c;_nx:4c,1,2;esc_attr__;"
+"esc_attr_e;esc_attr_x:1,2c;esc_html__;esc_html_e;esc_html_x:1,2c;_n_noop:1,2;"
+"_nx_noop:3c,1,2;__ngettext_noop:1,2\n"
+"X-Poedit-SearchPath-0: .\n"
+"X-Poedit-SearchPathExcluded-0: *.min.js\n"
+
+#: class/ssp_menu.php:38 class/ssp_menu.php:39
+msgid "OGP settings"
+msgstr "OGP設定"
+
+#: class/ssp_menu.php:46 class/ssp_menu.php:55
+msgid "Basic setting"
+msgstr "基本設定"
+
+#: class/ssp_menu.php:47
+msgid "Post page"
+msgstr "投稿ページ"
+
+#: class/ssp_menu.php:48
+msgid "Taxonomy archive"
+msgstr "タクソノミーアーカイブ"
+
+#: class/ssp_menu.php:49
+msgid "Other archives"
+msgstr "その他アーカイブ"
+
+#: class/ssp_menu.php:50
+msgid "Google Analytics"
+msgstr "Googleアナリティクス"
+
+#: class/ssp_menu.php:51
+msgid "Webmaster tools"
+msgstr "ウェブマスターツール"
+
+#: class/ssp_menu.php:111
+msgid "General settings"
+msgstr "一般設定"
+
+#. Plugin Name of the plugin/theme
+msgid "SEO SIMPLE PACK"
+msgstr "SEO SIMPLE PACK"
+
+#. Plugin URI of the plugin/theme
+msgid "https://wemo.tech/1670"
+msgstr "SEO SIMPLE PACK"
+
+#. Description of the plugin/theme
+msgid ""
+"A simple SEO plugin. Meta tags and OGP tags can be easily set and customized "
+"for each page type and post."
+msgstr ""
+"シンプルなSEOプラグイン。ページ種別・投稿ごとにmetaタグやOGPタグを簡単に設"
+"定・カスタマイズできます。"
+
+#. Author of the plugin/theme
+msgid "LOOS WEB STUDIO"
+msgstr "LOOS WEB STUDIO"
+
+#. Author URI of the plugin/theme
+msgid "https://loos-web-studio.com/"
+msgstr "https://loos-web-studio.com/"
