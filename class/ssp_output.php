@@ -420,12 +420,11 @@ class SSP_Output {
                 break;
 
             case $is_[ 'tag' ] :
-
-                $description = SSP_Data::$settings[ 'tag_desc' ];
+                $meta_description = get_term_meta(self::$obj->term_id, SSP_MetaBox::T_METANAME['description'], true);
+                $description = $meta_description ?: SSP_Data::$settings[ 'tag_desc' ];
                 break;
 
             case $is_[ 'tax' ] :
-
                 $term = self::$obj->taxonomy;
                 $description = SSP_Data::$settings[ $term.'_desc' ];
                 break;

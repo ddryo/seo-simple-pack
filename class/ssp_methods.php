@@ -153,7 +153,7 @@ class SSP_Methods {
                 exit;
             };
         }
-        if ( SSP_Branch::$is_['attachment'] && SSP_Data::$settings['media_disable'] ) {
+        if ( SSP_Branch::$is_['attachment'] && SSP_Data::$settings['attachment_disable'] ) {
             wp_safe_redirect(get_post()->guid);
             exit;
         }

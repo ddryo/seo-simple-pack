@@ -24,12 +24,14 @@ class SSP_Init {
         //サイト基本情報取得
         SSP_Data::$site_title        = esc_html( get_option( 'blogname' ) );
         SSP_Data::$site_catch_phrase = esc_html( get_option( 'blogdescription' ) );
-        SSP_Data::$settings          = get_option( SSP_Data::DB_NAME[ 'settings' ] ) ?: SSP_Data::DEFAULT_SETTINGS;
-        SSP_Data::$ogp               = get_option( SSP_Data::DB_NAME[ 'ogp' ] ) ?: SSP_Data::DEFAULT_OGP;
 
-        //default設定とマージ
-        SSP_Data::$settings  = array_merge( SSP_Data::DEFAULT_SETTINGS, SSP_Data::$settings );
-        SSP_Data::$ogp       = array_merge( SSP_Data::DEFAULT_OGP, SSP_Data::$ogp );
+        // 一般設定データ
+        $db_ssp_settings = get_option( SSP_Data::DB_NAME[ 'settings' ] ) ?: [];
+        SSP_Data::$settings = array_merge( SSP_Data::DEFAULT_SETTINGS, $db_ssp_settings );
+
+        // OGPせ設定
+        $db_ssp_ogp = get_option( SSP_Data::DB_NAME[ 'ogp' ] ) ?: [];
+        SSP_Data::$ogp = array_merge( SSP_Data::DEFAULT_OGP, $db_ssp_settings );
 
     }
 

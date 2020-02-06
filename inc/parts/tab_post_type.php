@@ -143,7 +143,7 @@ SSP_Methods::output_table_rows( $table_rows ); ?>
         <table class="form-table">
             <tbody>
 <?php $table_rows = [
-    'media_disable' => [
+    'attachment_disable' => [
         'title'=>'「メディア」を使用しない',
         'reqired' => false,
         'class' => '',
@@ -152,7 +152,7 @@ SSP_Methods::output_table_rows( $table_rows ); ?>
         'prev' => false,
         'desc' => '「はい」を選択すると「メディア」の個別ページへアクセスしても画像URLへとリダイレクトされます。',
     ],
-   'media_noindex' => [
+   'attachment_noindex' => [
         'title'=>'「メディア」をインデックスさせない',
         'reqired' => false,
         'class' => '',
@@ -161,7 +161,7 @@ SSP_Methods::output_table_rows( $table_rows ); ?>
         'prev' => false,
         'desc' => '「はい」を選択するとデフォルトの出力が <code>noindex</code> となります。',
     ],
-    'media_title' => [
+    'attachment_title' => [
         'title'=>'タイトルタグの形式',
         'reqired' => false,
         'class' => '',
@@ -170,7 +170,7 @@ SSP_Methods::output_table_rows( $table_rows ); ?>
         'prev' => true,
         'desc' => '「メディア」（ <code>attachment</code> ）の記事に出力する <code>&lt;title&gt;</code> タグのデフォルト設定です。',
     ],
-    'media_desc' => [
+    'attachment_desc' => [
         'title'=>'ディスクリプションの形式',
         'reqired' => false,
         'class' => 'sep',
