@@ -31,7 +31,7 @@ class SSP_Init {
 
         // OGPせ設定
         $db_ssp_ogp = get_option( SSP_Data::DB_NAME[ 'ogp' ] ) ?: [];
-        SSP_Data::$ogp = array_merge( SSP_Data::DEFAULT_OGP, $db_ssp_settings );
+        SSP_Data::$ogp = array_merge( SSP_Data::DEFAULT_OGP, $db_ssp_ogp );
 
     }
 
