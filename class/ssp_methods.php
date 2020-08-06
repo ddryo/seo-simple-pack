@@ -105,34 +105,40 @@ class SSP_Methods {
     /**
      *  CSS Scriptの読み込み
      */
-    public static function include_files( $page ) {
+    public static function include_files( $hook_suffix ) {
 
-        if ( strpos( $page, 'ssp_' ) !== false ) {
+        $is_editor_page = 'post.php' === $hook_suffix || 'post-new.php' === $hook_suffix;
+        $is_ssp_page = false !== strpos( $hook_suffix, 'ssp_' );
+
+        if ( $is_ssp_page ) {
 
             wp_enqueue_media();
             wp_enqueue_script(
                 'ssp-script',
                 plugins_url( 'assets/js/ssp.js', SSP_FILE ),
-                array(),
+                array('jquery'),
                 SSP_VERSION,
                 true
             );
 
         }
-        wp_enqueue_script(
-            'ssp-common-script',
-            plugins_url( 'assets/js/ssp_common.js', SSP_FILE ),
-            array(),
-            SSP_VERSION,
-            true
-        );
-        wp_enqueue_style(
-            'ssp-css',
-            plugins_url( "assets/css/ssp.css", SSP_FILE ),
-            array(),
-            SSP_VERSION
-        );
 
+        // 設定ページだけでなく編集画面でも読み込みたい
+        if ( $is_editor_page || $is_ssp_page ) {
+            wp_enqueue_script(
+                'ssp-common-script',
+                plugins_url( 'assets/js/ssp_common.js', SSP_FILE ),
+                array('jquery'),
+                SSP_VERSION,
+                true
+            );
+            wp_enqueue_style(
+                'ssp-css',
+                plugins_url( "assets/css/ssp.css", SSP_FILE ),
+                array(),
+                SSP_VERSION
+            );
+        }
     }
 
 
@@ -302,12 +308,12 @@ class SSP_Methods {
                     $data_disable = 'data-disable="'.(int) $db[$key].'"';
                 }
 
-                $form_item = '<span>はい</span><label class="switch_box" for="'.$key.'">';
+                $form_item = '<span>はい</span><label class="ssp_switch_box" for="'.$key.'">';
 
                 $form_item .= $db[ $key ]
                                 ? '<input type="checkbox" name="" id="'.$key.'" checked>'
                                 : '<input type="checkbox" name="" id="'.$key.'">';
-                $form_item .= '<span class="slider round"></span></label><span>いいえ</span>';
+                $form_item .= '<span class="ssp_switch_box__slider -round"></span></label><span>いいえ</span>';
                 $form_item .= '<input type="hidden" name="'.$key.'" value="'.esc_attr( $db[$key] ).'">';
 
             } else {

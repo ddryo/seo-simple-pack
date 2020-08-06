@@ -304,7 +304,7 @@ tr[data-disable="1"] + tr + tr + tr{
 
 
 /* The switch - the box around the slider */
-.switch_box {
+.ssp_switch_box {
   position: relative;
   display: inline-block;
   width: 64px;
@@ -313,10 +313,10 @@ tr[data-disable="1"] + tr + tr + tr{
 }
 
 /* Hide default HTML checkbox */
-.switch_box input {display:none;}
+.ssp_switch_box input {display:none;}
 
 /* The slider */
-.slider {
+.ssp_switch_box__slider {
   position: absolute;
   cursor: pointer;
   top: 0;
@@ -328,7 +328,7 @@ tr[data-disable="1"] + tr + tr + tr{
   transition: .4s;
 }
 
-.slider:before {
+.ssp_switch_box__slider:before {
   position: absolute;
   content: "";
   height: 20px;
@@ -340,20 +340,20 @@ tr[data-disable="1"] + tr + tr + tr{
   transition: .4s;
 }
 
-input:checked + .slider {
+input:checked + .ssp_switch_box__slider {
   background-color: #2196F3;
 }
 
-input:checked + .slider:before {
+input:checked + .ssp_switch_box__slider:before {
   right: 40px;
 }
 
 /* Rounded sliders */
-.slider.round {
+.ssp_switch_box__slider.-round {
   border-radius: 34px;
 }
 
-.slider.round:before {
+.ssp_switch_box__slider.-round:before {
   border-radius: 50%;
 }
 

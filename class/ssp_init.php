@@ -44,11 +44,14 @@ class SSP_Init {
         add_action( 'wp', [ 'SSP_Methods', 'set_branch' ], 1 );
         add_action( 'admin_enqueue_scripts', [ 'SSP_Methods', 'include_files' ] );
         add_action( 'admin_menu', ['SSP_Menu', 'add_menus'] );
-        add_action( 'wp_head', [ 'SSP_Output', 'main' ], 10 );
+        add_action( 'wp_head', [ 'SSP_Output', 'main' ], 5 );
         add_action( 'template_redirect', [ 'SSP_Methods', 'redirect' ], 1 );
 
         //titleタグの除去
         remove_action('wp_head', '_wp_render_title_tag', 1);
+
+        // canonicalの削除
+        remove_action('wp_head', 'rel_canonical');
 
     }
 

@@ -1,6 +1,6 @@
 (function ($) {
     //noindex switch
-    $switchBox = $('.switch_box');
+    $switchBox = $('.ssp_switch_box');
     $switchBox.click(function (e){
         var labelFor = $(this).attr('for');
         var p = $(this).closest('tr');
@@ -13,4 +13,4 @@
             }
         }, 10);
     });
-})(jQuery);
+})(window.jQuery);
