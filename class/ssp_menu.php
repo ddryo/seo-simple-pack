@@ -68,7 +68,7 @@ class SSP_Menu {
         'capability' => 'manage_options', //必要な権限
         'menu_slug' => 'ssp_main_setting', //このメニューを参照するスラッグ名
         'function' => ['SSP_Menu','ssp_top_menu'], //呼び出す関数名
-        //'icon_url' => SSP_URL.'/assets/img/noimg.gif',      //アイコンURL
+        //'icon_url' => SSP_URL.'assets/img/noimg.gif',      //アイコンURL
         'icon_url' => 'dashicons-list-view', //アイコンURL
         'position' => 81 //管理画面での表示位置
     ];

@@ -3,7 +3,7 @@
  * Plugin Name: SEO SIMPLE PACK
  * Plugin URI: https://wemo.tech/1670
  * Description: A simple SEO plugin. Meta tags and OGP tags can be easily set and customized for each page type and post.
- * Version: 1.2.6
+ * Version: 1.2.8
  * Author: LOOS WEB STUDIO
  * Author URI: https://loos-web-studio.com/
  * License: GPL2 or later
@@ -11,7 +11,7 @@
  * Text Domain: loos-ssp
 */
 
-if ( !defined( 'ABSPATH' ) ) exit;
+if ( ! defined( 'ABSPATH' ) ) exit;
 
 /**
  * PHPバージョン5.6以上のみ使用可能の警告
@@ -34,7 +34,7 @@ if ( (double) $phpver < 5.6 ) {
  * 定数宣言
  */
 if ( ! defined( 'SSP_VERSION' ) ) {
-    define( 'SSP_VERSION', '1.2.6' );
+    define( 'SSP_VERSION', ( defined( 'WP_DEBUG' ) && WP_DEBUG ) ? date('mdGis') : '1.2.8');
 }
 if ( ! defined( 'SSP_FILE' ) ) {
     define( 'SSP_FILE', __FILE__ );
@@ -46,7 +46,7 @@ if ( ! defined( 'SSP_BASENAME' ) ) {
     define( 'SSP_BASENAME', plugin_basename( SSP_FILE ) );
 }
 if ( ! defined( 'SSP_URL' ) ) {
-    define( 'SSP_URL', plugins_url( '', __FILE__ ) );
+    define( 'SSP_URL', plugins_url( '/', __FILE__ ) );
 }
 
 
@@ -59,9 +59,10 @@ if ( ! defined( 'LOOS_SSP_DOMAIN' ) ) {
 
 
 /**
- * 翻訳ファイルを登録
+ * 翻訳ファイルを登録 ( 自前の翻訳ファイルを読み込む )
  */
-load_plugin_textdomain( LOOS_SSP_DOMAIN, false, basename( SSP_PATH ) .'/languages' );
+load_textdomain( LOOS_SSP_DOMAIN, SSP_PATH . 'languages/loos-ssp-ja.mo');
+// load_plugin_textdomain( LOOS_SSP_DOMAIN, false, basename( SSP_PATH ) .'/languages' );
 
 
 /**
