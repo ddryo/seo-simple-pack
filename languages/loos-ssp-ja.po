@@ -1,15 +1,15 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: SEO SIMPLE PACK\n"
-"POT-Creation-Date: 2019-12-22 17:26+0900\n"
-"PO-Revision-Date: 2019-12-22 17:28+0900\n"
+"POT-Creation-Date: 2020-08-06 21:43+0900\n"
+"PO-Revision-Date: 2020-08-06 21:43+0900\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: ja\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Poedit 2.2.4\n"
+"X-Generator: Poedit 2.4\n"
 "X-Poedit-Basepath: ..\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
 "X-Poedit-Flags-xgettext: --add-comments=translators:\n"
@@ -21,11 +21,11 @@ msgstr ""
 "X-Poedit-SearchPath-0: .\n"
 "X-Poedit-SearchPathExcluded-0: *.min.js\n"
 
-#: class/ssp_menu.php:38 class/ssp_menu.php:39
+#: class/ssp_menu.php:38 class/ssp_menu.php:39 inc/page_ogp.php:23
 msgid "OGP settings"
 msgstr "OGP設定"
 
-#: class/ssp_menu.php:46 class/ssp_menu.php:55
+#: class/ssp_menu.php:46 class/ssp_menu.php:55 inc/parts/tab_basic.php:3
 msgid "Basic setting"
 msgstr "基本設定"
 
@@ -49,9 +49,135 @@ msgstr "Googleアナリティクス"
 msgid "Webmaster tools"
 msgstr "ウェブマスターツール"
 
-#: class/ssp_menu.php:111
+#: class/ssp_menu.php:111 inc/page_top.php:23
 msgid "General settings"
 msgstr "一般設定"
+
+#: class/ssp_methods.php:345
+msgid "Preview"
+msgstr "プレビュー"
+
+#: inc/page_help.php:2
+msgid "Help page"
+msgstr "ヘルプページ"
+
+#: inc/page_help.php:6
+msgid "About available \"snippet tags\""
+msgstr "使用可能な\"スニペットタグ\"について"
+
+#: inc/page_help.php:10 inc/parts/tab_basic.php:10
+msgid "Site title"
+msgstr "サイトのタイトル"
+
+#: inc/page_help.php:11 inc/parts/tab_basic.php:19
+msgid "Site catchphrase"
+msgstr "サイトのキャッチフレーズ"
+
+#: inc/page_help.php:12 inc/parts/tab_basic.php:49
+msgid "Home description"
+msgstr "ホームのディスクリプション"
+
+#: inc/page_help.php:13
+msgid "Post title"
+msgstr "投稿のタイトル"
+
+#: inc/page_help.php:14
+msgid "Category name"
+msgstr "カテゴリー名"
+
+#: inc/page_help.php:15
+msgid "Tag name"
+msgstr "タグ名"
+
+#: inc/page_help.php:16
+msgid "Term name"
+msgstr "ターム名"
+
+#: inc/page_help.php:17
+msgid "Term description"
+msgstr "タームの説明"
+
+#: inc/page_help.php:18
+msgid "Taxonomy name"
+msgstr "タクソノミー名"
+
+#: inc/page_help.php:19
+msgid "Post type name"
+msgstr "投稿タイプ名"
+
+#: inc/page_help.php:20
+msgid "Page content"
+msgstr "ページコンテンツ"
+
+#: inc/page_help.php:21
+msgid "The date that is searching in the date archive"
+msgstr "日付アーカイブで検索中の日付"
+
+#: inc/page_help.php:22
+msgid "Author name"
+msgstr "著者名"
+
+#: inc/page_help.php:23
+msgid "Search word"
+msgstr "検索ワード"
+
+#: inc/page_help.php:24
+msgid "Post format name"
+msgstr "投稿フォーマット名"
+
+#: inc/page_help.php:25 inc/parts/tab_basic.php:40
+msgid "Delimiter"
+msgstr "区切り文字"
+
+#: inc/page_help.php:32
+msgid "Snippet tag"
+msgstr "スニペットタグ"
+
+#: inc/page_help.php:35
+msgid "Contents to be expanded"
+msgstr "展開される内容"
+
+#: inc/page_help.php:51
+#, php-format
+msgid "See %s for more information about \"SEO SIMPLE PACK\"."
+msgstr "「SEO SIMPLE PACK」に関する詳しい説明は %s をご覧ください。"
+
+#: inc/page_help.php:52
+msgid "\"How to use the plugin\""
+msgstr "「プラグインの使い方」"
+
+#: inc/page_ogp.php:27 inc/page_top.php:27
+msgid "Your settings have been saved."
+msgstr "設定を保存しました。"
+
+#: inc/page_ogp.php:29 inc/page_top.php:29
+msgid "Hide this notification."
+msgstr "この通知を非表示にする。"
+
+#: inc/page_ogp.php:64 inc/page_top.php:64
+msgid "Save settings"
+msgstr "設定を保存する"
+
+#: inc/parts/tab_basic.php:10 inc/parts/tab_basic.php:19
+msgid "For confirmation"
+msgstr "確認用"
+
+#: inc/parts/tab_basic.php:28
+msgid "Home title"
+msgstr "ホームのタイトル"
+
+#: inc/parts/tab_basic.php:35
+#, php-format
+msgid "It is the setting of %s that is output to the home page."
+msgstr "ホームページに出力する %s の設定です。"
+
+#: inc/parts/tab_basic.php:36
+msgid "tag"
+msgstr "タグ"
+
+#: inc/parts/tab_basic.php:58
+msgid "Keyword"
+msgstr "キーワード"
 
 #. Plugin Name of the plugin/theme
 msgid "SEO SIMPLE PACK"
@@ -59,7 +185,7 @@ msgstr "SEO SIMPLE PACK"
 
 #. Plugin URI of the plugin/theme
 msgid "https://wemo.tech/1670"
-msgstr "SEO SIMPLE PACK"
+msgstr "https://wemo.tech/1670"
 
 #. Description of the plugin/theme
 msgid ""

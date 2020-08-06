@@ -1,51 +1,57 @@
 <div id="ssp_wrap" class="wrapp">
-    <h1 id="ssp_title">ヘルプページ</h1>
+    <h1 id="ssp_title"><?=__('Help page', LOOS_SSP_DOMAIN )?></h1>
 
     <div id="poststuff">
         <div class="ssp_help_page">
-            使用可能なスニペットタグについて<br>
+            <?=__('About available "snippet tags"', LOOS_SSP_DOMAIN )?>
+            <br> 
             <?php 
                 $tags = [
-                    'site_title' => 'サイトのタイトル',
-                    'phrase' => 'サイトのキャッチフレーズ',
-                    'description' => 'ホームのディスクリプション',
-                    'page_title' => '投稿のタイトル( get_the_title() で取得できる内容が入ります )',
-                    'cat_name' => 'カテゴリー名',
-                    'tag_name' => 'タグ名',
-                    'term_name' => 'ターム名',
-                    'term_description' => 'タームの説明',
-                    'tax_name' => 'タクソノミー名',
-                    'post_type' => '投稿タイプ名',
-                    'page_contents' => 'ページコンテンツ ( get_the_content() で取得できる内容を元にした内容が入ります )',
-                    'date' => '日付アーカイブで検索中の日付',
-                    'author_name' => '著者名( ニックネーム )',
-                    'search_phrase' => '検索ワード',
-                    'format_name' => '投稿フォーマット名',
-                    'sep' => '区切り文字',
+                    'site_title' => __( 'Site title', LOOS_SSP_DOMAIN ), 
+                    'phrase' => __( 'Site catchphrase', LOOS_SSP_DOMAIN ), 
+                    'description' => __( 'Home description', LOOS_SSP_DOMAIN ), 
+                    'page_title' => __( 'Post title', LOOS_SSP_DOMAIN ), 
+                    'cat_name' => __( 'Category name', LOOS_SSP_DOMAIN ), 
+                    'tag_name' => __( 'Tag name', LOOS_SSP_DOMAIN ), 
+                    'term_name' => __( 'Term name', LOOS_SSP_DOMAIN ), 
+                    'term_description' => __( 'Term description', LOOS_SSP_DOMAIN ), 
+                    'tax_name' => __( 'Taxonomy name', LOOS_SSP_DOMAIN ), 
+                    'post_type' => __( 'Post type name', LOOS_SSP_DOMAIN ), 
+                    'page_contents' => __( 'Page content', LOOS_SSP_DOMAIN ), 
+                    'date' => __( 'The date that is searching in the date archive', LOOS_SSP_DOMAIN ), 
+                    'author_name' => __( 'Author name', LOOS_SSP_DOMAIN ), 
+                    'search_phrase' => __( 'Search word', LOOS_SSP_DOMAIN ), 
+                    'format_name' => __( 'Post format name', LOOS_SSP_DOMAIN ), 
+                    'sep' => __( 'Delimiter', LOOS_SSP_DOMAIN ), 
                 ];
             ?>
             <table class="ssp_help_table">
                 <thead>
                     <tr>
                         <th>
-                            スニペットタグ
+                            <?=__('Snippet tag', LOOS_SSP_DOMAIN )?>
                         </th>
                         <th>
-                            展開される内容
+                            <?=__('Contents to be expanded', LOOS_SSP_DOMAIN )?>
                         </th>
                     </tr>
                 </thead>
                 <tbody>
                     <?php 
                         foreach ($tags as $key => $val) {
-                            echo '<tr><th>%_', $key, '_%</th><td>', $val, '</td></tr>';
+                            echo '<tr><th>%_' . $key . '_%</th><td>' . $val . '</td></tr>';
                         }
                     ?>
                 </tbody>
             </table>
 
             <p>
-                「SEO SIMPLE PACK」に関する詳しい説明は <a href="https://wemo.tech/1670" target="blank_"> プラグインの使い方 </a> をご覧ください。
+                <?php 
+                    echo sprintf(
+                        __( 'See %s for more information about "SEO SIMPLE PACK".', LOOS_SSP_DOMAIN ), 
+                        '<a href="https://wemo.tech/1670" target="_blank">'. __( '"How to use the plugin"', LOOS_SSP_DOMAIN ).'</a>'
+                    );
+                ?>
             </p>
         </div>
     </div>

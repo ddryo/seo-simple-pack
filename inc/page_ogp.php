@@ -20,14 +20,14 @@
  ?>
 <div id="ssp_wrap" class="wrapp">
 
-    <h1 id="ssp_title">SEO OGPタグ設定</h1>
+    <h1 id="ssp_title"><?=__('OGP settings', LOOS_SSP_DOMAIN )?></h1>
     <?php 
         if ( $is_updated ) {
-            echo '<div id="ssp_updated" class="updated notice is-dismissible">',
-                '<p><strong>設定を更新しました。</strong></p>',
-                    '<button type="button" class="notice-dismiss">',
-                        '<span class="screen-reader-text">この通知を非表示にする</span>',
-                    '</button>',
+            echo '<div id="ssp_updated" class="updated notice is-dismissible">'.
+                '<p><strong>'. __('Your settings have been saved.', LOOS_SSP_DOMAIN ) .'</strong></p>'.
+                    '<button type="button" class="notice-dismiss">'.
+                        '<span class="screen-reader-text">'. __('Hide this notification.', LOOS_SSP_DOMAIN ) .'</span>'.
+                    '</button>'.
                 '</div>';
         }
     ?>
@@ -35,8 +35,8 @@
         <?php 
             foreach ( $ssp_tab as $key => $val ) {
 
-                $nav_class = ( $val === reset( $ssp_tab ) ) ? "nav-tab act_" : "nav-tab";
-                echo '<a href="#', $key, '" class="', $nav_class, '">', $val, '</a>';
+                $nav_class = ( $val === reset( $ssp_tab ) ) ? 'nav-tab act_' : 'nav-tab';
+                echo '<a href="#' . $key . '" class="' . $nav_class . '">' . $val . '</a>';
 
             }
         ?>
@@ -47,7 +47,7 @@
                 foreach ( $ssp_tab as $key => $val ) {
 
                     $tab_class = ( $val === reset( $ssp_tab ) ) ? "tab-contents act_" : "tab-contents";
-                    echo '<div id="', $key, '" class="', $tab_class, '">';
+                    echo '<div id="' . $key . '" class="' . $tab_class . '">';
 
                         //タブコンテンツ用ファイルの読み込み
                         if ( file_exists( SSP_PATH.'inc/parts/tab_'.$key.'.php' ) ) {
@@ -61,7 +61,7 @@
             ?>
             <input type="hidden" name="db_name" value="<?php echo esc_attr( SSP_Data::DB_NAME['ogp'] ); ?>">
             <?php wp_nonce_field( SSP_Data::NOUNCE_ACTION, SSP_Data::NOUNCE_NAME ); ?>
-            <button type="submit" class="button button-primary">設定を保存する</button>
+            <button type="submit" class="button button-primary"><?=__( 'Save settings', LOOS_SSP_DOMAIN )?></button>
         </form>
     </div>
 </div>

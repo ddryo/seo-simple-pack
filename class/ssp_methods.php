@@ -342,9 +342,9 @@ class SSP_Methods {
                             <p>', $row['desc'], '</p>',
                         '</div>',
                         $row['prev'] ? 
-                                '<div class="ssp_prev">┗ プレビュー：<p>'.
+                                '<div class="ssp_prev">┗ '. __( 'Preview', LOOS_SSP_DOMAIN ) .' : <p>'.
                                     SSP_Methods::replace_snippets_forpv( esc_html( $db[ $key ] ) ).
-                                '</p><a href="'.admin_url().'admin.php?page=ssp_help" target="_blank" title="使用可能なスニペットタグについて" class="ssp_help">?</a></div>' 
+                                '</p><a href="' . admin_url() . 'admin.php?page=ssp_help" target="_blank" title="使用可能なスニペットタグについて" class="ssp_help">?</a></div>' 
                             : "",
                     '</div>',
                 '</td>',
