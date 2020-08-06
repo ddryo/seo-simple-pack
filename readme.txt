@@ -3,8 +3,8 @@ Contributors: looswebstudio
 Donate link: https://loos-web-studio.com/
 Tags: SEO, meta, analytics, webmaster, simple, japan, meta tag
 Requires at least: 4.6
-Tested up to: 5.3.2
-Stable tag: 1.2.6
+Tested up to: 5.5
+Stable tag: 1.2.8
 Requires PHP: 5.6
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
@@ -108,6 +108,13 @@ wp_head内( `_wp_render_title_tag` )で出力される`title`タグは削除す�
 
 
 == Changelog ==
+
+= 1.2.8 =
+- Fixed some code.
+- Added a little English translation.
+
+= 1.2.7 =
+Increased the priority of hooks that output meta tags.
 
 = 1.2.6 =
 Fixed bug in 1.2.5.
