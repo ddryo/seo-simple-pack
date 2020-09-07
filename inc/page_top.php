@@ -24,7 +24,7 @@
     <?php 
         if ( $is_updated ) {
             echo '<div id="ssp_updated" class="updated notice is-dismissible">'.
-                '<p><strong>'. __('Your settings have been saved.'. LOOS_SSP_DOMAIN ) .'</strong></p>'.
+                '<p><strong>'. __('Your settings have been saved.', LOOS_SSP_DOMAIN ) .'</strong></p>'.
                     '<button type="button" class="notice-dismiss">'.
                         '<span class="screen-reader-text">'. __('Hide this notification.', LOOS_SSP_DOMAIN ) .'</span>'.
                     '</button>'.

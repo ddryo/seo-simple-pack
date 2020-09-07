@@ -4,7 +4,7 @@ Donate link: https://loos-web-studio.com/
 Tags: SEO, meta, analytics, webmaster, simple, japan, meta tag
 Requires at least: 4.6
 Tested up to: 5.5
-Stable tag: 1.2.8
+Stable tag: 1.2.9
 Requires PHP: 5.6
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
@@ -109,6 +109,9 @@ wp_head内( `_wp_render_title_tag` )で出力される`title`タグは削除す�
 
 == Changelog ==
 
+= 1.2.9 =
+Fixed translation.
+
 = 1.2.8 =
 - Fixed some code.
 - Added a little English translation.
@@ -145,11 +148,9 @@ WordPress最新版への対応
 = 1.1.9 =
 コードの微調整
 
-
 = 1.1.8 =
 ・項目説明の改善
 ・（むやみに触ると混乱するので）投稿ページのデフォルト設定からディスクリプションタグに関する設定を非表示に。これまで通り、デフォルトでディスクリプションタグはコンテンツから自動生成されます。
-
 
 = 1.1.7 =
 管理画面の表示の改善
