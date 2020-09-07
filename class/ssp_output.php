@@ -121,7 +121,7 @@ class SSP_Output {
         }
 
         if ( !empty( self::$keyword ) ) {
-            echo '<meta name="keyword" content="', esc_attr( self::$keyword ), '">', "\n";
+            echo '<meta name="keywords" content="', esc_attr( self::$keyword ), '">', "\n";
         }
 
         if ( !empty( self::$canonical ) ) {
