@@ -871,7 +871,7 @@ class SSP_Output {
             if ( SSP_Data::$settings[ 'google_analytics_type' ] === 'gtag' ) {
 
                 echo "<!-- Global site tag (gtag.js) - Google Analytics -->\n",
-                    "<script async src='https://www.googletagmanager.com/gtag/js?id=", esc_url( $gaid ), "'></script>\n",
+                    "<script async src='https://www.googletagmanager.com/gtag/js?id=", esc_attr( $gaid ), "'></script>\n",
                     "<script>\n",
                         "window.dataLayer = window.dataLayer || [];\n",
                         "function gtag(){dataLayer.push(arguments);}\n",
