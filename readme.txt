@@ -108,6 +108,11 @@ wp_head内( `_wp_render_title_tag` )で出力される`title`タグは削除す�
 
 
 == Changelog ==
+
+= 1.3.2 =
+add 'ssp_output_og_site_name' hook
+
+
 = 1.3.1 =
 Fixed ga-tag output.
 

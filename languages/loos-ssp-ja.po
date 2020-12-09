@@ -1,15 +1,15 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: SEO SIMPLE PACK\n"
-"POT-Creation-Date: 2020-08-06 21:47+0900\n"
-"PO-Revision-Date: 2020-08-07 23:28+0900\n"
+"POT-Creation-Date: 2020-12-09 22:41+0900\n"
+"PO-Revision-Date: 2020-12-09 22:42+0900\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: ja\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Poedit 2.4\n"
+"X-Generator: Poedit 2.4.2\n"
 "X-Poedit-Basepath: ..\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
 "X-Poedit-Flags-xgettext: --add-comments=translators:\n"
@@ -20,42 +20,62 @@ msgstr ""
 "_nx_noop:3c,1,2;__ngettext_noop:1,2\n"
 "X-Poedit-SearchPath-0: .\n"
 "X-Poedit-SearchPathExcluded-0: *.min.js\n"
+"X-Poedit-SearchPathExcluded-1: vendor\n"
+"X-Poedit-SearchPathExcluded-2: assets\n"
 
-#: class/ssp_menu.php:38 class/ssp_menu.php:39 inc/page_ogp.php:23
+#: class/ssp_menu.php:35 class/ssp_menu.php:36 inc/page_ogp.php:23
 msgid "OGP settings"
 msgstr "OGP設定"
 
-#: class/ssp_menu.php:46 class/ssp_menu.php:55 inc/parts/tab_basic.php:3
+#: class/ssp_menu.php:43 class/ssp_menu.php:52 inc/parts/tab_basic.php:3
 msgid "Basic setting"
 msgstr "基本設定"
 
-#: class/ssp_menu.php:47
+#: class/ssp_menu.php:44
 msgid "Post page"
 msgstr "投稿ページ"
 
-#: class/ssp_menu.php:48
+#: class/ssp_menu.php:45
 msgid "Taxonomy archive"
 msgstr "タクソノミーアーカイブ"
 
-#: class/ssp_menu.php:49
+#: class/ssp_menu.php:46
 msgid "Other archives"
 msgstr "その他アーカイブ"
 
-#: class/ssp_menu.php:50
+#: class/ssp_menu.php:47
 msgid "Google Analytics"
 msgstr "Googleアナリティクス"
 
-#: class/ssp_menu.php:51
+#: class/ssp_menu.php:48
 msgid "Webmaster tools"
 msgstr "ウェブマスターツール"
 
-#: class/ssp_menu.php:111 inc/page_top.php:23
+#: class/ssp_menu.php:108 inc/page_top.php:23
 msgid "General settings"
 msgstr "一般設定"
 
-#: class/ssp_methods.php:345
+#: class/ssp_methods.php:347
 msgid "Preview"
 msgstr "プレビュー"
+
+#: class/ssp_output.php:738
+#, php-format
+msgctxt "date"
+msgid "%2$s %3$s, %1$s"
+msgstr "%1$s年%2$s%3$s日"
+
+#: class/ssp_output.php:742
+#, php-format
+msgctxt "date"
+msgid "%2$s %1$s"
+msgstr "%1$s年%2$s"
+
+#: class/ssp_output.php:744
+#, php-format
+msgctxt "date"
+msgid "%s"
+msgstr "%s年"
 
 #: inc/page_help.php:2
 msgid "Help page"

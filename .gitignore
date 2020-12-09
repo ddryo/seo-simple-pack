@@ -1,1 +1,5 @@
 /memo.txt
+/vendor
+/dist
+/node_modules
+/.vscode
