@@ -109,7 +109,7 @@ class SSP_MetaBox {
 		$ssp_page_url_pt = admin_url( 'admin.php?page=ssp_main_setting#post_type' );
 		$help_page_url   = admin_url( 'admin.php?page=ssp_help' );
 	?>
-		<div id="ssp_wrap" class="ssp_metabox -post">
+		<div class="ssp_metabox -post">
 		<?php
 			// robots
 			self::output_field( self::POST_META_KEYS['robots'], [

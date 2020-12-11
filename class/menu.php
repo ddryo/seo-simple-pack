@@ -1,7 +1,4 @@
 <?php
-
-require_once __DIR__ . '/trait/field.php';
-
 class SSP_Menu {
 
 	use SSP\Field;

@@ -27,20 +27,17 @@ console.log('Loaded media-uploader.js.');
 		customUploader.on('select', function () {
 			// Get media attachment details from the frame state
 			const images = customUploader.state().get('selection');
-			// console.log(images);
 
 			// Get media attachment details from the frame state
 			const theImage = images.first().toJSON();
-			// console.log(theImage);
 
 			// inputタグにURLをセット
 			srcInputField.val(theImage.url);
 			srcInputField.change();
 
 			// プレビューエリアを更新
-			// previewArea.empty();
 			previewArea.html(
-				'<img style="max-width:100%;" src="' + theImage.url + '" />'
+				'<img src="' + theImage.url + '" alt="" />'
 			);
 
 			// クローズ

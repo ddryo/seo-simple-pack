@@ -1,9 +1,11 @@
 <?php
+/**
+ * 設定フィールド出力用のtrait
+ */
 namespace SSP;
 
 // phpcs:disable WordPress.WP.EnqueuedResources.NonEnqueuedScript
 // phpcs:disable WordPress.Security.EscapeOutput.OutputNotEscaped
-
 trait Field {
 
 	/**
@@ -30,8 +32,8 @@ trait Field {
 			<div class="ssp-page__section__body">
 				<?php
 					foreach ( $table_rows as $name => $args ) :
-					$now_value = isset( $db[ $name ] ) ? $db[ $name ] : '';
-					self::output_field( $name, $args, $now_value );
+						$now_value = isset( $db[ $name ] ) ? $db[ $name ] : '';
+						self::output_field( $name, $args, $now_value );
 					endforeach;
 				?>
 			</div>
@@ -58,7 +60,7 @@ trait Field {
 
 			$data_disable = '';
 			if ( strpos( $name, '_disable' ) !== false ) {
-				$data_disable = 'data-disable="' . (int) $now_value . '"';
+			$data_disable = ' data-disable="' . esc_attr( (int) $now_value ) . '"';
 			}
 
 			// if ( $args['reqired'] ) {
@@ -66,11 +68,11 @@ trait Field {
 			// }
 
 		?>
-			<div class="ssp-field" <?=( $data_disable )?>>
+			<div class="ssp-field"<?=$data_disable?>>
 				<label for="<?=esc_attr( $name )?>" class="ssp-field__title">
 					<?=esc_html( $args['title'] ) ?>
 				</label>
-				<div class="<?=trim( 'ssp-field__body ' . $args['class'] )?>">
+				<div class="<?=esc_attr( trim( 'ssp-field__body ' . $args['class'] ) )?>">
 					<div class="ssp_item ssp-field__item -<?=$args['type']?>">
 						<?php
 							if ( $args['item'] ) :
@@ -89,9 +91,9 @@ trait Field {
 								┗ <?=esc_html__( 'Preview', 'loos-ssp' )?> : 
 							</span>
 							<div class="ssp-field__preview__content">
-								<?=\SSP_Methods::replace_snippets_forpv( esc_html( $now_value ) )?>
+								<?=wp_kses_post( self::replace_snippets_forpv( $now_value ) )?>
 							</div>
-							<a href="<?=admin_url( 'admin.php?page=ssp_help' )?>" target="_blank" title="使用可能なスニペットタグについて" class="ssp-helpButton">?</a>
+							<a href="<?=esc_url( admin_url( 'admin.php?page=ssp_help' ) )?>" target="_blank" title="<?=esc_html__( '使用可能なスニペットタグについて', 'loos-ssp' )?>" class="ssp-helpButton">?</a>
 						</div>
 					<?php endif; ?>
 				</div>
@@ -118,15 +120,15 @@ trait Field {
 
 		} if ( 'radio_btn' === $type ) {
 
-			echo self::radio_btns( $name, $now_value, $choices );
+			self::radio_btns( $name, $now_value, $choices );
 
 		} if ( 'media' === $type ) {
 
-			echo self::media_btns( $name, $now_value );
+			self::media_btns( $name, $now_value );
 
 		} elseif ( 'textarea' === $type ) {
 
-			echo '<textarea name="' . esc_attr( $name ) . '">' . esc_html( $now_value ) . '</textarea>';
+			self::textarea( $name, $now_value );
 
 		}
 	}
@@ -155,12 +157,12 @@ trait Field {
 
 		$checked = ( $is_checked ) ? 'checked' : '';
 	?>
-		<span><?=__( 'はい', 'loos-ssp' )?></span>
+		<span><?=esc_html__( 'はい', 'loos-ssp' )?></span>
 			<label class="ssp_switch_box" for="<?=esc_attr( $name )?>">
 				<input type="checkbox" name="" id="<?=esc_attr( $name )?>" <?=$checked?>>
 				<span class="ssp_switch_box__slider -round"></span>
 			</label>
-			<span><?=__( 'いいえ', 'loos-ssp' )?></span>
+			<span><?=esc_html__( 'いいえ', 'loos-ssp' )?></span>
 			<input type="hidden" name="<?=esc_attr( $name )?>" value="<?=esc_attr( $is_checked )?>">
 	<?php
 	}
@@ -205,17 +207,59 @@ trait Field {
 	public static function media_btns( $name = '', $src = '' ) {
 	?>
 		<div class="ssp-media">
-			<input type="hidden" id="src_<?=$name?>" name="<?=$name?>" value="<?=esc_attr( $src )?>" />
-			<div id="preview_<?=$name?>" class="ssp-media__preview">
-				<?php if ( $src ) : ?>
+			<input type="hidden" id="src_<?=esc_attr( $name )?>" name="<?=esc_attr( $name )?>" value="<?=esc_attr( $src )?>" />
+			<?php if ( $src ) : ?>
+				<div id="preview_<?=esc_attr( $name )?>" class="ssp-media__preview">
 					<img src="<?=esc_url( $src )?>" alt="">
-				<?php endif; ?>
+				</div>
+			<?php else : ?>
+				<div id="preview_<?=esc_attr( $name )?>" class="ssp-media__preview"></div>
+			<?php endif; ?>
+			<div class="ssp-media__null">
+				<?=esc_html__( 'まだ画像が設定されていません。', 'loos-ssp' )?>
 			</div>
 			<div class="ssp-media__btns">
-				<input class="button" type="button" name="ssp-media-upload" data-id="<?=$name?>" value="<?=__( 'Select image', 'loos-ssp' )?>" />
-				<input class="button" type="button" name="ssp-media-clear" value="<?=__( 'Delete image', 'loos-ssp' )?>" data-id="<?=$name?>" />
+				<button type="button" class="button button-primary" name="ssp-media-upload" data-id="<?=esc_attr( $name )?>">
+					<?=esc_html__( 'Select image', 'loos-ssp' )?>
+				</button>
+				<button type="button" class="button" name="ssp-media-clear" data-id="<?=esc_attr( $name )?>">
+					<?=esc_html__( 'Delete image', 'loos-ssp' )?>
+				</button>
 			</div>
 		</div>
 	<?php
+	}
+
+
+	/**
+	 * プレビュー機能用のスニペット変換
+	 */
+	public static function replace_snippets_forpv( $str ) {
+
+		$str = str_replace( '%_site_title_%', '<span>' . \SSP_Data::$site_title . '</span>', $str );
+		$str = str_replace( '%_phrase_%', '<span>' . \SSP_Data::$site_catch_phrase . '</span>', $str );
+		$str = str_replace( '%_description_%', \SSP_Data::$settings['home_desc'], $str );
+		$str = str_replace( '%_page_title_%', '<span>投稿タイトル</span>', $str );
+		$str = str_replace( '%_cat_name_%', '<span>カテゴリー名</span>', $str );
+		$str = str_replace( '%_tag_name_%', '<span>タグ名</span>', $str );
+		$str = str_replace( '%_term_name_%', '<span>ターム名</span>', $str );
+		$str = str_replace( '%_tax_name_%', '<span>タクソノミー名</span>', $str );
+		$str = str_replace( '%_author_name_%', '<span>著者名(ニックネーム)</span>', $str );
+		$str = str_replace( '%_search_phrase_%', '<span>検索ワード</span>', $str );
+		$str = str_replace( '%_post_type_%', '<span>投稿タイプ名</span>', $str );
+		$str = str_replace( '%_page_contents_%', '<span>投稿コンテンツ</span>', $str );
+		$str = str_replace( '%_date_%', '<span>日付</span>', $str );
+		$str = str_replace( '%_format_name_%', '<span>フォーマット名</span>', $str );
+		$str = str_replace( '%_term_description_%', '<span>タームの説明</span>', $str );
+
+		if ( strpos( $str, '%_sep_%' ) !== false ) {
+
+			$sep_key = \SSP_Data::$settings['separator'];
+			$sep_val = \SSP_Data::SEPARATORS[ $sep_key ];
+			$str     = str_replace( '%_sep_%', '<span>' . $sep_val . '</span>', $str );
+
+		}
+
+		return $str;
 	}
 }

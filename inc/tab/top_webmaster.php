@@ -13,7 +13,7 @@ $settings = [
 $section_args = [];
 foreach ( $settings  as $key => $data ) {
 	$desc = __( '埋め込まれるコード ', 'loos-ssp' ) .
-		' : <code>&lt;meta name="' . $data[1] . '" content="<b>' . __( '入力コード ', 'loos-ssp' ) . '</b>"&gt;</code>';
+		' : <code>&lt;meta name="' . $data[1] . '" content="<b>' . __( '入力コード', 'loos-ssp' ) . '</b>"&gt;</code>';
 
 		$section_args[ $key ] = [
 			'title'       => sprintf( __( '%sの認証コード', 'loos-ssp' ), $data[0] ),

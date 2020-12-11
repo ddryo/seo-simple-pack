@@ -1,6 +1,8 @@
 <?php
 class SSP_Output {
 
+	use \SSP\Output_Helper;
+
 	/**
 	 * 外部からのインスタンス化を防ぐ
 	 */
@@ -566,7 +568,7 @@ class SSP_Output {
 	 */
 	private static function generate_og_locale() {
 
-		$locale = SSP_Utility::get_valid_og_locale();
+		$locale = self::get_valid_og_locale();
 		return apply_filters( 'ssp_output_og_locale', $locale );
 
 	}
@@ -653,129 +655,13 @@ class SSP_Output {
 
 			if ( 'gtag' === $settings['google_analytics_type'] ) {
 
-				SSP_Utility::echo_gtag( $gaid );
+				self::echo_gtag( $gaid );
 
 			} elseif ( 'analytics' === $settings['google_analytics_type'] ) {
 
-				SSP_Utility::echo_analytics( $gaid );
+				self::echo_analytics( $gaid );
 
 			}
 		}
 	}
-
-
-	/**
-	 *
-	 * Replace snippets method for self::
-	 *
-	 *   - %_site_title_%       : サイトのタイトル
-	 *   - %_phrase_%           : サイトのキャッチフレーズ
-	 *   - %_site_description_% : サイトの説明文
-	 *   - %_page_title_%       : 投稿タイトル
-	 *   - %_description_%      : 投稿タイトル
-	 *   - %_cat_name_%         : カテゴリ名
-	 *   - %_tag_name_%         : タグ名
-	 *   - %_term_name_%        : ターム名
-	 *   - %_tax_name_%         : タクソノミー名
-	 *   - %_search_phrase_%    : 検索ワード
-	 *   - %_post_type_%        : 投稿タイプ
-	 *   - %_format_name_%      : 投稿フォーマット名
-	 *   - %_date_%             : Y年M月D日
-	 *   - %_author_name_%      : 著者名ニックネーム
-	 *   - %_sep_%              : 区切り文字
-	 */
-	private static function replace_snippets( $str ) {
-
-		$obj = self::$obj;
-
-		// 共通項目の置換
-		$str = str_replace( '%_site_title_%', SSP_Data::$site_title, $str );
-		$str = str_replace( '%_phrase_%', SSP_Data::$site_catch_phrase, $str );
-		$str = str_replace( '%_description_%', SSP_Data::$settings['home_desc'], $str );
-
-		if ( is_singular() || ( ! is_front_page() && is_home() ) ) {
-
-			$title = get_the_title( $obj->ID );
-			$str   = str_replace( '%_page_title_%', $title, $str );
-
-			if ( false !== strpos( $str, '%_page_contents_%' ) ) {
-
-				$content = $obj->post_content;
-				$content = strip_shortcodes( strip_tags( $content ) ); // phpcs:ignore
-				$content = str_replace( ["\r\n", "\r", "\n", '&nbsp;' ], '', $content ); // 改行削除
-				// $content = htmlspecialchars( $content, ENT_QUOTES, 'UTF-8' ); // -> esc_ は出力時に。
-				$content = mb_substr( $content, 0, 300 );
-				$str     = str_replace( '%_page_contents_%', $content, $str );
-			}
-		} elseif ( is_category() || is_tag() || is_tax() ) {
-
-			$str = str_replace( ['%_cat_name_%', '%_tag_name_%', '%_term_name_%' ], $obj->name, $str );
-			$str = str_replace( '%_term_description_%', strip_shortcodes( $obj->description ), $str );
-
-			if ( false !== strpos( $str, '%_tax_name_%' ) ) {
-
-				$taxonomy_slug  = ( isset( $obj->taxonomy ) ) ? $obj->taxonomy : '';
-				$taxonomy_var   = get_taxonomy( $taxonomy_slug );
-				$taxonomy_label = ( $taxonomy_var ) ? $taxonomy_var->label : '';
-
-				$str = str_replace( '%_tax_name_%', $taxonomy_label, $str );
-			}
-		} else {
-			// その他のページ
-			$obj_name  = ( isset( $obj->name ) ) ? $obj->name : '';
-			$obj_label = ( isset( $obj->label ) ) ? $obj->label : '';
-
-			$str = str_replace( '%_post_type_%', $obj_label, $str );
-			$str = str_replace( '%_format_name_%', $obj_name, $str );
-
-			if ( strpos( $str, '%_date_%' ) !== false ) {
-
-				$date_str = '';
-				$year     = get_query_var( 'year' );
-				$month    = '';
-				$monthnum = get_query_var( 'monthnum' );
-				$day      = get_query_var( 'day' );
-
-				if ( $monthnum ) {
-					global $wp_locale;
-					$month = $wp_locale->get_month( $monthnum );
-				}
-
-				if ( is_day() ) {
-					$date_str = sprintf( _x( '%2$s %3$s, %1$s', 'date', 'loos-ssp' ), $year, $month, $day ); // phpcs:ignore
-				} elseif ( is_month() ) {
-					$date_str = sprintf( _x( '%2$s %1$s', 'date', 'loos-ssp' ), $year, $month ); // phpcs:ignore
-				} elseif ( is_year() ) {
-					$date_str = sprintf( _x( '%s', 'date', 'loos-ssp' ), $year ); // phpcs:ignore
-				}
-
-				$str = str_replace( '%_date_%', $date_str, $str );
-
-			}
-
-			if ( false !== strpos( $str, '%_author_name_%' ) ) {
-
-				$str = str_replace( '%_author_name_%', get_user_meta( $obj->ID, 'nickname', true ), $str );
-
-			}
-
-			if ( false !== strpos( $str, '%_search_phrase_%' ) ) {
-
-				$str = str_replace( '%_search_phrase_%', get_search_query(), $str );
-
-			}
-		}
-
-		if ( false !== strpos( $str, '%_sep_%' ) ) {
-
-			$sep_key = SSP_Data::$settings['separator'];
-			$sep_val = SSP_Data::SEPARATORS[ $sep_key ];
-			$str     = str_replace( '%_sep_%', $sep_val, $str );
-
-		}
-
-		return $str;
-	}
-
-
 }

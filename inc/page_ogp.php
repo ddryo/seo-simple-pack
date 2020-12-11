@@ -8,10 +8,10 @@ $is_updated = false;
 if ( 'POST' === $_SERVER['REQUEST_METHOD'] && isset( $_POST['is_setting_form'] ) ) {
 
 	// $_POSTの無害化
-	$P = SSP_Methods::sanitize_post_data( $_POST );
+	$P = SSP_Utility::sanitize_post_data( $_POST );
 
 	// DBアップデート処理
-	SSP_Methods::update_db( $P );
+	SSP_Utility::update_db( $P );
 
 	// クラスインスタンス更新（更新後の情報をセット）
 	SSP_Data::$ogp = get_option( SSP_Data::DB_NAME['ogp'] );
@@ -20,7 +20,7 @@ if ( 'POST' === $_SERVER['REQUEST_METHOD'] && isset( $_POST['is_setting_form'] )
 }
 
 ?>
-<div id="ssp_wrap" class="ssp-page">
+<div class="ssp-page">
 	<h1 class="ssp-page__title">
 		<?=esc_html__( 'OGP settings', 'loos-ssp' )?>
 	</h1>
