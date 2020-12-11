@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: SEO SIMPLE PACK\n"
-"POT-Creation-Date: 2020-12-09 22:41+0900\n"
-"PO-Revision-Date: 2020-12-09 22:42+0900\n"
+"POT-Creation-Date: 2020-12-10 16:48+0900\n"
+"PO-Revision-Date: 2020-12-10 16:49+0900\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: ja\n"
@@ -23,55 +23,143 @@ msgstr ""
 "X-Poedit-SearchPathExcluded-1: vendor\n"
 "X-Poedit-SearchPathExcluded-2: assets\n"
 
-#: class/ssp_menu.php:35 class/ssp_menu.php:36 inc/page_ogp.php:23
-msgid "OGP settings"
-msgstr "OGP設定"
-
-#: class/ssp_menu.php:43 class/ssp_menu.php:52 inc/parts/tab_basic.php:3
+#: class/menu.php:29 class/menu.php:38 inc/parts/tab_basic.php:3
 msgid "Basic setting"
 msgstr "基本設定"
 
-#: class/ssp_menu.php:44
+#: class/menu.php:30
 msgid "Post page"
 msgstr "投稿ページ"
 
-#: class/ssp_menu.php:45
+#: class/menu.php:31
 msgid "Taxonomy archive"
 msgstr "タクソノミーアーカイブ"
 
-#: class/ssp_menu.php:46
+#: class/menu.php:32
 msgid "Other archives"
 msgstr "その他アーカイブ"
 
-#: class/ssp_menu.php:47
+#: class/menu.php:33
 msgid "Google Analytics"
 msgstr "Googleアナリティクス"
 
-#: class/ssp_menu.php:48
+#: class/menu.php:34
 msgid "Webmaster tools"
 msgstr "ウェブマスターツール"
 
-#: class/ssp_menu.php:108 inc/page_top.php:23
+#: class/menu.php:69 inc/page_top.php:23
 msgid "General settings"
 msgstr "一般設定"
 
-#: class/ssp_methods.php:347
+#: class/menu.php:78 class/menu.php:79 inc/page_ogp.php:23
+msgid "OGP settings"
+msgstr "OGP設定"
+
+#: class/metabox.php:41
+msgid "Keep default settings"
+msgstr "デフォルト設定のまま"
+
+#: class/metabox.php:42
+msgid "Index"
+msgstr "インデックスさせる"
+
+#: class/metabox.php:43
+msgid "Don't index"
+msgstr "インデックスさせない"
+
+#: class/metabox.php:44
+msgid "Don't follow links"
+msgstr "リンクを辿らせない"
+
+#: class/metabox.php:45
+msgid "Don't cache"
+msgstr "キャッシュさせない"
+
+#: class/metabox.php:76
+msgid "SEO SIMPLE PACK Settings"
+msgstr "SEO SIMPLE PACK 設定"
+
+#: class/metabox.php:112
+#, php-format
+msgid "If you want to know the default settings, see %s."
+msgstr "デフォルト設定を確認したい場合、%s をご覧ください。"
+
+#: class/metabox.php:113
+msgid "\"Post page\" tab in \"General Settings\""
+msgstr "「一般設定」の「投稿ページ」タブ"
+
+#: class/metabox.php:117
+#, php-format
+msgid "%s is available."
+msgstr "%s が使用可能です。"
+
+#: class/metabox.php:118
+msgid "Snippet tags"
+msgstr "スニペットタグ"
+
+#: class/metabox.php:122
+#, php-format
+msgid "If blank, the \"Keyword\" setting of %s is used."
+msgstr "空白の場合、%s の「キーワード」設定が使用されます。"
+
+#: class/metabox.php:123
+msgid "\"Basic settings\""
+msgstr "「基本設定」"
+
+#: class/metabox.php:129
+msgid "Overwrite setting of \"robots\" tag(Index setting)"
+msgstr "“robors”タグの上書き設定（インデックスの設定）"
+
+#: class/metabox.php:140
+msgid "Title tag of this page"
+msgstr "このページのタイトルタグ"
+
+#: class/metabox.php:146
+msgid "If blank, the output will be in the default format."
+msgstr "空白の場合、デフォルトの形式で出力されます。"
+
+#: class/metabox.php:153
+msgid "Description of this page"
+msgstr "このページのディスクリプション"
+
+#: class/metabox.php:158
+msgid ""
+"If blank, a description tag will be automatically generated from the content."
+msgstr "空白の場合、ディスクリプションタグがコンテンツから自動で生成されます。"
+
+#: class/metabox.php:163
+msgid "Keywords of this page"
+msgstr "このページのキーワード"
+
+#: class/metabox.php:239
+msgid "\"robots\" tag of this term page"
+msgstr "このタームページの”robots”タグ"
+
+#: class/metabox.php:249
+msgid "Title tag of this term page"
+msgstr "このタームページのタイトルタグ"
+
+#: class/metabox.php:259
+msgid "Description of this term page"
+msgstr "このタームページのディスクリプション"
+
+#: class/methods.php:193
 msgid "Preview"
 msgstr "プレビュー"
 
-#: class/ssp_output.php:738
+#: class/output.php:741
 #, php-format
 msgctxt "date"
 msgid "%2$s %3$s, %1$s"
 msgstr "%1$s年%2$s%3$s日"
 
-#: class/ssp_output.php:742
+#: class/output.php:743
 #, php-format
 msgctxt "date"
 msgid "%2$s %1$s"
 msgstr "%1$s年%2$s"
 
-#: class/ssp_output.php:744
+#: class/output.php:745
 #, php-format
 msgctxt "date"
 msgid "%s"
@@ -222,3 +310,9 @@ msgstr "LOOS WEB STUDIO"
 #. Author URI of the plugin/theme
 msgid "https://loos-web-studio.com/"
 msgstr "https://loos-web-studio.com/"
+
+#~ msgid "Overwrite setting of \"title\" tag"
+#~ msgstr "“title”タグの上書き設定"
+
+#~ msgid "\"robots\" tag on this page (whether to index)"
+#~ msgstr "このページの robotsタグ (インデックスさせるかどうか)"

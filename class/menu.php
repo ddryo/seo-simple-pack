@@ -1,6 +1,10 @@
 <?php
 
+require_once __DIR__ . '/trait/field.php';
+
 class SSP_Menu {
+
+	use SSP\Field;
 
 	/**
 	 * トップメニューに表示するタブコンテンツ
@@ -26,16 +30,16 @@ class SSP_Menu {
 	public static function init() {
 
 		self::$top_menu_tabs = [
-			'basic'     => __( 'Basic setting', 'loos-ssp' ), // 基本設定
-			'post_type' => __( 'Post page', 'loos-ssp' ), // 投稿ページ
+			'basic'     => __( 'Basic setting', 'loos-ssp' ),    // 基本設定
+			'post_type' => __( 'Post page', 'loos-ssp' ),        // 投稿ページ
 			'taxonomy'  => __( 'Taxonomy archive', 'loos-ssp' ), // タクソノミーアーカイブ
-			'archive'   => __( 'Other archives', 'loos-ssp' ), // その他アーカイブ
+			'archive'   => __( 'Other archives', 'loos-ssp' ),   // その他アーカイブ
 			'analytics' => __( 'Google Analytics', 'loos-ssp' ), // Googleアナリティクス
-			'webmaster' => __( 'Webmaster tools', 'loos-ssp' ), // ウェブマスターツール
+			'webmaster' => __( 'Webmaster tools', 'loos-ssp' ),  // ウェブマスターツール
 		];
 
 		self::$ogp_menu_tabs = [
-			'ogp'      => __( 'Basic setting', 'loos-ssp' ), // 基本設定
+			'basic'    => __( 'Basic setting', 'loos-ssp' ),
 			'facebook' => 'Facebook',
 			'twitter'  => 'Twitter',
 		];
@@ -110,6 +114,53 @@ class SSP_Menu {
 	public static function ssp_help_menu() {
 		// require_once SSP_PATH.'inc/page_ogp.php';
 		require_once SSP_PATH . 'inc/page_help.php';
+	}
+
+
+	/**
+	 * 設定保存時のメッセージ
+	 */
+	public static function output_saved_message() {
+		?>
+			<div class="ssp-page__savedMessage updated notice is-dismissible">
+				<p>
+					<strong><?php esc_html_e( 'Your settings have been saved.', 'loos-ssp' ); ?></strong>
+				</p>
+				<button type="button" class="notice-dismiss">
+					<span class="screen-reader-text"><?php esc_html_e( 'Hide this notification.', 'loos-ssp' ); ?></span>
+				</button>
+			</div>
+		<?php
+	}
+
+
+	/**
+	 *  設定タブの出力
+	 */
+	public static function output_setting_tab( $tabs ) {
+		foreach ( $tabs as $key => $label ) {
+			$nav_class = ( reset( $tabs ) === $label ) ? 'nav-tab act_' : 'nav-tab';
+			echo '<a href="#' . $key . '" class="' . $nav_class . '">' . $label . '</a>';
+		}
+	}
+
+
+	/**
+	 *  設定タブコンテンツの出力
+	 */
+	public static function output_setting_tab_content( $tabs, $page_type ) {
+		foreach ( $tabs as $key => $label ) {
+
+			$tab_class = ( reset( $tabs ) === $label ) ? 'tab-contents act_' : 'tab-contents';
+			echo '<div id="' . $key . '" class="' . $tab_class . '">';
+
+			// タブコンテンツ用ファイルの読み込み
+			if ( file_exists( SSP_PATH . 'inc/tab/' . $page_type . '_' . $key . '.php' ) ) {
+				require_once SSP_PATH . 'inc/tab/' . $page_type . '_' . $key . '.php';
+			}
+
+			echo '</div>';
+		}
 	}
 
 }

@@ -1,0 +1,131 @@
+@charset "UTF-8";
+
+$color_main : #87ab87;
+
+
+@import "./inc/**";
+
+/* ------------------------------
+ * 設定ページ
+ * ------------------------------ */
+.ssp-page {
+	box-sizing: border-box;
+	margin: 0 20px 20px 0;
+	padding: 8px;
+
+	* {
+		box-sizing: border-box;
+	}
+
+	/* 設定保存メッセージ */
+	.ssp-page__savedMessage {
+		margin: 24px 0 24px;
+	}
+
+	// field 横並びに
+	@media screen and (min-width: 768px) {
+
+		.ssp-field__body {
+			display: flex;
+			flex-wrap: wrap;
+			justify-content: space-between;
+		}
+
+		.ssp-field__item {
+			width: 40%;
+		}
+
+		.ssp-field__desc {
+			width: 57%;
+		}
+
+		.ssp-field__body.-wide {
+
+			.ssp-field__item,
+			.ssp-field__desc {
+				width: 100%;
+			}
+		}
+	}
+
+}
+
+h1.ssp-page__title {
+	line-height: 1.5;
+}
+
+// 各セクション
+.ssp-page__section {
+
+	& + .ssp-page__section {
+		margin-top: 48px;
+	}
+}
+
+.ssp-page__section__title {
+	position: relative;
+	padding: 8px 0 8px 16px;
+
+	/* border-left: solid 2px; */
+	line-height: 1.5;
+	letter-spacing: 0.5px;
+
+	&::before {
+		position: absolute;
+		top: 50%;
+		left: 0;
+		z-index: -1;
+		display: block;
+		width: 40px;
+		height: 40px;
+		// background-color: $color_main;
+		background-image: linear-gradient(-45deg, transparent 25%, $color_main 25%, $color_main 50%, transparent 50%, transparent 75%, $color_main 75%, $color_main);
+		background-size: 6px 6px;
+		border-radius: 50%;
+		transform: translateY(-50%);
+		opacity: 0.4;
+		content: "";
+	}
+}
+
+
+.ssp-page__section__body {
+	padding: 24px;
+	background: #fff;
+	border-radius: 3px;
+	box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05), 0 4px 4px -4px rgba(0, 0, 0, 0.1);
+}
+
+.ssp-page__note {
+	padding-left: 4px;
+	font-style: italic;
+}
+
+
+// 個別設定
+textarea[name="home_desc"] {
+	// width: 100%;
+	max-width: 1000px;
+	height: 12em;
+}
+
+[name="home_keyword"] {
+	max-width: 1000px;
+}
+
+.-webmaster {
+
+	input {
+		max-width: 800px;
+	}
+
+	code b {
+		margin: 0 2px;
+		padding: 2px 4px;
+		color: #fff;
+		font-weight: normal;
+		font-size: 0.9em;
+		background: $color_main;
+		border-radius: 4px;
+	}
+}

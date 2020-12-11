@@ -89,7 +89,7 @@ class SSP_Output {
 		echo PHP_EOL . '<!-- SEO SIMPLE PACK ' . SSP_VERSION . ' -->' . PHP_EOL; // phpcs:ignore
 		self::output_meta_tags();
 		self::output_ogp_tags();
-		// self::output_codes();
+		self::output_codes();
 		echo '<!-- / SEO SIMPLE PACK -->' . PHP_EOL . PHP_EOL;
 
 	}
@@ -352,9 +352,13 @@ class SSP_Output {
 	 */
 	private static function generate_keyword() {
 
-		$keyword = SSP_Data::$settings['home_keyword'];
+		$keyword = '';
 
-		if ( is_singular() || ( ! is_front_page() && is_home() ) ) {
+		if ( is_front_page() ) {
+
+			$keyword = SSP_Data::$settings['home_keyword'];
+
+		} elseif ( is_singular() || ( ! is_front_page() && is_home() ) ) {
 
 			// メタボックスが入力されていれば上書きする
 			$metabox_keyword = get_post_meta( self::$obj->ID, SSP_MetaBox::POST_META_KEYS['keyword'], true );

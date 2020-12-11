@@ -136,6 +136,10 @@
 		<exclude name="PEAR.Functions.FunctionCallSignature.MultipleArguments" />
 		<exclude name="PEAR.Functions.FunctionCallSignature.CloseBracketLine" />
 
+		<!-- sprintfの翻訳コメント強制を解除 -->
+		<exclude name="WordPress.WP.I18n.MissingTranslatorsComment" />
+		
+
 	</rule>
 
 	<!-- array()禁止して []を使う こと -->

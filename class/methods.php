@@ -72,6 +72,8 @@ class SSP_Methods {
 
 	/**
 	 * 設定更新時のDB更新処理
+	 *
+	 * @param array $P サニタイズ後の $_POST
 	 */
 	public static function update_db( $P ) {
 
@@ -79,40 +81,33 @@ class SSP_Methods {
 			exit( 'POST data was not found' );
 		}
 
-		// Check my nounce key.
-		check_admin_referer( SSP_Data::NOUNCE_ACTION, SSP_Data::NOUNCE_NAME );
+		// nonceキー存在チェック
+		if ( ! isset( $P[ SSP_Data::NONCE_NAME ] ) ) return;
+
+		// nonceの検証
+		if ( ! wp_verify_nonce( $P[ SSP_Data::NONCE_NAME ], SSP_Data::NONCE_ACTION ) ) return;
+
+		// nonceチェック、こっちでも。
+		// check_admin_referer( SSP_Data::NONCE_ACTION, SSP_Data::NONCE_NAME );
 
 		// Get DB name.
-		if ( ! isset( $P['db_name'] ) ) {
-			exit( 'db_name was not found' );
-		}
-		$db_name = $P['db_name'];
+		$db_name = isset( $P['db_name'] ) ? $P['db_name'] : '';
 
-		// SSP用のデータベースが登録されていなければ exit
-		if ( ! in_array( $db_name, SSP_Data::DB_NAME, true ) ) {
-			exit( 'DataBase was not found' );
-		}
-
-		// Get DB 設定可能なデータのリストを取得
-		// $db_data = get_option( $db_name );
+		// 設定可能なデータのリストを取得
 		if ( SSP_Data::DB_NAME['settings'] === $db_name ) {
 
-			// $db_data_key = array_keys( SSP_Data::DEFAULT_SETTINGS );
 			$db_data_key = array_keys( SSP_Data::$settings );
 
 		} elseif ( SSP_Data::DB_NAME['ogp'] === $db_name ) {
 
-			// $db_data_key = array_keys( SSP_Data::DEFAULT_OGP );
 			$db_data_key = array_keys( SSP_Data::$ogp );
 
 		} else {
 
-			exit( 'DataBase was not found' );
-
+			return;
 		}
 
-		// Delete unexpected data form the POST data.
-		// 設定可能なデータだけを抽出 (送信ボタンのデータなどは削除)
+		// 保存したいデータだけを抽出 (送信ボタンのデータなど、不要なものを削除)
 		foreach ( $P as $key => $v ) {
 
 			if ( ! in_array( $key, $db_data_key, true ) ) {
@@ -122,7 +117,7 @@ class SSP_Methods {
 			}
 		}
 
-		// Update DB.
+		// Update
 		update_option( $db_name, $P );
 	}
 

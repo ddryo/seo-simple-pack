@@ -1,0 +1,22 @@
+.ssp-helpButton {
+	display: inline-block;
+	width: 24px;
+	height: 24px;
+	margin-left: 16px;
+	padding: 0;
+	color: #fff !important;
+	font-weight: bold;
+	font-size: 12px;
+	line-height: 24px;
+	text-align: center;
+	text-decoration: none;
+	vertical-align: middle;
+	background: #556158;
+	border-radius: 50%;
+	box-shadow: inset 0 0 4px rgba(200, 200, 200, 0.5);
+	transition: transform 0.25s;
+
+	&:hover {
+		transform: scale(1.1);
+	}
+}

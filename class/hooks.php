@@ -30,20 +30,31 @@ class SSP_Hooks {
 	 */
 	public static function include_files( $hook_suffix ) {
 
+		$is_index       = 'index.php' === $hook_suffix;
 		$is_editor_page = 'post.php' === $hook_suffix || 'post-new.php' === $hook_suffix;
 		$is_ssp_page    = false !== strpos( $hook_suffix, 'ssp_' );
 
 		// SSP設定ページで読み込むファイル
 		if ( $is_ssp_page ) {
 			wp_enqueue_media();
+			wp_enqueue_script( 'ssp-media', SSP_URL . 'dist/js/mediauploader.js', ['jquery' ], SSP_VERSION, true );
 			wp_enqueue_script( 'ssp-script', SSP_URL . 'assets/js/ssp.js', ['jquery' ], SSP_VERSION, true );
+			wp_enqueue_style( 'ssp-css', SSP_URL . 'dist/css/ssp.css', [], SSP_VERSION );
+
+		} elseif ( $is_editor_page ) {
+
+			wp_enqueue_style( 'ssp-post', SSP_URL . 'dist/css/post.css', [], SSP_VERSION );
+
+		} elseif ( 'term.php' === $hook_suffix ) {
+			wp_enqueue_style( 'ssp-term', SSP_URL . 'dist/css/term.css', [], SSP_VERSION );
 		}
 
-		// 設定ページだけでなく編集画面でも読み込むファイル
-		if ( $is_editor_page || $is_ssp_page ) {
+		// 共通ファイル
+		if ( $is_index || $is_editor_page || $is_ssp_page ) {
 			wp_enqueue_script( 'ssp-common-script', SSP_URL . 'assets/js/ssp_common.js', ['jquery' ], SSP_VERSION, true );
-			wp_enqueue_style( 'ssp-css', SSP_URL . 'assets/css/ssp.css', [], SSP_VERSION );
+			wp_enqueue_style( 'ssp-common', SSP_URL . 'dist/css/common.css', [], SSP_VERSION );
 		}
+
 	}
 
 
@@ -138,12 +149,12 @@ class SSP_Hooks {
 		if ( 'show' === $notification_db ) {
 			add_action( 'admin_notices', function() {
 				?>
-					<div class="notice notice-error ssp_notice">
+					<div class="notice notice-error ssp-notice">
 						<p>
 							~ 通知したいメッセージ ~
 						</p>
 						<form action="" method="post">
-							<button type="submit" name="ssp_notice_close" class="notice-dismiss">
+							<button type="submit" name="ssp_notice_close" class="ssp-notice__closeBtn notice-dismiss">
 								<span>この通知を非表示にする</span>
 							</button>
 						</form>

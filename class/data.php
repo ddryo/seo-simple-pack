@@ -37,17 +37,22 @@ class SSP_Data {
 	public static $site_title        = '';
 	public static $site_catch_phrase = '';
 
+	/**
+	 * 共通テキスト
+	 */
+	public static $texts = '';
+
 
 	/**
 	 * NOUNCEキー アクション名
 	 */
-	const NOUNCE_ACTION = '_ssp_post';
+	const NONCE_ACTION = 'ssp_nonce_action';
 
 
 	/**
 	 * NOUNCEキー name
 	 */
-	const NOUNCE_NAME = '_ssp_nounce';
+	const NONCE_NAME = 'ssp_nonce_name';
 
 
 	/**
@@ -145,6 +150,8 @@ class SSP_Data {
 	];
 
 
+
+
 	/**
 	 * Set Data
 	 */
@@ -158,9 +165,28 @@ class SSP_Data {
 		$db_ssp_settings = get_option( self::DB_NAME['settings'] ) ?: [];
 		self::$settings  = array_merge( self::DEFAULT_SETTINGS, $db_ssp_settings );
 
-		// OGPせ設定
+		// OGP設定
 		$db_ssp_ogp = get_option( self::DB_NAME['ogp'] ) ?: [];
 		self::$ogp  = array_merge( self::DEFAULT_OGP, $db_ssp_ogp );
+
+		// 共通テキスト
+		self::$texts = [
+			'quoted_title'         => __( '「%s」', 'loos-ssp' ),
+			'quoted_archive_title' => __( '「%s」のアーカイブページ', 'loos-ssp' ),
+			'is_snippet'           => __( 'この内容は %s として扱われます。', 'loos-ssp' ),
+			'title_of'             => __( '%sのタイトルタグ', 'loos-ssp' ),
+			'description_of'       => __( '%sのディスクリプション', 'loos-ssp' ),
+			'keyword_of'           => __( '%sのキーワード', 'loos-ssp' ),
+			'title_tag'            => __( 'タイトルタグの形式', 'loos-ssp' ),
+			'description_tag'      => __( 'ディスクリプションの形式', 'loos-ssp' ),
+			'use'                  => __( '%sを使用する', 'loos-ssp' ),
+			'nouse'                => __( '%sを使用しない', 'loos-ssp' ),
+			'noindex'              => __( '%sをインデックスさせない', 'loos-ssp' ),
+			'noindex_help'         => __( '「はい」を選択するとデフォルトの出力が <code>noindex</code> となります。', 'loos-ssp' ),
+			'default_output'       => __( '%1$sに出力する %2$s のデフォルト設定。', 'loos-ssp' ),
+			'input'                => __( '%sを入力して下さい。', 'loos-ssp' ),
+			'reflect'              => __( '%sに反映されます。', 'loos-ssp' ),
+		];
 	}
 
 }

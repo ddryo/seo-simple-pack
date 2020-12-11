@@ -1,0 +1,12 @@
+@charset "UTF-8";
+
+$color_main : #87ab87;
+
+/* ------------------------------
+ * metabox
+ * ------------------------------ */
+@import "./inc/field";
+
+.ssp_metabox {
+	padding: 16px;
+}

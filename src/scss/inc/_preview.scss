@@ -1,0 +1,30 @@
+.ssp-field__preview {
+	display: flex;
+	flex-wrap: wrap;
+	align-items: center;
+	width: 100%;
+	padding: 4px;
+
+}
+
+.ssp-field__preview__label {
+	margin-right: 8px;
+}
+
+.ssp-field__preview__content {
+	display: inline-block;
+	margin: 0;
+	padding: 8px 12px;
+	background: #ececec;
+	border-radius: 2px;
+	box-shadow: inset 0 0 4px #ddd;
+
+	span {
+		margin: 0 2px;
+		padding: 4px 8px;
+		color: #fff;
+		font-size: 13px;
+		background: rgb(135, 171, 135);
+		border-radius: 4px;
+	}
+}

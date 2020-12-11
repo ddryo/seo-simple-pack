@@ -1,0 +1,97 @@
+
+
+// 設定フィールド
+.ssp-field {
+
+	& + .ssp-field {
+		margin-top: 40px;
+	}
+
+	/* disable row */
+	&[data-disable="1"] ~ .ssp-field {
+		display: none;
+	}
+
+
+	input[type="text"],
+	textarea {
+		width: 100%;
+		padding: 4px 8px;
+	}
+
+
+	select {
+		// min-width: 15em;
+	}
+
+	.hide {
+		display: none;
+	}
+
+	code {
+		margin: 0;
+		padding: 2px 6px;
+		font-size: inherit;
+		font-style: normal;
+		background: #eee;
+	}
+
+}
+
+.ssp-field__body {
+	padding: 0 8px;
+}
+
+.ssp-field__title {
+	display: block;
+	margin-bottom: 16px;
+	padding-left: 8px;
+	font-weight: bold;
+	font-size: 14px;
+	border-left: solid 2px $color_main;
+}
+
+// .ssp-field__item {}
+
+.ssp-field__desc {
+	// width: 57%;
+	color: #666;
+	font-size: 13px;
+	font-style: italic;
+}
+
+.ssp-field__item.-radio_btn {
+	display: flex;
+	flex-wrap: wrap;
+
+	.ssp-field__radioInput {
+		display: none;
+	}
+
+	.ssp-field__radioLabel {
+		width: 40px;
+		height: 40px;
+		margin: 4px;
+		padding: 0;
+		line-height: 34px;
+		text-align: center;
+		vertical-align: middle;
+		background: #fcfcfc;
+		border: solid 1px #ccc;
+		box-shadow: inset 0 0 2px #fff;
+	}
+
+	:checked + .ssp-field__radioLabel {
+		border: solid 2px rgb(235, 161, 112);
+	}
+
+}
+
+
+@media screen and (max-width: 767px) {
+
+	.ssp-field__body {
+		padding: 0;
+	}
+}
+

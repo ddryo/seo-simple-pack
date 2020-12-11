@@ -1,5 +1,6 @@
 <?php
 // phpcs:disable WordPress.WP.EnqueuedResources.NonEnqueuedScript
+// phpcs:disable WordPress.Security.EscapeOutput.OutputNotEscaped
 
 class SSP_Utility {
 

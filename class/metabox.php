@@ -1,11 +1,12 @@
 <?php
 class SSP_MetaBox {
 
+	use SSP\Field;
+
 	/**
 	 * 外部からのインスタンス化を防ぐ
 	 */
 	private function __construct() {}
-
 
 	/**
 	 * Post meta
@@ -27,27 +28,44 @@ class SSP_MetaBox {
 	];
 
 	/**
+	 * @var array Setting choices
+	 */
+	private static $robots_options = [];
+
+
+	/**
 	 * init
 	 */
 	public static function init() {
+
+		// Set choices
+		self::$robots_options = [
+			''                 => __( 'Keep default settings', 'loos-ssp' ), // デフォルト設定のまま
+			'index,follow'     => __( 'Index', 'loos-ssp' ), // インデックスさせる
+			'noindex'          => __( 'Don\'t index', 'loos-ssp' ) . '(noindex)', // インデックスさせない
+			'nofollow'         => __( 'Don\'t follow links', 'loos-ssp' ) . '(nofollow)', // リンクを辿らせない
+			'noarchive'        => __( 'Don\'t cache', 'loos-ssp' ) . '(noarchive)', // キャッシュさせない
+			'noindex,nofollow' => 'noindex,nofollow',
+		];
+
 		// post meta
-		add_action( 'add_meta_boxes', [ 'SSP_MetaBox', 'ssp_add_metabox' ], 1 );
-		add_action( 'save_post', [ 'SSP_MetaBox', 'save_ssp_metabox' ] );
+		add_action( 'add_meta_boxes', [ 'SSP_MetaBox', 'add_ssp_metabox' ], 1 );
+		add_action( 'save_post', [ 'SSP_MetaBox', 'save_post_metas' ] );
 
 		// term meta
-		// add_action('category_add_form_fields', [ 'SSP_MetaBox', 'ssp_add_term_fields' ]);
-		// add_action('post_tag_add_form_fields', [ 'SSP_MetaBox', 'ssp_add_term_fields' ]);
-		add_action( 'category_edit_form_fields', [ 'SSP_MetaBox', 'ssp_add_term_edit_fields' ], 20 );
-		add_action( 'post_tag_edit_form_fields', [ 'SSP_MetaBox', 'ssp_add_term_edit_fields' ], 20 );
-		add_action( 'created_term', [ 'SSP_MetaBox', 'ssp_save_term_filds' ] );  // 新規追加用 保存処理フック
-		add_action( 'edited_terms', [ 'SSP_MetaBox', 'ssp_save_term_filds' ] );   // 編集ページ用 保存処理フック
+		// add_action('category_add_form_fields', [ 'SSP_MetaBox', 'add_term_fields' ]);
+		// add_action('post_tag_add_form_fields', [ 'SSP_MetaBox', 'add_term_fields' ]);
+		add_action( 'category_edit_form_fields', [ 'SSP_MetaBox', 'add_term_edit_fields' ], 20 );
+		add_action( 'post_tag_edit_form_fields', [ 'SSP_MetaBox', 'add_term_edit_fields' ], 20 );
+		// add_action( 'created_term', [ 'SSP_MetaBox', 'save_term_metas' ] );  // 新規追加用 保存処理フック
+		add_action( 'edited_terms', [ 'SSP_MetaBox', 'save_term_metas' ] );   // 編集ページ用 保存処理フック
 	}
 
 
 	/**
 	 * Add metabox.
 	 */
-	public static function ssp_add_metabox() {
+	public static function add_ssp_metabox() {
 		$args       = [
 			'public'   => true,
 			'_builtin' => false,
@@ -56,15 +74,16 @@ class SSP_MetaBox {
 		$screens    = array_merge( ['post', 'page' ], $post_types );
 
 		add_meta_box(
-			'ssp_metabox',                           // メタボックスのID名(html)
-			'SEO SIMPLE PACK 設定',                                // メタボックスのタイトル
+			'ssp_metabox',                            // メタボックスのID名(html)
+			__( 'SEO SIMPLE PACK Settings', 'loos-ssp' ),  // メタボックスのタイトル
 			['SSP_MetaBox', 'ssp_metabox_callback' ], // htmlを出力する関数名
-			$screens,                                // 表示する投稿タイプ
-			'advanced',                              // 表示場所 : 'normal', 'advanced', 'side'
-			'high',                                  // 表示優先度 : 'high', 'core', 'default' または 'low'
-			null                                     // $callback_args
+			$screens,                                 // 表示する投稿タイプ
+			'normal',                                 // 表示場所 : 'normal', 'advanced', 'side'
+			'default',                                // 表示優先度 : 'high', 'core', 'default' または 'low'
+			null                                      // $callback_args
 		);
 	}
+
 
 	/**
 	 * Metabox cintents.
@@ -78,206 +97,114 @@ class SSP_MetaBox {
 		$val_keyword     = get_post_meta( $post->ID, self::POST_META_KEYS['keyword'], true );
 
 		// 更新に伴う調節
-		if ( $val_robots === 'noindex,follow' ) {
+		if ( 'noindex,follow' === $val_robots ) {
 			update_post_meta( $post->ID, self::POST_META_KEYS['robots'], 'noindex' );
 			$val_robots = 'noindex';
-		} elseif ( $val_robots === 'index,nofollow' ) {
+		} elseif ( 'index,nofollow' === $val_robots ) {
 			update_post_meta( $post->ID, self::POST_META_KEYS['robots'], 'nofollow' );
 			$val_robots = 'nofollow';
 		}
 
-		$robots_arr = [
-			'インデックスさせる'             => 'index,follow',
-			'インデックスさせない (noindex)'  => 'noindex',
-			'リンクを辿らせない (nofollow)'  => 'nofollow',
-			'キャッシュさせない (noarchive)' => 'noarchive',
-			'noindex,nofollow'      => 'noindex,nofollow',
-		];
-?>
-		<div id="ssp_wrap" class="ssp_metabox">
+		$ssp_page_url    = admin_url( 'admin.php?page=ssp_main_setting' );
+		$ssp_page_url_pt = admin_url( 'admin.php?page=ssp_main_setting#post_type' );
+		$help_page_url   = admin_url( 'admin.php?page=ssp_help' );
+	?>
+		<div id="ssp_wrap" class="ssp_metabox -post">
+		<?php
+			// robots
+			self::output_field( self::POST_META_KEYS['robots'], [
+				'title'       => __( 'Overwrite setting of "robots" tag(Index setting)', 'loos-ssp' ),
+				'type'        => 'select',
+				'choices'     => self::$robots_options,
+				'desc'        => sprintf(
+					__( 'If you want to know the default settings, see %s.', 'loos-ssp' ),
+					'<a href="' . esc_url( $ssp_page_url_pt ) . '" target="_blank">' . __( '"Post page" tab in "General Settings"', 'loos-ssp' ) . '</a>'
+				),
+			], $val_robots );
 
-			<label for="<?=self::POST_META_KEYS['robots']?>">このページの robotsタグ (インデックスさせるかどうか)</label>
-			<div class="ssp_meta_inner">
-				<select name="<?=self::POST_META_KEYS['robots']?>" id="<?=self::POST_META_KEYS['robots']?>">
-					<option value="">-- デフォルト設定のまま --</option>
-					<?php
-					foreach ( $robots_arr as $key => $value ) {
-							if ( $value === $val_robots ) {
-							echo '<option value="', $value ,'" selected>', $key ,'</option>';
-							} else {
-							echo '<option value="', $value ,'">', $key ,'</option>';
-							}
-						}
-						?>
-				</select>
-				<p class="ssp_note">
-					<i>
-					例：「サイトマップ」など、インデックスさせたくない特別なページには「インデックスさせない(noindex)」を設定してください。
-					<br>
-					投稿ページの デフォルト設定 は <a href="<?=admin_url( 'admin.php?page=ssp_main_setting' )?>" target="_blank">「SEO PACK」の「一般設定」</a>から<a href="<?=admin_url( 'admin.php?page=ssp_main_setting#post_type' )?>" target="_blank">「投稿ページ」タブ</a> をご確認ください。
-					</i>
-				</p>
-			</div>
-			
+			// title
+			self::output_field( self::POST_META_KEYS['title'], [
+				'title'       => __( 'Title tag of this page', 'loos-ssp' ),
+				'desc'        => sprintf(
+					__( '%s is available.', 'loos-ssp' ),
+					'<a href="' . esc_url( $help_page_url ) . '" target="_blank">' . __( 'Snippet tags', 'loos-ssp' ) . '</a>'
+				),
+			], $val_title );
 
-			<label for="<?=self::POST_META_KEYS['title']?>">このページのタイトルタグを上書きする</label>
-			<div class="ssp_meta_inner">
-				<input type="text" id="<?=self::POST_META_KEYS['title']?>" name="<?=self::POST_META_KEYS['title']?>" value="<?=esc_html( $val_title )?>">
-				<p class="ssp_note">
-					<i><a href="<?=admin_url( 'admin.php?page=ssp_help' )?>" target="_blank">スニペットタグ</a> ( <code>%_site_title_%</code>など )が使用可能です。空白の場合、デフォルトの形式で出力されます。</i>
-				</p>
-			</div>
+			// description
+			self::output_field( self::POST_META_KEYS['description'], [
+				'title'       => __( 'Description of this page', 'loos-ssp' ),
+				'type'        => 'textarea',
+				'desc'        => __( 'If blank, a description tag will be automatically generated from the content.', 'loos-ssp' ),
+			], $val_description );
 
-			<label for="<?=self::POST_META_KEYS['description']?>">このページのディスクリプション</label>
-			<div class="ssp_meta_inner">
-				<textarea id="<?=self::POST_META_KEYS['description']?>" name="<?=self::POST_META_KEYS['description']?>"><?=esc_html( $val_description )?></textarea>
-				<p class="ssp_note">
-					<i>空白の場合、コンテンツから自動でディスクリプションタグが生成されます。</i>
-				</p>
-			</div>
-
-			<label for="<?=self::POST_META_KEYS['keyword']?>">このページのキーワード</label>
-			<div class="ssp_meta_inner">
-				<input type="text" id="<?=self::POST_META_KEYS['keyword']?>" name="<?=self::POST_META_KEYS['keyword']?>" value="<?=esc_html( $val_keyword )?>">
-				<p class="ssp_note">
-					<i>空白の場合、<a href="<?=admin_url( 'admin.php?page=ssp_main_setting' )?>" target="_blank">「SEO PACK」の「基本設定」</a>の「キーワード」設定が使用されます。</i>
-				</p>
-			</div>
-		</div>
-<?php
-		// nonceフィールド追加
-		wp_nonce_field( SSP_Data::NOUNCE_ACTION, SSP_Data::NOUNCE_NAME );
+			// keywords
+			self::output_field( self::POST_META_KEYS['keyword'], [
+				'title'       => __( 'Keywords of this page', 'loos-ssp' ),
+				'desc'        => sprintf(
+					__( 'If blank, the "Keyword" setting of %s is used.', 'loos-ssp' ),
+					'<a href="' . esc_url( $ssp_page_url ) . '" target="_blank">' . __( '"Basic settings"', 'loos-ssp' ) . '</a>'
+				),
+			], $val_keyword );
+		?>
+		<div>
+	<?php
+		// Set nonce field
+		wp_nonce_field( SSP_Data::NONCE_ACTION, SSP_Data::NONCE_NAME );
 	}
 
 
 	/**
 	 * Save post meta
 	 */
-	public static function save_ssp_metabox( $post_id ) {
+	public static function save_post_metas( $post_id ) {
 
-		/* デバッグ には exit() 使う */
+		// 新規投稿ページでも発動するので、$_POSTが空なら return
+		if ( empty( $_POST ) ) return;
 
-		// var_dump( $_POST );
-		// exit();
+		// 自動保存時
+		if ( defined( 'DOING_AUTOSAVE' ) && DOING_AUTOSAVE ) return;
 
-		// 新規投稿ページでも発動するので、$_POSTが空なら return させる
-		if ( empty( $_POST ) ) {
+		// nonceキー存在チェック
+		if ( ! isset( $_POST[ SSP_Data::NONCE_NAME ] ) ) return;
+
+		// nonceの検証
+		$nonce_name = $_POST[ SSP_Data::NONCE_NAME ]; // phpcs:ignore
+		if ( ! wp_verify_nonce( $nonce_name, SSP_Data::NONCE_ACTION ) ) return;
+
+		// Check the user's permissions. 現在のユーザーに編集権限があるかのチェック
+		$post_type     = isset( $_POST['post_type'] ) ? $_POST['post_type'] : ''; // phpcs:ignorex
+		$check_can_key = 'page' === $post_type ? 'edit_page' : 'edit_post';
+		if ( ! current_user_can( $check_can_key, $post_id ) ) {
 			return;
 		}
 
-		// SSPのnonceキーチェック
-		if ( ! isset( $_POST[ SSP_Data::NOUNCE_NAME ] ) ) {
-			return;
+		foreach ( self::POST_META_KEYS as $key => $meta_key ) {
+
+			// 保存したい情報が渡ってきているか確認
+			if ( ! isset( $_POST[ $meta_key ] ) ) return;
+
+			// 入力された値をサニタイズ
+			$meta_val = sanitize_text_field( $_POST[ $meta_key ] ); // phpcs:ignorex
+
+			// 値を保存
+			update_post_meta( $post_id, $meta_key, $meta_val );
+
 		}
 
-		// Verify that the nonce is valid.  nonceが正しいものか検証
-		if ( ! wp_verify_nonce( $_POST[ SSP_Data::NOUNCE_NAME ], SSP_Data::NOUNCE_ACTION ) ) {
-			return;
-		}
-
-		// If this is an autosave, our form has not been submitted, so we don't want to do anything.
-		// :: 自動保存時にはメタボックスの内容を保存しないように、ここで処理を終える
-		if ( defined( 'DOING_AUTOSAVE' ) && DOING_AUTOSAVE ) {
-			return;
-		}
-
-		// Check the user's permissions.
-		// :: 現在のユーザーに投稿の編集権限があるかのチェック
-		if ( isset( $_POST['post_type'] ) && 'page' == $_POST['post_type'] ) {
-
-			if ( ! current_user_can( 'edit_page', $post_id ) ) {
-				return;
-			}
-		} else {
-
-			if ( ! current_user_can( 'edit_post', $post_id ) ) {
-				return;
-					}
-		}
-
-		/*
-			OK, it's safe for us to save the data now.
-			ここまでくれば大丈夫です。保存処理を開始します。
-		*/
-
-		// Make sure that it is set.
-		// 保存したい情報が渡ってきているか確認
-		if ( ! isset( $_POST[ self::POST_META_KEYS['robots'] ] ) ||
-			! isset( $_POST[ self::POST_META_KEYS['title'] ] ) ||
-			! isset( $_POST[ self::POST_META_KEYS['description'] ] ) ||
-			! isset( $_POST[ self::POST_META_KEYS['keyword'] ] ) ) {
-			return;
-		}
-
-		// Sanitize user input.
-		// 入力された値をサニタイズ
-		$meta_robots      = sanitize_text_field( $_POST[ self::POST_META_KEYS['robots'] ] );
-		$meta_title       = sanitize_text_field( $_POST[ self::POST_META_KEYS['title'] ] );
-		$meta_description = sanitize_text_field( $_POST[ self::POST_META_KEYS['description'] ] );
-		$meta_keyword     = sanitize_text_field( $_POST[ self::POST_META_KEYS['keyword'] ] );
-
-		// Update the meta field in the database.
-		// データベースのポストメタに値を保存
-		update_post_meta( $post_id, self::POST_META_KEYS['robots'], $meta_robots );
-		update_post_meta( $post_id, self::POST_META_KEYS['title'], $meta_title );
-		update_post_meta( $post_id, self::POST_META_KEYS['description'], $meta_description );
-		update_post_meta( $post_id, self::POST_META_KEYS['keyword'], $meta_keyword );
 	}
 
-
-	/**
-	 * ターム「新規追加」画面にフィールド追加
-	 */
-	public static function ssp_add_term_fields() {
-		$robots_arr = [
-			'インデックスさせる'             => 'index,follow',
-			'インデックスさせない (noindex)'  => 'noindex',
-			'リンクを辿らせない (nofollow)'  => 'nofollow',
-			'キャッシュさせない (noarchive)' => 'noarchive',
-			'noindex,nofollow'      => 'noindex,nofollow',
-		];
-		?>
-		<div class="form-field">
-		<label for="<?=self::TERM_META_KEYS['robots']?>">【SSP】このタームアーカイブページの robotsタグ設定</label>
-			<select name="<?=self::TERM_META_KEYS['robots']?>" id="<?=self::TERM_META_KEYS['robots']?>">
-				<option value="">-- デフォルト設定のまま --</option>
-				<?php
-				foreach ( $robots_arr as $key => $value ) {
-						if ( $value === $val_robots ) {
-						echo '<option value="', $value ,'" selected>', $key ,'</option>';
-						} else {
-						echo '<option value="', $value ,'">', $key ,'</option>';
-						}
-					}
-					?>
-			</select>
-		</div>
-		<div class="form-field">
-			<label for="<?=self::TERM_META_KEYS['title']?>">【SSP】このタームアーカイブページの titleタグ</label>
-			<input type="text" name="<?=self::TERM_META_KEYS['title']?>" id="<?=self::TERM_META_KEYS['title']?>">
-		</div>
-		<div class="form-field">
-			<label for="<?=self::TERM_META_KEYS['description']?>">【SSP】このタームアーカイブページの descriptionタグ</label>
-			<textarea name="<?=self::TERM_META_KEYS['description']?>" id="<?=self::TERM_META_KEYS['description']?>" cols="40" rows="5"></textarea>
-		</div>
-	<?php
-	}
 
 	/**
 	 * ターム「編集」画面にフィールド追加
 	 */
-	public static function ssp_add_term_edit_fields( $term ) {
-		$robots_arr      = [
-			'インデックスさせる'             => 'index,follow',
-			'インデックスさせない (noindex)'  => 'noindex',
-			'リンクを辿らせない (nofollow)'  => 'nofollow',
-			'キャッシュさせない (noarchive)' => 'noarchive',
-			'noindex,nofollow'      => 'noindex,nofollow',
-		];
+	public static function add_term_edit_fields( $term ) {
 		$val_robots      = get_term_meta( $term->term_id, self::TERM_META_KEYS['robots'], true );
 		$val_title       = get_term_meta( $term->term_id, self::TERM_META_KEYS['title'], true );
 		$val_description = get_term_meta( $term->term_id, self::TERM_META_KEYS['description'], true );
-		?>
+
+		// @codingStandardsIgnoreStart
+	?>
 		<tr class="ssp_term_meta_title">
 			<td colspan="2">
 				<h2>SEO SIMPLE PACKの設定</h2>
@@ -285,51 +212,68 @@ class SSP_MetaBox {
 		</tr>
 		<tr class="form-field">
 			<th>
-				<label for="<?=self::TERM_META_KEYS['robots']?>">このタームアーカイブページの robotsタグ</label>
+				<label for="<?=self::TERM_META_KEYS['robots']?>">
+					<?php esc_html_e( '"robots" tag of this term page', 'loos-ssp' ); ?>
+				</label>
 			</th>
 			<td>
-				<select name="<?=self::TERM_META_KEYS['robots']?>" id="<?=self::TERM_META_KEYS['robots']?>">
-					<option value="">-- デフォルト設定のまま --</option>
-					<?php
-					foreach ( $robots_arr as $key => $value ) {
-							if ( $value === $val_robots ) {
-							echo '<option value="', $value ,'" selected>', $key ,'</option>';
-							} else {
-							echo '<option value="', $value ,'">', $key ,'</option>';
-							}
-						}
-						?>
-				</select>
+				<?php self::select_box( self::TERM_META_KEYS['robots'], $val_robots, self::$robots_options ) ?>
 			</td>
 		</tr>
 		<tr class="form-field">
 			<th>
-				<label for="<?=self::TERM_META_KEYS['title']?>">このタームアーカイブページの titleタグ</label>
+				<label for="<?=self::TERM_META_KEYS['title']?>">
+					<?php esc_html_e( 'Title tag of this term page', 'loos-ssp' ); ?>
+				</label>
 			</th>
 			<td>
-				<input type="text" name="<?=self::TERM_META_KEYS['title']?>" id="<?=self::TERM_META_KEYS['title']?>" value="<?=$val_title?>">
+				<?php self::text_input( self::TERM_META_KEYS['title'], $val_title ) ?>
 			</td>
 		</tr>
 		<tr class="form-field">
 			<th>
-				<label for="<?=self::TERM_META_KEYS['description']?>">このタームアーカイブページの descriptionタグ</label>
+				<label for="<?=self::TERM_META_KEYS['description']?>">
+					<?php esc_html_e( 'Description of this term page', 'loos-ssp' ); ?>
+				</label>
 			</th>
 			<td>
-				<textarea name="<?=self::TERM_META_KEYS['description']?>" id="<?=self::TERM_META_KEYS['description']?>" cols="40" rows="5"><?=$val_description?></textarea>
+				<?php self::textarea( self::TERM_META_KEYS['description'], $val_description ) ?>
 			</td>
 		</tr>
 	<?php
+		// @codingStandardsIgnoreEnd
+
+		// Set nonce field
+		wp_nonce_field( SSP_Data::NONCE_ACTION, SSP_Data::NONCE_NAME );
 	}
 
 
 	/**
 	 * Save term meta
 	 */
-	public static function ssp_save_term_filds( $term_id ) {
-		foreach ( self::TERM_META_KEYS as $label => $keyname ) {
-			if ( isset( $_POST[ $keyname ] ) ) {
-				update_term_meta( $term_id, $keyname, $_POST[ $keyname ] );
-			}
+	public static function save_term_metas( $term_id ) {
+
+		// $_POSTが空なら return
+		if ( empty( $_POST ) ) return;
+
+		// nonceキー存在チェック
+		if ( ! isset( $_POST[ SSP_Data::NONCE_NAME ] ) ) return;
+
+		// nonceの検証
+		$nonce_name = $_POST[ SSP_Data::NONCE_NAME ]; // phpcs:ignore
+		if ( ! wp_verify_nonce( $nonce_name, SSP_Data::NONCE_ACTION ) ) return;
+
+		foreach ( self::TERM_META_KEYS as $key => $meta_key ) {
+
+			// 保存したい情報が渡ってきているか確認
+			if ( ! isset( $_POST[ $meta_key ] ) ) return;
+
+			// 入力された値をサニタイズ
+			$meta_val = sanitize_text_field( $_POST[ $meta_key ] ); // phpcs:ignorex
+
+			// 値を保存
+			update_term_meta( $term_id, $meta_key, $meta_val );
+
 		}
 	}
 }

@@ -1,0 +1,24 @@
+/* media */
+.ssp-media {
+
+	.ssp-media__preview {
+
+		width: 100%;
+		max-width: 480px;
+		margin-bottom: 24px;
+		padding: 40px 40px;
+		border: dashed 1px #ccc;
+
+		img {
+			width: 100%;
+			max-width: 100%;
+			height: auto;
+		}
+	}
+
+
+	.ssp-media__btns {
+		margin-right: 24px;
+	}
+
+}

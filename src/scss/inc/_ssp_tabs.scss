@@ -1,0 +1,31 @@
+
+/* タブコンテンツ */
+.ssp-page {
+
+	.nav-tab-wrapper {
+		border-bottom: 1px solid #ddd;
+	}
+
+	.nav-tab {
+		background: rgba(0, 0, 0, 0.05);
+		border: none;
+		border-radius: 2px 2px 0 0;
+		cursor: pointer;
+
+		&.act_,
+		&:hover {
+			color: #000;
+			background: #fdfdfd;
+		}
+	}
+
+	.tab-contents {
+		display: none;
+		padding: 16px;
+
+		&.act_ {
+			display: block;
+		}
+	}
+
+}

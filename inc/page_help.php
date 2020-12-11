@@ -1,9 +1,10 @@
-<div id="ssp_wrap" class="wrapp">
-	<h1 id="ssp_title"><?=__( 'Help page', 'loos-ssp' )?></h1>
-
-	<div id="poststuff">
+<div id="ssp_wrap" class="ssp-page">
+	<h1 class="ssp-page__title">
+		<?=esc_html__( 'Help page', 'loos-ssp' )?>
+	</h1>
+	<div class="ssp-page__body">
 		<div class="ssp_help_page">
-			<?=__( 'About available "snippet tags"', 'loos-ssp' )?>
+			<?=esc_html__( 'About available "snippet tags"', 'loos-ssp' )?>
 			<br> 
 			<?php
 				$tags = [
