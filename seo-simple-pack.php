@@ -55,14 +55,6 @@ require_once SSP_PATH . 'class/activate.php';
 
 
 /**
- * Activation hooks
- */
-register_activation_hook( __FILE__, ['SSP_Activate', 'plugin_activate' ] );
-register_deactivation_hook( __FILE__, ['SSP_Activate', 'plugin_deactivate' ] );
-register_uninstall_hook( __FILE__, ['SSP_Activate', 'plugin_uninstall' ] );
-
-
-/**
  * Main class
  */
 class SEO_SIMPLE_PACK {
@@ -74,6 +66,14 @@ class SEO_SIMPLE_PACK {
 		SSP_Output::init();
 	}
 }
+
+
+/**
+ * Activation hooks
+ */
+// register_activation_hook( __FILE__, ['SSP_Activate', 'plugin_activate' ] );
+// register_deactivation_hook( __FILE__, ['SSP_Activate', 'plugin_deactivate' ] );
+register_uninstall_hook( __FILE__, ['SSP_Activate', 'plugin_uninstall' ] );
 
 
 /**

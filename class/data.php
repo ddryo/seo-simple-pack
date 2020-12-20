@@ -68,88 +68,22 @@ class SSP_Data {
 	/**
 	 * 基本設定のデフォルト値
 	 */
-	const DEFAULT_SETTINGS = [
-		'home_title'            => '%_site_title_% %_sep_% %_phrase_%',
-		'home_desc'             => '',
-		'home_keyword'          => '',
-		'separator'             => 'line',
-		'webmaster_bing'        => '',
-		'webmaster_google'      => '',
-		'webmaster_baidu'       => '',
-		'webmaster_yandex'      => '',
-		'google_analytics_type' => 'gtag',
-		'google_analytics_id'   => '',
-		'post_noindex'          => false,
-		'post_title'            => '%_page_title_% %_sep_% %_site_title_%',
-		'post_desc'             => '%_page_contents_%',
-		'page_noindex'          => false,
-		'page_title'            => '%_page_title_% %_sep_% %_site_title_%',
-		'page_desc'             => '%_page_contents_%',
-		'attachment_disable'    => true,
-		'attachment_noindex'    => true,
-		'attachment_title'      => '%_page_title_% %_sep_% %_site_title_%',
-		'attachment_desc'       => '%_page_contents_%',
-		'cat_noindex'           => true,
-		'cat_title'             => '%_cat_name_% %_sep_% %_site_title_%',
-		// 'cat_desc'              => 'カテゴリー「%_cat_name_%」の一覧ページです。',
-		'cat_desc'              => '%_term_description_%',
-		'tag_noindex'           => true,
-		'tag_title'             => '%_tag_name_% %_sep_% %_site_title_%',
-		'tag_desc'              => 'タグ「%_tag_name_%」の一覧ページです。',
-		'post_format_disable'   => true,
-		'post_format_noindex'   => true,
-		'post_format_title'     => '%_format_name_% %_sep_% %_site_title_%',
-		'post_format_desc'      => '投稿フォーマット「%_format_name_%」の一覧ページです。',
-		'author_disable'        => false,
-		'author_noindex'        => true,
-		'author_title'          => '%_author_name_% %_sep_% %_site_title_%',
-		'author_desc'           => '%_author_name_% の執筆記事一覧ページです。',
-		'date_noindex'          => true,
-		'date_title'            => '%_date_% %_sep_% %_site_title_%', // get_localで日本語かそうでないか,
-		'date_desc'             => '%_date_% の記事一覧ページです。', // get_localで日本語かそうでないか,
-		'pt_archive_noindex'    => true,
-		'pt_archive_title'      => '%_post_type_% %_sep_% %_site_title_%',
-		'pt_archive_desc'       => '「%_post_type_%」の記事一覧ページです',
-		'404_title'             => 'ページが見つかりません。 %_sep_% %_site_title_%',
-		'search_title'          => '検索: %_search_phrase_% %_sep_% %_site_title_%',
-	];
-
+	public static $default_settings = [];
 
 	/**
-	 * 初回インストール時に登録するOGP設定のデフォルト値
+	 * OGP設定のデフォルト値
 	 */
-	const DEFAULT_OGP = [
-		'og_image'   => '',
-		'fb_active'  => true,
-		'fb_url'     => '',
-		'fb_app_id'  => '',
-		'fb_admins'  => '',
-		'tw_active'  => true,
-		'tw_account' => '',
-		'tw_card'    => 'summary',
-	];
-
+	public static $default_ogp_settings = [];
 
 	/**
 	 * カスタム投稿のフォーマット形式
 	 */
-	const DEFAULT_PT_SETTING = [
-		'noindex' => false,
-		'title'   => '%_page_title_% %_sep_% %_site_title_%',
-		'desc'    => '%_page_contents_%',
-	];
-
+	public static $default_pt_settings = [];
 
 	/**
 	 * カスタムタクソノミーのフォーマット形式
 	 */
-	const DEFAULT_TAX_SETTING = [
-		'noindex' => true,
-		'title'   => '%_term_name_% %_sep_% %_site_title_%',
-		'desc'    => '%_tax_name_%「%_term_name_%」の一覧ページです。',
-	];
-
-
+	public static $default_tax_settings = [];
 
 
 	/**
@@ -157,36 +91,157 @@ class SSP_Data {
 	 */
 	public static function init() {
 
+		// 共通の翻訳用テキスト
+		self::$texts = [
+			'quoted_title'         => __( '"%s"', 'loos-ssp' ),
+			'quoted_archive_title' => __( '"%s" archive page', 'loos-ssp' ),
+			'is_snippet'           => __( 'This content is treated as %s.', 'loos-ssp' ), // この内容は %s として扱われます。
+			'title_of'             => __( 'Title tag of %s', 'loos-ssp' ), // %sのタイトルタグ
+			'description_of'       => __( 'Description of %s', 'loos-ssp' ), // %sのディスクリプション
+			'keyword_of'           => __( 'Keywords of %s', 'loos-ssp' ),
+			'title_tag'            => __( 'Title tag format', 'loos-ssp' ), // タイトルタグの形式
+			'description_tag'      => __( 'Description format', 'loos-ssp' ), // ディスクリプションの形式
+			'use'                  => __( 'Use %s', 'loos-ssp' ), // %sを使用する
+			'nouse'                => __( 'Do not use %s', 'loos-ssp' ), // を使用しない
+			'noindex'              => __( 'Do not index %s', 'loos-ssp' ), // sをインデックスさせない
+			'noindex_help'         => __( 'If you select Yes, the default output will be <code>noindex</code>.', 'loos-ssp' ),
+			'default_output'       => __( 'The default setting of %2$s to be output to %1$s.', 'loos-ssp' ),
+			'input'                => __( 'Please enter %s.', 'loos-ssp' ),
+			'reflect'              => __( 'It will be reflected in %s.', 'loos-ssp' ),
+		];
+
+		// 設定のデフォルト値をセット
+		self::set_default();
+
+		// インストール済みバージョン情報を取得
+		$installed_version = get_option( self::DB_NAME['installed'] );
+
+		if ( false === $installed_version ) {
+
+			// インストール時に実行する処理
+			self::setup_at_installed();
+
+		} elseif ( (int) SSP_VERSION > (int) $installed_version ) {
+
+			// 更新時に実行する処理
+			self::setup_at_updated();
+		}
+		// SSP_VERSION
+
 		// サイト基本情報取得
 		self::$site_title        = esc_html( get_option( 'blogname' ) );
 		self::$site_catch_phrase = esc_html( get_option( 'blogdescription' ) );
 
 		// 一般設定データ
-		$db_ssp_settings = get_option( self::DB_NAME['settings'] ) ?: [];
-		self::$settings  = array_merge( self::DEFAULT_SETTINGS, $db_ssp_settings );
+		$saved_settings = get_option( self::DB_NAME['settings'] ) ?: [];
+		self::$settings = array_merge( self::$default_settings, $saved_settings );
 
 		// OGP設定
-		$db_ssp_ogp = get_option( self::DB_NAME['ogp'] ) ?: [];
-		self::$ogp  = array_merge( self::DEFAULT_OGP, $db_ssp_ogp );
+		$saved_ogp_settings = get_option( self::DB_NAME['ogp'] ) ?: [];
+		self::$ogp          = array_merge( self::$default_ogp_settings, $saved_ogp_settings );
 
-		// 共通テキスト
-		self::$texts = [
-			'quoted_title'         => __( '「%s」', 'loos-ssp' ),
-			'quoted_archive_title' => __( '「%s」のアーカイブページ', 'loos-ssp' ),
-			'is_snippet'           => __( 'この内容は %s として扱われます。', 'loos-ssp' ),
-			'title_of'             => __( '%sのタイトルタグ', 'loos-ssp' ),
-			'description_of'       => __( '%sのディスクリプション', 'loos-ssp' ),
-			'keyword_of'           => __( '%sのキーワード', 'loos-ssp' ),
-			'title_tag'            => __( 'タイトルタグの形式', 'loos-ssp' ),
-			'description_tag'      => __( 'ディスクリプションの形式', 'loos-ssp' ),
-			'use'                  => __( '%sを使用する', 'loos-ssp' ),
-			'nouse'                => __( '%sを使用しない', 'loos-ssp' ),
-			'noindex'              => __( '%sをインデックスさせない', 'loos-ssp' ),
-			'noindex_help'         => __( '「はい」を選択するとデフォルトの出力が <code>noindex</code> となります。', 'loos-ssp' ),
-			'default_output'       => __( '%1$sに出力する %2$s のデフォルト設定。', 'loos-ssp' ),
-			'input'                => __( '%sを入力して下さい。', 'loos-ssp' ),
-			'reflect'              => __( '%sに反映されます。', 'loos-ssp' ),
+	}
+
+	/**
+	 * デフォルト値をセット
+	 */
+	public static function set_default() {
+		self::$default_settings = [
+			'home_title'            => '%_site_title_% %_sep_% %_phrase_%',
+			'home_desc'             => '',
+			'home_keyword'          => '',
+			'separator'             => 'line',
+			'webmaster_bing'        => '',
+			'webmaster_google'      => '',
+			'webmaster_baidu'       => '',
+			'webmaster_yandex'      => '',
+			'google_analytics_type' => 'gtag',
+			'google_analytics_id'   => '',
+			'post_noindex'          => false,
+			'post_title'            => '%_page_title_% %_sep_% %_site_title_%',
+			'post_desc'             => '%_page_contents_%',
+			'page_noindex'          => false,
+			'page_title'            => '%_page_title_% %_sep_% %_site_title_%',
+			'page_desc'             => '%_page_contents_%',
+			'attachment_disable'    => true,
+			'attachment_noindex'    => true,
+			'attachment_title'      => '%_page_title_% %_sep_% %_site_title_%',
+			'attachment_desc'       => '%_page_contents_%',
+			'cat_noindex'           => true,
+			'cat_title'             => '%_cat_name_% %_sep_% %_site_title_%',
+			'cat_desc'              => '%_term_description_%',
+			'tag_noindex'           => true,
+			'tag_title'             => '%_tag_name_% %_sep_% %_site_title_%',
+			'tag_desc'              => '%_term_description_%',
+			'post_format_disable'   => true,
+			'post_format_noindex'   => true,
+			'post_format_title'     => '%_format_name_% %_sep_% %_site_title_%',
+			'post_format_desc'      => '投稿フォーマット「%_format_name_%」の一覧ページです。',
+			'author_disable'        => false,
+			'author_noindex'        => true,
+			'author_title'          => '%_author_name_% %_sep_% %_site_title_%',
+			'author_desc'           => '%_author_name_% の執筆記事一覧ページです。',
+			'date_noindex'          => true,
+			'date_title'            => '%_date_% %_sep_% %_site_title_%',
+			'date_desc'             => '%_date_% の記事一覧ページです。',
+			'pt_archive_noindex'    => true,
+			'pt_archive_title'      => '%_post_type_% %_sep_% %_site_title_%',
+			'pt_archive_desc'       => '「%_post_type_%」の記事一覧ページです',
+			'404_title'             => 'ページが見つかりませんでした。 %_sep_% %_site_title_%',
+			'search_title'          => '検索結果: %_search_phrase_% %_sep_% %_site_title_%',
+		];
+
+		// '%sの記事一覧ページです'
+
+		self::$default_ogp_settings = [
+			'og_image'   => '',
+			'fb_active'  => true,
+			'fb_url'     => '',
+			'fb_app_id'  => '',
+			'fb_admins'  => '',
+			'tw_active'  => true,
+			'tw_account' => '',
+			'tw_card'    => 'summary',
+		];
+
+		/**
+		 * カスタム投稿のフォーマット形式
+		 */
+		self::$default_pt_settings = [
+			'noindex' => false,
+			'title'   => '%_page_title_% %_sep_% %_site_title_%',
+			'desc'    => '%_page_contents_%',
+		];
+
+		/**
+		 * カスタムタクソノミーのフォーマット形式
+		 */
+		self::$default_tax_settings = [
+			'noindex' => true,
+			'title'   => '%_term_name_% %_sep_% %_site_title_%',
+			'desc'    => '%_term_description_%',
 		];
 	}
 
+
+	/**
+	 * インストール時に実行する処理
+	 */
+	public static function setup_at_installed() {
+
+		update_option( self::DB_NAME['installed'], SSP_VERSION );
+		// update_option( SSP_Data::DB_NAME[ 'notification' ], 'hide' );
+
+		// デフォルト設定を保存
+		update_option( self::DB_NAME['settings'], self::$default_settings );
+		update_option( self::DB_NAME['ogp'], self::$default_ogp_settings );
+
+	}
+
+	/**
+	 * 更新時に実行する処理
+	 */
+	public static function setup_at_updated() {
+		update_option( self::DB_NAME['installed'], SSP_VERSION );
+	}
 }

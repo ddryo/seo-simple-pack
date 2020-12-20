@@ -77,9 +77,9 @@ class SSP_Hooks {
 		// カスタム投稿 settings 追加
 		foreach ( $post_types as $pt ) {
 			if ( ! isset( SSP_Data::$settings[ $pt . '_noindex' ] ) ) {
-				SSP_Data::$settings[ $pt . '_noindex' ] = SSP_Data::DEFAULT_PT_SETTING['noindex'];
-				SSP_Data::$settings[ $pt . '_title' ]   = SSP_Data::DEFAULT_PT_SETTING['title'];
-				SSP_Data::$settings[ $pt . '_desc' ]    = SSP_Data::DEFAULT_PT_SETTING['desc'];
+				SSP_Data::$settings[ $pt . '_noindex' ] = SSP_Data::$default_pt_settings['noindex'];
+				SSP_Data::$settings[ $pt . '_title' ]   = SSP_Data::$default_pt_settings['title'];
+				SSP_Data::$settings[ $pt . '_desc' ]    = SSP_Data::$default_pt_settings['desc'];
 				$added_new_data                         = true;
 			}
 		}
@@ -87,9 +87,9 @@ class SSP_Hooks {
 		// カスタムタクソノミー settings 追加
 		foreach ( $taxonomies as $tax ) {
 			if ( ! isset( SSP_Data::$settings[ $tax . '_noindex' ] ) ) {
-				SSP_Data::$settings[ $tax . '_noindex' ] = SSP_Data::DEFAULT_TAX_SETTING['noindex'];
-				SSP_Data::$settings[ $tax . '_title' ]   = SSP_Data::DEFAULT_TAX_SETTING['title'];
-				SSP_Data::$settings[ $tax . '_desc' ]    = SSP_Data::DEFAULT_TAX_SETTING['desc'];
+				SSP_Data::$settings[ $tax . '_noindex' ] = SSP_Data::$default_tax_settings['noindex'];
+				SSP_Data::$settings[ $tax . '_title' ]   = SSP_Data::$default_tax_settings['title'];
+				SSP_Data::$settings[ $tax . '_desc' ]    = SSP_Data::$default_tax_settings['desc'];
 				$added_new_data                          = true;
 			}
 		}

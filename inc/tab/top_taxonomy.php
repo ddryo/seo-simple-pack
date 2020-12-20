@@ -18,7 +18,7 @@ self::output_section( $tax_title, [
 		'desc'        => sprintf( SSP_Data::$texts['default_output'], $quoted_title, '<code>&lt;title&gt;</code>' ),
 	],
 	'cat_desc' => [
-		'title'       => SSP_Data::$texts['noindex'],
+		'title'       => SSP_Data::$texts['description_tag'],
 		'class'       => 'sep',
 		'preview'     => true,
 		'desc'        => sprintf( SSP_Data::$texts['default_output'], $quoted_title, '<code>meta:description</code>' ),
@@ -41,7 +41,7 @@ self::output_section( $tax_title, [
 		'desc'        => sprintf( SSP_Data::$texts['default_output'], $quoted_title, '<code>&lt;title&gt;</code>' ),
 	],
 	'tag_desc' => [
-		'title'       => SSP_Data::$texts['noindex'],
+		'title'       => SSP_Data::$texts['description_tag'],
 		'class'       => 'sep',
 		'preview'     => true,
 		'desc'        => sprintf( SSP_Data::$texts['default_output'], $quoted_title, '<code>meta:description</code>' ),
@@ -73,7 +73,7 @@ foreach ( $taxonomies as $tax_obj ) {
 			),
 		],
 		$tax_obj->name . '_desc' => [
-			'title'       => SSP_Data::$texts['noindex'],
+			'title'       => SSP_Data::$texts['description_tag'],
 			'class'       => 'sep',
 			'preview'     => true,
 			'desc'        => sprintf(

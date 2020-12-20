@@ -207,13 +207,13 @@ class SSP_MetaBox {
 	?>
 		<tr class="ssp_term_meta_title">
 			<td colspan="2">
-				<h2>SEO SIMPLE PACKの設定</h2>
+				<h2><?=esc_html__( 'SEO SIMPLE PACK Settings', 'loos-ssp' )?></h2>
 			</td>
 		</tr>
 		<tr class="form-field">
 			<th>
 				<label for="<?=self::TERM_META_KEYS['robots']?>">
-					<?php esc_html_e( '"robots" tag of this term page', 'loos-ssp' ); ?>
+					<?=esc_html__( '"robots" tag of this term page', 'loos-ssp' )?>
 				</label>
 			</th>
 			<td>
@@ -223,7 +223,7 @@ class SSP_MetaBox {
 		<tr class="form-field">
 			<th>
 				<label for="<?=self::TERM_META_KEYS['title']?>">
-					<?php esc_html_e( 'Title tag of this term page', 'loos-ssp' ); ?>
+					<?=esc_html__( 'Title tag of this term page', 'loos-ssp' )?>
 				</label>
 			</th>
 			<td>
@@ -233,7 +233,7 @@ class SSP_MetaBox {
 		<tr class="form-field">
 			<th>
 				<label for="<?=self::TERM_META_KEYS['description']?>">
-					<?php esc_html_e( 'Description of this term page', 'loos-ssp' ); ?>
+					<?=esc_html__( 'Description of this term page', 'loos-ssp' )?>
 				</label>
 			</th>
 			<td>

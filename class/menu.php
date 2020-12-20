@@ -137,7 +137,7 @@ class SSP_Menu {
 	public static function output_setting_tab( $tabs ) {
 		foreach ( $tabs as $key => $label ) {
 			$nav_class = ( reset( $tabs ) === $label ) ? 'nav-tab act_' : 'nav-tab';
-			echo '<a href="#' . $key . '" class="' . $nav_class . '">' . $label . '</a>';
+			echo '<a href="#' . esc_attr( $key ) . '" class="' . esc_attr( $nav_class ) . '">' . esc_html( $label ) . '</a>';
 		}
 	}
 
@@ -149,7 +149,7 @@ class SSP_Menu {
 		foreach ( $tabs as $key => $label ) {
 
 			$tab_class = ( reset( $tabs ) === $label ) ? 'tab-contents act_' : 'tab-contents';
-			echo '<div id="' . $key . '" class="' . $tab_class . '">';
+			echo '<div id="' . esc_attr( $key ) . '" class="' . esc_attr( $tab_class ) . '">';
 
 			// タブコンテンツ用ファイルの読み込み
 			if ( file_exists( SSP_PATH . 'inc/tab/' . $page_type . '_' . $key . '.php' ) ) {
