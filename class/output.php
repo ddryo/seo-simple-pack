@@ -385,7 +385,7 @@ class SSP_Output {
 
 		switch ( true ) {
 			case is_front_page():
-				$description = $settings['home_desc'] ?: '%_phrase_%';
+				$description = $settings['home_desc'] ?: '%_tagline_%';
 				break;
 
 			case is_singular():

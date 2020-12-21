@@ -225,24 +225,7 @@ trait Output_Helper {
 
 
 	/**
-	 *
-	 * Replace snippets method for self::
-	 *
-	 *   - %_site_title_%       : サイトのタイトル
-	 *   - %_phrase_%           : サイトのキャッチフレーズ
-	 *   - %_site_description_% : サイトの説明文
-	 *   - %_page_title_%       : 投稿タイトル
-	 *   - %_description_%      : 投稿タイトル
-	 *   - %_cat_name_%         : カテゴリ名
-	 *   - %_tag_name_%         : タグ名
-	 *   - %_term_name_%        : ターム名
-	 *   - %_tax_name_%         : タクソノミー名
-	 *   - %_search_phrase_%    : 検索ワード
-	 *   - %_post_type_%        : 投稿タイプ
-	 *   - %_format_name_%      : 投稿フォーマット名
-	 *   - %_date_%             : Y年M月D日
-	 *   - %_author_name_%      : 著者名ニックネーム
-	 *   - %_sep_%              : 区切り文字
+	 * Replace snippets
 	 */
 	private static function replace_snippets( $str ) {
 
@@ -251,6 +234,7 @@ trait Output_Helper {
 		// 共通項目の置換
 		$str = str_replace( '%_site_title_%', \SSP_Data::$site_title, $str );
 		$str = str_replace( '%_phrase_%', \SSP_Data::$site_catch_phrase, $str );
+		$str = str_replace( '%_tagline_%', \SSP_Data::$site_catch_phrase, $str );
 		$str = str_replace( '%_description_%', \SSP_Data::$settings['home_desc'], $str );
 
 		if ( is_singular() || ( ! is_front_page() && is_home() ) ) {

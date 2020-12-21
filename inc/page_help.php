@@ -4,7 +4,8 @@
  */
 $tags = [
 	'site_title'       => __( 'Site title', 'loos-ssp' ),
-	'phrase'           => __( 'Site catchphrase', 'loos-ssp' ),
+	'tagline'          => __( 'Site catchphrase', 'loos-ssp' ),
+	'phrase'           => __( 'Site catchphrase', 'loos-ssp' ) . ' ( ' . __( 'For backward compatibility', 'loos-ssp' ) . ' )',
 	'description'      => __( 'Home description', 'loos-ssp' ),
 	'page_title'       => __( 'Post title', 'loos-ssp' ),
 	'cat_name'         => __( 'Category name', 'loos-ssp' ),

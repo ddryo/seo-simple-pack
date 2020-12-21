@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: SEO SIMPLE PACK\n"
-"POT-Creation-Date: 2020-12-21 12:24+0900\n"
-"PO-Revision-Date: 2020-12-21 12:24+0900\n"
+"POT-Creation-Date: 2020-12-21 19:00+0900\n"
+"PO-Revision-Date: 2020-12-21 19:00+0900\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: ja\n"
@@ -258,67 +258,67 @@ msgstr "画像を選択"
 msgid "Delete image"
 msgstr "画像を削除"
 
-#: class/trait/field.php:244 inc/page_help.php:9
+#: class/trait/field.php:245 inc/page_help.php:10
 msgid "Post title"
 msgstr "投稿のタイトル"
 
-#: class/trait/field.php:245 inc/page_help.php:10
+#: class/trait/field.php:246 inc/page_help.php:11
 msgid "Category name"
 msgstr "カテゴリー名"
 
-#: class/trait/field.php:246 inc/page_help.php:11
+#: class/trait/field.php:247 inc/page_help.php:12
 msgid "Tag name"
 msgstr "タグ名"
 
-#: class/trait/field.php:247 inc/page_help.php:12
+#: class/trait/field.php:248 inc/page_help.php:13
 msgid "Term name"
 msgstr "ターム名"
 
-#: class/trait/field.php:248 inc/page_help.php:14
+#: class/trait/field.php:249 inc/page_help.php:15
 msgid "Taxonomy name"
 msgstr "タクソノミー名"
 
-#: class/trait/field.php:249 inc/page_help.php:18
+#: class/trait/field.php:250 inc/page_help.php:19
 msgid "Author name"
 msgstr "著者名"
 
-#: class/trait/field.php:250 inc/page_help.php:19
+#: class/trait/field.php:251 inc/page_help.php:20
 msgid "Search word"
 msgstr "検索ワード"
 
-#: class/trait/field.php:251 inc/page_help.php:15
+#: class/trait/field.php:252 inc/page_help.php:16
 msgid "Post type name"
 msgstr "投稿タイプ名"
 
-#: class/trait/field.php:252 inc/page_help.php:16
+#: class/trait/field.php:253 inc/page_help.php:17
 msgid "Page content"
 msgstr "ページコンテンツ"
 
-#: class/trait/field.php:253 inc/tab/top_archive.php:34
+#: class/trait/field.php:254 inc/tab/top_archive.php:34
 msgid "Date"
 msgstr "日付"
 
-#: class/trait/field.php:254 inc/page_help.php:20
+#: class/trait/field.php:255 inc/page_help.php:21
 msgid "Post format name"
 msgstr "投稿フォーマット名"
 
-#: class/trait/field.php:255 inc/page_help.php:13
+#: class/trait/field.php:256 inc/page_help.php:14
 msgid "Term description"
 msgstr "タームの説明"
 
-#: class/trait/output_helper.php:304
+#: class/trait/output_helper.php:288
 #, php-format
 msgctxt "date"
 msgid "%2$s %3$s, %1$s"
 msgstr "%1$s年%2$s%3$s日"
 
-#: class/trait/output_helper.php:306
+#: class/trait/output_helper.php:290
 #, php-format
 msgctxt "date"
 msgid "%2$s %1$s"
 msgstr "%1$s年%2$s"
 
-#: class/trait/output_helper.php:308
+#: class/trait/output_helper.php:292
 #, php-format
 msgctxt "date"
 msgid "%s"
@@ -328,44 +328,48 @@ msgstr "%s年"
 msgid "Site title"
 msgstr "サイトのタイトル"
 
-#: inc/page_help.php:7 inc/tab/top_basic.php:33
+#: inc/page_help.php:7 inc/page_help.php:8 inc/tab/top_basic.php:33
 msgid "Site catchphrase"
 msgstr "サイトのキャッチフレーズ"
 
 #: inc/page_help.php:8
+msgid "For backward compatibility"
+msgstr "後方互換用"
+
+#: inc/page_help.php:9
 msgid "Home description"
 msgstr "ホームのディスクリプション"
 
-#: inc/page_help.php:17
+#: inc/page_help.php:18
 msgid "The date that is searching in the date archive"
 msgstr "日付アーカイブで検索中の日付"
 
-#: inc/page_help.php:21 inc/tab/top_basic.php:40
+#: inc/page_help.php:22 inc/tab/top_basic.php:40
 msgid "Delimiter"
 msgstr "区切り文字"
 
-#: inc/page_help.php:27
+#: inc/page_help.php:28
 msgid "Help page"
 msgstr "ヘルプページ"
 
-#: inc/page_help.php:32
+#: inc/page_help.php:33
 msgid "About available \"snippet tags\""
 msgstr "使用可能な\"スニペットタグ\"について"
 
-#: inc/page_help.php:39
+#: inc/page_help.php:40
 msgid "Snippet tag"
 msgstr "スニペットタグ"
 
-#: inc/page_help.php:42
+#: inc/page_help.php:43
 msgid "Contents to be expanded"
 msgstr "展開される内容"
 
-#: inc/page_help.php:58
+#: inc/page_help.php:59
 #, php-format
 msgid "See %s for more information about \"SEO SIMPLE PACK\"."
 msgstr "「SEO SIMPLE PACK」に関する詳しい説明は %s をご覧ください。"
 
-#: inc/page_help.php:59
+#: inc/page_help.php:60
 msgid "\"How to use the plugin\""
 msgstr "「プラグインの使い方」"
 
@@ -442,30 +446,31 @@ msgid "Google Analytics settings"
 msgstr "Googleアナリティクス設定"
 
 #: inc/tab/top_analytics.php:7
-msgid "トラッキングコードの種類"
-msgstr ""
+msgid "Tracking code type"
+msgstr "トラッキングコードの種類"
 
 #: inc/tab/top_analytics.php:10
-msgid "gtag.jsでコードを埋め込む"
+msgid "gtag.js"
 msgstr ""
 
 #: inc/tab/top_analytics.php:11
-msgid "analytics.jsでコードを埋め込む"
+msgid "analytics.js"
 msgstr ""
 
 #: inc/tab/top_analytics.php:13
-msgid "※ 特に理由がなければ<code>gtag.js</code>を推奨します。"
-msgstr ""
+msgid "<code>gtag.js</code> is recommended unless you have a specific reason."
+msgstr "特に理由がなければ<code>gtag.js</code>を推奨します。"
 
 #: inc/tab/top_analytics.php:16
-msgid "トラッキング ID / 測定ID"
-msgstr ""
+msgid "\"Tracking ID\" or \"Measurement ID\""
+msgstr "「トラッキングID」または「測定ID」"
 
 #: inc/tab/top_analytics.php:19
 msgid ""
-"GoogleアナリティクスのトラッキングID( <code>UA-...</code> ) または測定"
-"ID( <code>G-...</code> )"
+"Tracking ID (<code>UA-XXXX...</code>) or Measurement ID (<code>G-XXX...</"
+"code>)"
 msgstr ""
+"トラッキングID( <code>UA-XXX…</code> ) または測定ID( <code>G-XXX…</code> )"
 
 #: inc/tab/top_archive.php:7
 msgid "Author"
@@ -479,15 +484,13 @@ msgid ""
 msgstr ""
 "「はい」を選択すると、%sへアクセスしてもトップページへリダイレクトされます。"
 
-#: inc/tab/top_archive.php:56
+#: inc/tab/top_archive.php:56 inc/tab/top_post_type.php:60
 msgid "Custom Post Type"
 msgstr "カスタム投稿タイプ"
 
 #: inc/tab/top_archive.php:78
-msgid ""
-"注意 : アーカイブを有効にしていないカスタム投稿タイプでは、アーカイブURLは発"
-"行されません。 "
-msgstr ""
+msgid "It does not matter for custom post types with invalid archiving."
+msgstr "アーカイブが無効なカスタム投稿タイプでは関係ありません。"
 
 #: inc/tab/top_basic.php:10
 msgid "General Settings"
@@ -542,20 +545,16 @@ msgid "Particular page settings"
 msgstr "特殊ページ設定"
 
 #: inc/tab/top_post_type.php:7
-msgid "投稿ページ"
-msgstr ""
+msgid "Posts"
+msgstr "投稿"
 
 #: inc/tab/top_post_type.php:29
-msgid "固定ページ"
-msgstr ""
-
-#: inc/tab/top_post_type.php:60
-msgid "カスタム投稿タイプ"
-msgstr ""
+msgid "Pages"
+msgstr "固定ページ"
 
 #: inc/tab/top_post_type.php:86
-msgid "メディアページ"
-msgstr ""
+msgid "Media page"
+msgstr "メディアページ"
 
 #: inc/tab/top_taxonomy.php:7
 msgid "Category"

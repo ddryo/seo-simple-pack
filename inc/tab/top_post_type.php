@@ -4,7 +4,7 @@
  */
 
 // 投稿ページ
-$pt_title     = __( '投稿ページ', 'loos-ssp' );
+$pt_title     = __( 'Posts', 'loos-ssp' );
 $quoted_title = sprintf( SSP_Data::$texts['quoted_title'], $pt_title );
 self::output_section( $pt_title, [
 	'post_noindex' => [
@@ -26,7 +26,7 @@ self::output_section( $pt_title, [
 ] );
 
 // 固定ページ
-$pt_title     = __( '固定ページ', 'loos-ssp' );
+$pt_title     = __( 'Pages', 'loos-ssp' );
 $quoted_title = sprintf( SSP_Data::$texts['quoted_title'], $pt_title );
 self::output_section( $pt_title, [
 	'page_noindex' => [
@@ -57,7 +57,7 @@ $post_types = get_post_types( [
 if ( count( $post_types ) > 0 ) {
 	foreach ( $post_types  as $pt_obj ) {
 
-		$pt_title     = __( 'カスタム投稿タイプ', 'loos-ssp' ) . ' : ' . sprintf( __( '"%s"', 'loos-ssp' ), $pt_obj->label );
+		$pt_title     = __( 'Custom Post Type', 'loos-ssp' ) . ' : ' . sprintf( __( '"%s"', 'loos-ssp' ), $pt_obj->label );
 		$quoted_title = sprintf( SSP_Data::$texts['quoted_title'], $pt_obj->label );
 
 		self::output_section( $pt_title, [
@@ -83,14 +83,14 @@ if ( count( $post_types ) > 0 ) {
 
 
 // メディアページ
-$pt_title     = __( 'メディアページ', 'loos-ssp' );
+$pt_title     = __( 'Media page', 'loos-ssp' );
 $quoted_title = sprintf( SSP_Data::$texts['quoted_title'], $pt_title );
 
 self::output_section( $pt_title, [
 	'attachment_disable' => [
 		'title'       => sprintf( SSP_Data::$texts['nouse'], $quoted_title ),
 		'type'        => 'switch',
-		'desc'        => '「はい」を選択すると「メディア」の個別ページへアクセスしても画像URLへとリダイレクトされます。',
+		'desc'        => sprintf( __( 'If you select "Yes", you will be redirected to the Home even if you access %s.', 'loos-ssp' ), $quoted_title ),
 	],
 	'attachment_noindex' => [
 		'title'       => sprintf( SSP_Data::$texts['noindex'], $quoted_title ),

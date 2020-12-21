@@ -240,6 +240,7 @@ trait Field {
 
 		$str = str_replace( '%_site_title_%', '<span>' . \SSP_Data::$site_title . '</span>', $str );
 		$str = str_replace( '%_phrase_%', '<span>' . \SSP_Data::$site_catch_phrase . '</span>', $str );
+		$str = str_replace( '%_tagline_%', '<span>' . \SSP_Data::$site_catch_phrase . '</span>', $str );
 		$str = str_replace( '%_description_%', \SSP_Data::$settings['home_desc'], $str );
 		$str = str_replace( '%_page_title_%', '<span>' . __( 'Post title', 'loos-ssp' ) . '</span>', $str );
 		$str = str_replace( '%_cat_name_%', '<span>' . __( 'Category name', 'loos-ssp' ) . '</span>', $str );

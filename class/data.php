@@ -148,7 +148,7 @@ class SSP_Data {
 	 */
 	public static function set_default() {
 		self::$default_settings = [
-			'home_title'            => '%_site_title_% %_sep_% %_phrase_%',
+			'home_title'            => '%_site_title_% %_sep_% %_tagline_%',
 			'home_desc'             => '',
 			'home_keyword'          => '',
 			'separator'             => 'line',

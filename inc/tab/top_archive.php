@@ -72,8 +72,8 @@ self::output_section( $quoted_title, [
 		'preview'     => true,
 	],
 ] );
-
+// アーカイブが無効なカスタム投稿タイプでは関係ありません。
 ?>
 <p class="ssp-page__note">
-	<?=esc_html__( '注意 : アーカイブを有効にしていないカスタム投稿タイプでは、アーカイブURLは発行されません。 ', 'loos-ssp' )?>
+	※ <?=esc_html__( 'It does not matter for custom post types with invalid archiving.', 'loos-ssp' )?>
 </p>

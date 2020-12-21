@@ -34,7 +34,7 @@ self::output_section( __( 'Basic setting', 'loos-ssp' ), [
 		'item'        => '<input type="text" name="" value="' . esc_attr( SSP_Data::$site_catch_phrase ) . '" disabled>',
 		'desc'        => sprintf( __( 'Contents of %s.', 'loos-ssp' ), $general_to_tagline ) .
 			'<br>' .
-			sprintf( SSP_Data::$texts['is_snippet'], '<code>%_phrase_%</code>' ),
+			sprintf( SSP_Data::$texts['is_snippet'], '<code>%_tagline_%</code>' ),
 	],
 	'separator' => [
 		'title'       => __( 'Delimiter', 'loos-ssp' ),
