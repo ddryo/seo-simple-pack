@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: SEO SIMPLE PACK\n"
-"POT-Creation-Date: 2020-12-21 19:00+0900\n"
-"PO-Revision-Date: 2020-12-21 19:00+0900\n"
+"POT-Creation-Date: 2020-12-21 19:10+0900\n"
+"PO-Revision-Date: 2020-12-21 19:13+0900\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: ja\n"
@@ -476,7 +476,8 @@ msgstr ""
 msgid "Author"
 msgstr "著者"
 
-#: inc/tab/top_archive.php:13 inc/tab/top_taxonomy.php:96
+#: inc/tab/top_archive.php:13 inc/tab/top_post_type.php:93
+#: inc/tab/top_taxonomy.php:96
 #, php-format
 msgid ""
 "If you select \"Yes\", you will be redirected to the Home even if you access "

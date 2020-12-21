@@ -38,7 +38,7 @@ class SSP_Hooks {
 		if ( $is_ssp_page ) {
 			wp_enqueue_media();
 			wp_enqueue_script( 'ssp-media', SSP_URL . 'dist/js/mediauploader.js', ['jquery' ], SSP_VERSION, true );
-			wp_enqueue_script( 'ssp-script', SSP_URL . 'assets/js/ssp.js', ['jquery' ], SSP_VERSION, true );
+			wp_enqueue_script( 'ssp-script', SSP_URL . 'dist/js/ssp.js', ['jquery' ], SSP_VERSION, true );
 			wp_enqueue_style( 'ssp-css', SSP_URL . 'dist/css/ssp.css', [], SSP_VERSION );
 
 		} elseif ( $is_editor_page ) {
@@ -51,7 +51,7 @@ class SSP_Hooks {
 
 		// 共通ファイル
 		if ( $is_index || $is_editor_page || $is_ssp_page ) {
-			wp_enqueue_script( 'ssp-common-script', SSP_URL . 'assets/js/ssp_common.js', ['jquery' ], SSP_VERSION, true );
+			wp_enqueue_script( 'ssp-common-script', SSP_URL . 'dist/js/common.js', ['jquery' ], SSP_VERSION, true );
 			wp_enqueue_style( 'ssp-common', SSP_URL . 'dist/css/common.css', [], SSP_VERSION );
 		}
 

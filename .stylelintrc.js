@@ -5,7 +5,7 @@ module.exports = {
         'stylelint-config-rational-order',
         // 'stylelint-prettier/recommended',
     ],
-    ignoreFiles: ['./src/scss/inc/bass/**/*.scss', './**/*.js', './assets/**'],
+    ignoreFiles: ['./src/scss/inc/bass/**/*.scss', './**/*.js', './dist/**'],
     rules: {
         // 'prettier/prettier': [true, { 'singleQuote': false, 'useTabs': true }], //Prettierルールの書き換え？
         'max-line-length': null, //max文字数を無視
