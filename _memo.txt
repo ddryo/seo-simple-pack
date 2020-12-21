@@ -6,3 +6,9 @@ add_theme_support( 'post-formats', [ 'aside', 'gallery' ] );
 
 投稿フォーマットのアーカイブURL : /type/aside/
 （ is_tax() が true となる。）
+
+
+---
+
+サムネイル設定を追加
+readmeをローカライズ

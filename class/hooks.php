@@ -11,7 +11,7 @@ class SSP_Hooks {
 	 */
 	public static function init() {
 
-		add_action( 'init', [ 'SSP_Hooks', 'add_custom_settings' ], 999 );
+		add_action( 'init', [ 'SSP_Hooks', 'add_custom_settings' ], 99 ); // 確実に全部取得できるように後ろで発火
 		add_action( 'admin_enqueue_scripts', [ 'SSP_Hooks', 'include_files' ] );
 		add_action( 'template_redirect', [ 'SSP_Hooks', 'redirect' ], 1 );
 
@@ -31,27 +31,36 @@ class SSP_Hooks {
 	public static function include_files( $hook_suffix ) {
 
 		$is_index       = 'index.php' === $hook_suffix;
+		$is_term        = 'term.php' === $hook_suffix;
 		$is_editor_page = 'post.php' === $hook_suffix || 'post-new.php' === $hook_suffix;
 		$is_ssp_page    = false !== strpos( $hook_suffix, 'ssp_' );
 
 		// SSP設定ページで読み込むファイル
 		if ( $is_ssp_page ) {
-			wp_enqueue_media();
-			wp_enqueue_script( 'ssp-media', SSP_URL . 'dist/js/mediauploader.js', ['jquery' ], SSP_VERSION, true );
-			wp_enqueue_script( 'ssp-script', SSP_URL . 'dist/js/ssp.js', ['jquery' ], SSP_VERSION, true );
+
 			wp_enqueue_style( 'ssp-css', SSP_URL . 'dist/css/ssp.css', [], SSP_VERSION );
+			wp_enqueue_script( 'ssp-script', SSP_URL . 'dist/js/ssp.js', ['jquery' ], SSP_VERSION, true );
 
 		} elseif ( $is_editor_page ) {
 
 			wp_enqueue_style( 'ssp-post', SSP_URL . 'dist/css/post.css', [], SSP_VERSION );
 
-		} elseif ( 'term.php' === $hook_suffix ) {
+		} elseif ( $is_term ) {
+
 			wp_enqueue_style( 'ssp-term', SSP_URL . 'dist/css/term.css', [], SSP_VERSION );
 		}
 
-		// 共通ファイル
-		if ( $is_index || $is_editor_page || $is_ssp_page ) {
+		// 設定ページでの共通ファイル
+		if ( $is_editor_page || $is_ssp_page || $is_term ) {
+			wp_enqueue_style( 'ssp-common', SSP_URL . 'dist/css/common.css', [], SSP_VERSION );
+
+			wp_enqueue_media();
+			wp_enqueue_script( 'ssp-media', SSP_URL . 'dist/js/mediauploader.js', ['jquery' ], SSP_VERSION, true );
 			wp_enqueue_script( 'ssp-common-script', SSP_URL . 'dist/js/common.js', ['jquery' ], SSP_VERSION, true );
+		}
+
+		// ダッシュボードでも読み込むファイル
+		if ( $is_index ) {
 			wp_enqueue_style( 'ssp-common', SSP_URL . 'dist/css/common.css', [], SSP_VERSION );
 		}
 
@@ -60,7 +69,7 @@ class SSP_Hooks {
 
 
 	/**
-	 * カスタム投稿タイプ・カスタムタクソノミー用の設定を追加
+	 * カスタム投稿タイプ・カスタムタクソノミー用を取得し、設定を追加
 	 */
 	public static function add_custom_settings() {
 
@@ -71,26 +80,36 @@ class SSP_Hooks {
 			'public'   => true,
 			'_builtin' => false,
 		];
-		$post_types     = get_post_types( $args, 'names', 'and' );
-		$taxonomies     = get_taxonomies( $args, 'names', 'and' );
 
-		// カスタム投稿 settings 追加
-		foreach ( $post_types as $pt ) {
-			if ( ! isset( SSP_Data::$settings[ $pt . '_noindex' ] ) ) {
-				SSP_Data::$settings[ $pt . '_noindex' ] = SSP_Data::$default_pt_settings['noindex'];
-				SSP_Data::$settings[ $pt . '_title' ]   = SSP_Data::$default_pt_settings['title'];
-				SSP_Data::$settings[ $pt . '_desc' ]    = SSP_Data::$default_pt_settings['desc'];
-				$added_new_data                         = true;
+		$custom_post_types = get_post_types( $args, 'objects', 'and' ) ?: [];
+		foreach ( $custom_post_types as $key => $obj ) {
+			SSP_Data::$custom_post_types[ $key ] = $obj->label;
+		}
+
+		$custom_taxonomies = get_taxonomies( $args, 'objects', 'and' ) ?: [];
+		foreach ( $custom_taxonomies as $key => $obj ) {
+			SSP_Data::$custom_taxonomies[ $key ] = $obj->label;
+		}
+
+		// カスタム投稿 の設定追加
+		foreach ( SSP_Data::$custom_post_types as $pt_name => $label ) {
+			if ( ! isset( SSP_Data::$settings[ $pt_name . '_noindex' ] ) ) {
+				SSP_Data::$settings[ $pt_name . '_noindex' ] = SSP_Data::$default_pt_settings['noindex'];
+				SSP_Data::$settings[ $pt_name . '_title' ]   = SSP_Data::$default_pt_settings['title'];
+				SSP_Data::$settings[ $pt_name . '_desc' ]    = SSP_Data::$default_pt_settings['desc'];
+
+				$added_new_data = true;
 			}
 		}
 
-		// カスタムタクソノミー settings 追加
-		foreach ( $taxonomies as $tax ) {
-			if ( ! isset( SSP_Data::$settings[ $tax . '_noindex' ] ) ) {
-				SSP_Data::$settings[ $tax . '_noindex' ] = SSP_Data::$default_tax_settings['noindex'];
-				SSP_Data::$settings[ $tax . '_title' ]   = SSP_Data::$default_tax_settings['title'];
-				SSP_Data::$settings[ $tax . '_desc' ]    = SSP_Data::$default_tax_settings['desc'];
-				$added_new_data                          = true;
+		// カスタムタクソノミー の設定追加
+		foreach ( SSP_Data::$custom_taxonomies as $tax_name => $label ) {
+			if ( ! isset( SSP_Data::$settings[ $tax_name . '_noindex' ] ) ) {
+				SSP_Data::$settings[ $tax_name . '_noindex' ] = SSP_Data::$default_tax_settings['noindex'];
+				SSP_Data::$settings[ $tax_name . '_title' ]   = SSP_Data::$default_tax_settings['title'];
+				SSP_Data::$settings[ $tax_name . '_desc' ]    = SSP_Data::$default_tax_settings['desc'];
+
+				$added_new_data = true;
 			}
 		}
 

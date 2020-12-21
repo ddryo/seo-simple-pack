@@ -48,37 +48,30 @@ self::output_section( $pt_title, [
 ] );
 
 
-// カスタム投稿タイプを取得
-$post_types = get_post_types( [
-	'public'   => true,
-	'_builtin' => false,
-], 'objects', 'and' );
+// カスタム投稿タイプ
+foreach ( SSP_Data::$custom_post_types as $pt_name => $pt_label ) {
 
-if ( count( $post_types ) > 0 ) {
-	foreach ( $post_types  as $pt_obj ) {
+	$pt_title     = __( 'Custom Post Type', 'loos-ssp' ) . ' : ' . sprintf( __( '"%s"', 'loos-ssp' ), $pt_label );
+	$quoted_title = sprintf( SSP_Data::$texts['quoted_title'], $pt_label );
 
-		$pt_title     = __( 'Custom Post Type', 'loos-ssp' ) . ' : ' . sprintf( __( '"%s"', 'loos-ssp' ), $pt_obj->label );
-		$quoted_title = sprintf( SSP_Data::$texts['quoted_title'], $pt_obj->label );
-
-		self::output_section( $pt_title, [
-			$pt_obj->name . '_noindex' => [
-				'title'       => sprintf( SSP_Data::$texts['noindex'], $quoted_title ),
-				'type'        => 'switch',
-				'desc'        => SSP_Data::$texts['noindex_help'],
-			],
-			$pt_obj->name . '_title' => [
-				'title'       => SSP_Data::$texts['title_tag'],
-				'preview'     => true,
-				'desc'        => sprintf( SSP_Data::$texts['default_output'], $quoted_title, '<code>&lt;title&gt;</code>' ),
-			],
-			$pt_obj->name . '_desc' => [
-				'title'       => SSP_Data::$texts['description_tag'],
-				'class'       => 'sep',
-				'preview'     => true,
-				'desc'        => sprintf( SSP_Data::$texts['default_output'], $quoted_title, '<code>meta:description</code>' ),
-			],
-		] );
-	}
+	self::output_section( $pt_title, [
+		$pt_name . '_noindex' => [
+			'title'       => sprintf( SSP_Data::$texts['noindex'], $quoted_title ),
+			'type'        => 'switch',
+			'desc'        => SSP_Data::$texts['noindex_help'],
+		],
+		$pt_name . '_title' => [
+			'title'       => SSP_Data::$texts['title_tag'],
+			'preview'     => true,
+			'desc'        => sprintf( SSP_Data::$texts['default_output'], $quoted_title, '<code>&lt;title&gt;</code>' ),
+		],
+		$pt_name . '_desc' => [
+			'title'       => SSP_Data::$texts['description_tag'],
+			'class'       => 'sep',
+			'preview'     => true,
+			'desc'        => sprintf( SSP_Data::$texts['default_output'], $quoted_title, '<code>meta:description</code>' ),
+		],
+	] );
 }
 
 

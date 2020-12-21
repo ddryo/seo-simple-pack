@@ -48,22 +48,18 @@ self::output_section( $tax_title, [
 	],
 ] );
 
-// カスタム投稿タイプを取得
-$taxonomies = get_taxonomies( [
-	'public'   => true,
-	'_builtin' => false,
-], 'objects', 'and' );
-foreach ( $taxonomies as $tax_obj ) {
+// カスタムタクソノミー
+foreach ( SSP_Data::$custom_taxonomies as $tax_name => $tax_label ) {
 
-	$tax_title    = __( 'Taxonomy', 'loos-ssp' ) . ' : ' . sprintf( __( '"%s"', 'loos-ssp' ), $tax_obj->label );
-	$quoted_title = sprintf( SSP_Data::$texts['quoted_archive_title'], $tax_obj->label );
+	$tax_title    = __( 'Taxonomy', 'loos-ssp' ) . ' : ' . sprintf( __( '"%s"', 'loos-ssp' ), $tax_label );
+	$quoted_title = sprintf( SSP_Data::$texts['quoted_archive_title'], $tax_label );
 	self::output_section( $tax_title, [
-		$tax_obj->name . '_noindex' => [
+		$tax_name . '_noindex' => [
 			'title' => sprintf( SSP_Data::$texts['noindex'], $quoted_title ),
 			'type'  => 'switch',
 			'desc'  => SSP_Data::$texts['noindex_help'],
 		],
-		$tax_obj->name . '_title' => [
+		$tax_name . '_title' => [
 			'title'       => SSP_Data::$texts['title_tag'],
 			'preview'     => true,
 			'desc'        => sprintf(
@@ -72,7 +68,7 @@ foreach ( $taxonomies as $tax_obj ) {
 				'<code>&lt;title&gt;</code>'
 			),
 		],
-		$tax_obj->name . '_desc' => [
+		$tax_name . '_desc' => [
 			'title'       => SSP_Data::$texts['description_tag'],
 			'class'       => 'sep',
 			'preview'     => true,

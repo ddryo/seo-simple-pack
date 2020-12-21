@@ -1,0 +1,34 @@
+
+/* ------------------------------
+ * 通知メッセージ
+ * ------------------------------ */
+.ssp-notice {
+	position: relative;
+	border-left-color: #b3c973;
+}
+
+.ssp-notice .ssp-notice__closeBtn {
+	cursor: pointer;
+}
+
+.ssp-notice .ssp-notice__closeBtn::before {
+	display: inline-block;
+	vertical-align: middle;
+}
+
+.ssp-notice .ssp-notice__closeBtn span {
+	vertical-align: middle;
+}
+
+
+.ssp-notice__closeBtn:active,
+.ssp-notice__closeBtn:focus,
+.ssp-notice__closeBtn:hover {
+	box-shadow: 0 0 4px #ccc;
+}
+
+.ssp-notice__closeBtn:active::before,
+.ssp-notice__closeBtn:focus::before,
+.ssp-notice__closeBtn:hover::before {
+	color: #c00;
+}

@@ -20,6 +20,8 @@
 
 	.ssp-media__null {
 		display: none;
+		width: 100%;
+		max-width: 480px;
 		margin-bottom: 24px;
 		padding: 16px;
 		border: dashed 1px #ccc;

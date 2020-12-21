@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: SEO SIMPLE PACK\n"
-"POT-Creation-Date: 2020-12-21 19:10+0900\n"
-"PO-Revision-Date: 2020-12-21 19:13+0900\n"
+"POT-Creation-Date: 2020-12-21 23:24+0900\n"
+"PO-Revision-Date: 2020-12-21 23:29+0900\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: ja\n"
@@ -24,85 +24,85 @@ msgstr ""
 "X-Poedit-SearchPathExcluded-2: assets\n"
 "X-Poedit-SearchPathExcluded-3: node_modules\n"
 
-#: class/data.php:96 inc/tab/top_post_type.php:60 inc/tab/top_taxonomy.php:58
+#: class/data.php:79 inc/tab/top_post_type.php:54 inc/tab/top_taxonomy.php:54
 #, php-format
 msgid "\"%s\""
 msgstr "「%s」"
 
-#: class/data.php:97
+#: class/data.php:80
 #, php-format
 msgid "\"%s\" archive page"
 msgstr "「%s」のアーカイブページ"
 
-#: class/data.php:98
+#: class/data.php:81
 #, php-format
 msgid "This content is treated as %s."
 msgstr "この内容は %s として扱われます。"
 
-#: class/data.php:99
+#: class/data.php:82
 #, php-format
 msgid "Title tag of %s"
 msgstr "%sのタイトルタグ"
 
-#: class/data.php:100
+#: class/data.php:83
 #, php-format
 msgid "Description of %s"
 msgstr "%sのディスクリプション"
 
-#: class/data.php:101
+#: class/data.php:84
 #, php-format
 msgid "Keywords of %s"
 msgstr "%sのキーワード"
 
-#: class/data.php:102
+#: class/data.php:85
 msgid "Title tag format"
 msgstr "タイトルタグの形式"
 
-#: class/data.php:103
+#: class/data.php:86
 msgid "Description format"
 msgstr "ディスクリプションの形式"
 
-#: class/data.php:104
+#: class/data.php:87
 #, php-format
 msgid "Use %s"
 msgstr "%sを使用する"
 
-#: class/data.php:105
+#: class/data.php:88
 #, php-format
 msgid "Do not use %s"
 msgstr "%sを使用しない"
 
-#: class/data.php:106
+#: class/data.php:89
 #, php-format
 msgid "Do not index %s"
 msgstr "%sをインデックスさせない"
 
-#: class/data.php:107
+#: class/data.php:90
 msgid "If you select \"Yes\", the default output will be <code>noindex</code>."
 msgstr ""
 "「はい」を選択するとデフォルトの出力が <code>noindex</code> となります。"
 
-#: class/data.php:108
+#: class/data.php:91
 #, php-format
 msgid "The default setting of %2$s to be output to %1$s."
 msgstr "%1$sに出力する %2$s のデフォルト設定。"
 
-#: class/data.php:109
+#: class/data.php:92
 #, php-format
 msgid "Please enter %s."
 msgstr "%sを入力して下さい。"
 
-#: class/data.php:110
+#: class/data.php:93
 #, php-format
 msgid "It will be reflected in %s."
 msgstr "%sに反映されます。"
 
-#: class/data.php:111
+#: class/data.php:94
 #, php-format
 msgid "This is the archive page for %s."
 msgstr "%sの記事一覧ページです。"
 
-#: class/data.php:191
+#: class/data.php:174
 msgid "Page not found"
 msgstr "ページが見つかりませんでした"
 
@@ -146,89 +146,81 @@ msgstr "設定を保存しました。"
 msgid "Hide this notification."
 msgstr "この通知を非表示にする。"
 
-#: class/metabox.php:43
+#: class/metabox.php:45
 msgid "Keep default settings"
 msgstr "デフォルト設定のまま"
 
-#: class/metabox.php:44
+#: class/metabox.php:46
 msgid "Index"
 msgstr "インデックスさせる"
 
-#: class/metabox.php:45
+#: class/metabox.php:47
 msgid "Don't index"
 msgstr "インデックスさせない"
 
-#: class/metabox.php:46
+#: class/metabox.php:48
 msgid "Don't follow links"
 msgstr "リンクを辿らせない"
 
-#: class/metabox.php:47
+#: class/metabox.php:49
 msgid "Don't cache"
 msgstr "キャッシュさせない"
 
-#: class/metabox.php:78 class/metabox.php:210
+#: class/metabox.php:86 class/metabox.php:226
 msgid "SEO SIMPLE PACK Settings"
 msgstr "SEO SIMPLE PACK 設定"
 
-#: class/metabox.php:116
-msgid "Overwrite setting of \"robots\" tag(Index setting)"
-msgstr "“robors”タグの上書き設定（インデックスの設定）"
+#: class/metabox.php:125 class/metabox.php:232
+msgid "\"robots\" tag of this page"
+msgstr "このページの”robots”タグ"
 
-#: class/metabox.php:120
+#: class/metabox.php:129
 #, php-format
 msgid "If you want to know the default settings, see %s."
 msgstr "デフォルト設定を確認したい場合、%s をご覧ください。"
 
-#: class/metabox.php:121
+#: class/metabox.php:130
 msgid "\"Post page\" tab in \"General Settings\""
 msgstr "「一般設定」の「投稿ページ」タブ"
 
-#: class/metabox.php:127
+#: class/metabox.php:136 class/metabox.php:242
 msgid "Title tag of this page"
 msgstr "このページのタイトルタグ"
 
-#: class/metabox.php:129
+#: class/metabox.php:138
 #, php-format
 msgid "%s is available."
 msgstr "%s が使用可能です。"
 
-#: class/metabox.php:130
+#: class/metabox.php:139
 msgid "Snippet tags"
 msgstr "スニペットタグ"
 
-#: class/metabox.php:136
+#: class/metabox.php:145 class/metabox.php:252
 msgid "Description of this page"
 msgstr "このページのディスクリプション"
 
-#: class/metabox.php:138
+#: class/metabox.php:147
 msgid ""
 "If blank, a description tag will be automatically generated from the content."
 msgstr "空白の場合、ディスクリプションタグがコンテンツから自動で生成されます。"
 
-#: class/metabox.php:143
+#: class/metabox.php:152 class/metabox.php:262
+msgid "\"og:image\" of this page"
+msgstr "このページの”og:image”"
+
+#: class/metabox.php:158
 msgid "Keywords of this page"
 msgstr "このページのキーワード"
 
-#: class/metabox.php:145
+#: class/metabox.php:160
 #, php-format
 msgid "If blank, the \"Keyword\" setting of %s is used."
 msgstr "空白の場合、%s の「キーワード」設定が使用されます。"
 
-#: class/metabox.php:146
+#: class/metabox.php:161
 msgid "\"Basic settings\""
 msgstr "「基本設定」"
-
-#: class/metabox.php:216
-msgid "\"robots\" tag of this term page"
-msgstr "このタームページの”robots”タグ"
-
-#: class/metabox.php:226
-msgid "Title tag of this term page"
-msgstr "このタームページのタイトルタグ"
-
-#: class/metabox.php:236
-msgid "Description of this term page"
-msgstr "このタームページのディスクリプション"
 
 #: class/trait/field.php:93
 msgid "Preview"
@@ -306,19 +298,19 @@ msgstr "投稿フォーマット名"
 msgid "Term description"
 msgstr "タームの説明"
 
-#: class/trait/output_helper.php:288
+#: class/trait/output_helper.php:291
 #, php-format
 msgctxt "date"
 msgid "%2$s %3$s, %1$s"
 msgstr "%1$s年%2$s%3$s日"
 
-#: class/trait/output_helper.php:290
+#: class/trait/output_helper.php:293
 #, php-format
 msgctxt "date"
 msgid "%2$s %1$s"
 msgstr "%1$s年%2$s"
 
-#: class/trait/output_helper.php:292
+#: class/trait/output_helper.php:295
 #, php-format
 msgctxt "date"
 msgid "%s"
@@ -476,8 +468,8 @@ msgstr ""
 msgid "Author"
 msgstr "著者"
 
-#: inc/tab/top_archive.php:13 inc/tab/top_post_type.php:93
-#: inc/tab/top_taxonomy.php:96
+#: inc/tab/top_archive.php:13 inc/tab/top_post_type.php:86
+#: inc/tab/top_taxonomy.php:92
 #, php-format
 msgid ""
 "If you select \"Yes\", you will be redirected to the Home even if you access "
@@ -485,7 +477,7 @@ msgid ""
 msgstr ""
 "「はい」を選択すると、%sへアクセスしてもトップページへリダイレクトされます。"
 
-#: inc/tab/top_archive.php:56 inc/tab/top_post_type.php:60
+#: inc/tab/top_archive.php:56 inc/tab/top_post_type.php:54
 msgid "Custom Post Type"
 msgstr "カスタム投稿タイプ"
 
@@ -553,7 +545,7 @@ msgstr "投稿"
 msgid "Pages"
 msgstr "固定ページ"
 
-#: inc/tab/top_post_type.php:86
+#: inc/tab/top_post_type.php:79
 msgid "Media page"
 msgstr "メディアページ"
 
@@ -565,11 +557,11 @@ msgstr "カテゴリー"
 msgid "Tag"
 msgstr "タグ"
 
-#: inc/tab/top_taxonomy.php:58
+#: inc/tab/top_taxonomy.php:54
 msgid "Taxonomy"
 msgstr "タクソノミー"
 
-#: inc/tab/top_taxonomy.php:90
+#: inc/tab/top_taxonomy.php:86
 msgid "Post Format"
 msgstr "投稿フォーマット"
 
@@ -618,6 +610,20 @@ msgstr "LOOS WEB STUDIO"
 #. Author URI of the plugin/theme
 msgid "https://loos-web-studio.com/"
 msgstr "https://loos-web-studio.com/"
+
+#~ msgid "Overwrite setting of \"robots\" tag(Index setting)"
+#~ msgstr "“robors”タグの上書き設定（インデックスの設定）"
+
+#~ msgid "Title tag of this term page"
+#~ msgstr "このタームページのタイトルタグ"
+
+#~ msgid "Description of this term page"
+#~ msgstr "このタームページのディスクリプション"
+
+#, fuzzy
+#~| msgid "Title tag of this term page"
+#~ msgid "og:image of this term page"
+#~ msgstr "このタームページのタイトルタグ"
 
 #~ msgid "Code to be embedded "
 #~ msgstr "埋め込まれるコード"

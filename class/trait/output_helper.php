@@ -239,23 +239,26 @@ trait Output_Helper {
 
 		if ( is_singular() || ( ! is_front_page() && is_home() ) ) {
 
+			// title
 			$title = get_the_title( $obj->ID );
 			$str   = str_replace( '%_page_title_%', $title, $str );
 
+			// description
 			if ( false !== strpos( $str, '%_page_contents_%' ) ) {
-
-				$content = $obj->post_content;
-				$content = strip_shortcodes( strip_tags( $content ) ); // phpcs:ignore
-				$content = str_replace( ["\r\n", "\r", "\n", '&nbsp;' ], '', $content ); // 改行削除
-				// $content = htmlspecialchars( $content, ENT_QUOTES, 'UTF-8' ); // -> esc_ は出力時に。
+				$content = wp_strip_all_tags( do_shortcode( $obj->post_content ), true ); // 改行なども削除
 				$content = mb_substr( $content, 0, 300 );
 				$str     = str_replace( '%_page_contents_%', $content, $str );
 			}
 		} elseif ( is_category() || is_tag() || is_tax() ) {
 
+			// title
 			$str = str_replace( ['%_cat_name_%', '%_tag_name_%', '%_term_name_%', '%_format_name_%' ], $obj->name, $str );
-			$str = str_replace( '%_term_description_%', strip_shortcodes( $obj->description ), $str );
 
+			// description
+			$term_desc = wp_strip_all_tags( do_shortcode( $obj->description ), true ); // 改行なども削除
+			$str       = str_replace( '%_term_description_%', $term_desc, $str );
+
+			// タクソノミー名
 			if ( false !== strpos( $str, '%_tax_name_%' ) ) {
 
 				$taxonomy_slug  = ( isset( $obj->taxonomy ) ) ? $obj->taxonomy : '';

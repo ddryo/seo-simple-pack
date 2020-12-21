@@ -16,6 +16,7 @@ class SSP_MetaBox {
 		'title'       => 'ssp_meta_title',
 		'description' => 'ssp_meta_description',
 		'keyword'     => 'ssp_meta_keyword',
+		'image'       => 'ssp_meta_image',
 	];
 
 	/**
@@ -25,6 +26,7 @@ class SSP_MetaBox {
 		'robots'      => 'ssp_meta_robots',
 		'title'       => 'ssp_meta_title',
 		'description' => 'ssp_meta_description',
+		'image'       => 'ssp_meta_image',
 	];
 
 	/**
@@ -48,17 +50,23 @@ class SSP_MetaBox {
 			'noindex,nofollow' => 'noindex,nofollow',
 		];
 
-		// post meta
+		// post meta追加
 		add_action( 'add_meta_boxes', [ 'SSP_MetaBox', 'add_ssp_metabox' ], 1 );
 		add_action( 'save_post', [ 'SSP_MetaBox', 'save_post_metas' ] );
 
-		// term meta
-		// add_action('category_add_form_fields', [ 'SSP_MetaBox', 'add_term_fields' ]);
-		// add_action('post_tag_add_form_fields', [ 'SSP_MetaBox', 'add_term_fields' ]);
-		add_action( 'category_edit_form_fields', [ 'SSP_MetaBox', 'add_term_edit_fields' ], 20 );
-		add_action( 'post_tag_edit_form_fields', [ 'SSP_MetaBox', 'add_term_edit_fields' ], 20 );
-		// add_action( 'created_term', [ 'SSP_MetaBox', 'save_term_metas' ] );  // 新規追加用 保存処理フック
-		add_action( 'edited_terms', [ 'SSP_MetaBox', 'save_term_metas' ] );   // 編集ページ用 保存処理フック
+		// term meta追加 -> init:99 で $custom_taxonomies セットしているのでそれよりあとで実行
+		add_action( 'wp_loaded', function() {
+			$tax_names = array_merge( ['category', 'post_tag' ], array_keys( SSP_Data::$custom_taxonomies ) );
+			foreach ( $tax_names as $tax_name ) {
+				add_action( $tax_name . '_edit_form_fields', [ 'SSP_MetaBox', 'add_term_edit_fields' ], 20 );
+				// add_action( $tax_name . '_add_form_fields', [ 'SSP_MetaBox', 'add_term_fields' ] );
+			}
+
+			// 保存処理フック
+			add_action( 'edited_terms', [ 'SSP_MetaBox', 'save_term_metas' ] );
+			// add_action( 'created_term', [ 'SSP_MetaBox', 'save_term_metas' ] );
+		});
+
 	}
 
 
@@ -95,6 +103,7 @@ class SSP_MetaBox {
 		$val_title       = get_post_meta( $post->ID, self::POST_META_KEYS['title'], true );
 		$val_description = get_post_meta( $post->ID, self::POST_META_KEYS['description'], true );
 		$val_keyword     = get_post_meta( $post->ID, self::POST_META_KEYS['keyword'], true );
+		$val_image       = get_post_meta( $post->ID, self::POST_META_KEYS['image'], true );
 
 		// 更新に伴う調節
 		if ( 'noindex,follow' === $val_robots ) {
@@ -113,7 +122,7 @@ class SSP_MetaBox {
 		<?php
 			// robots
 			self::output_field( self::POST_META_KEYS['robots'], [
-				'title'       => __( 'Overwrite setting of "robots" tag(Index setting)', 'loos-ssp' ),
+				'title'       => __( '"robots" tag of this page', 'loos-ssp' ),
 				'type'        => 'select',
 				'choices'     => self::$robots_options,
 				'desc'        => sprintf(
@@ -137,6 +146,12 @@ class SSP_MetaBox {
 				'type'        => 'textarea',
 				'desc'        => __( 'If blank, a description tag will be automatically generated from the content.', 'loos-ssp' ),
 			], $val_description );
+
+			// og:image
+			self::output_field( self::POST_META_KEYS['image'], [
+				'title'       => __( '"og:image" of this page', 'loos-ssp' ),
+				'type'        => 'media',
+			], $val_image );
 
 			// keywords
 			self::output_field( self::POST_META_KEYS['keyword'], [
@@ -202,6 +217,7 @@ class SSP_MetaBox {
 		$val_robots      = get_term_meta( $term->term_id, self::TERM_META_KEYS['robots'], true );
 		$val_title       = get_term_meta( $term->term_id, self::TERM_META_KEYS['title'], true );
 		$val_description = get_term_meta( $term->term_id, self::TERM_META_KEYS['description'], true );
+		$val_image       = get_term_meta( $term->term_id, self::TERM_META_KEYS['image'], true );
 
 		// @codingStandardsIgnoreStart
 	?>
@@ -213,7 +229,7 @@ class SSP_MetaBox {
 		<tr class="form-field">
 			<th>
 				<label for="<?=self::TERM_META_KEYS['robots']?>">
-					<?=esc_html__( '"robots" tag of this term page', 'loos-ssp' )?>
+					<?=esc_html__( '"robots" tag of this page', 'loos-ssp' )?>
 				</label>
 			</th>
 			<td>
@@ -223,7 +239,7 @@ class SSP_MetaBox {
 		<tr class="form-field">
 			<th>
 				<label for="<?=self::TERM_META_KEYS['title']?>">
-					<?=esc_html__( 'Title tag of this term page', 'loos-ssp' )?>
+					<?=esc_html__( 'Title tag of this page', 'loos-ssp' )?>
 				</label>
 			</th>
 			<td>
@@ -233,13 +249,24 @@ class SSP_MetaBox {
 		<tr class="form-field">
 			<th>
 				<label for="<?=self::TERM_META_KEYS['description']?>">
-					<?=esc_html__( 'Description of this term page', 'loos-ssp' )?>
+					<?=esc_html__( 'Description of this page', 'loos-ssp' )?>
 				</label>
 			</th>
 			<td>
 				<?php self::textarea( self::TERM_META_KEYS['description'], $val_description ) ?>
 			</td>
 		</tr>
+		<tr class="form-field">
+			<th>
+				<label for="<?=self::TERM_META_KEYS['image']?>">
+					<?=esc_html__( '"og:image" of this page', 'loos-ssp' )?>
+				</label>
+			</th>
+			<td>
+				<?php self::media_btns( self::TERM_META_KEYS['image'], $val_image ) ?>
+			</td>
+		</tr>
+
 	<?php
 		// @codingStandardsIgnoreEnd
 

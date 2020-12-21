@@ -7,7 +7,6 @@ class SSP_Data {
 	 */
 	private function __construct() {}
 
-
 	/**
 	 * 使用するDBの名前
 	 */
@@ -18,18 +17,15 @@ class SSP_Data {
 		'ogp'          => 'ssp_ogp',
 	];
 
-
 	/**
 	 * DB[ssp_settings]用変数
 	 */
 	public static $settings = '';
 
-
 	/**
 	 * DB[spp_ogp]用変数
 	 */
 	public static $ogp = '';
-
 
 	/**
 	 * サイト基本情報
@@ -42,18 +38,26 @@ class SSP_Data {
 	 */
 	public static $texts = '';
 
+	/**
+	 * 設定のデフォルト値
+	 */
+	public static $default_settings     = []; // 基本設定のデフォルト値
+	public static $default_ogp_settings = []; // OGP設定のデフォルト値
+	public static $default_pt_settings  = []; // カスタム投稿のフォーマット形式
+	public static $default_tax_settings = []; // カスタムタクソノミーのフォーマット形式
 
 	/**
-	 * NOUNCEキー アクション名
+	 * カスタム投稿タイプ・カスタムタクソノミーを保持しておくための変数。
+	 *   形式: [ 'name' => 'label' ]
+	 */
+	public static $custom_post_types = [];
+	public static $custom_taxonomies = [];
+
+	/**
+	 * nonce
 	 */
 	const NONCE_ACTION = 'ssp_nonce_action';
-
-
-	/**
-	 * NOUNCEキー name
-	 */
-	const NONCE_NAME = 'ssp_nonce_name';
-
+	const NONCE_NAME   = 'ssp_nonce_name';
 
 	/**
 	 * 区切り文字リスト
@@ -63,27 +67,6 @@ class SSP_Data {
 		'line'  => '|',
 		'tilde' => '~',
 	];
-
-
-	/**
-	 * 基本設定のデフォルト値
-	 */
-	public static $default_settings = [];
-
-	/**
-	 * OGP設定のデフォルト値
-	 */
-	public static $default_ogp_settings = [];
-
-	/**
-	 * カスタム投稿のフォーマット形式
-	 */
-	public static $default_pt_settings = [];
-
-	/**
-	 * カスタムタクソノミーのフォーマット形式
-	 */
-	public static $default_tax_settings = [];
 
 
 	/**

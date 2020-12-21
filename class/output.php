@@ -252,8 +252,6 @@ class SSP_Output {
 		}
 
 		$title = self::replace_snippets( $title );
-		$title = trim( strip_shortcodes( strip_tags( $title ) ) ); // phpcs:ignore
-
 		return apply_filters( 'ssp_output_title', $title );
 	}
 
@@ -412,8 +410,8 @@ class SSP_Output {
 				break;
 
 			case is_tax():
-				$term        = self::$obj->taxonomy;
-				$description = $settings[ $term . '_desc' ];
+				$meta_description = get_term_meta( self::$obj->term_id, SSP_MetaBox::TERM_META_KEYS['description'], true );
+				$description      = $meta_description ?: $settings[ self::$obj->taxonomy . '_desc' ];
 				break;
 
 			case is_post_type_archive():
@@ -542,21 +540,37 @@ class SSP_Output {
 	 * @return string : The og:image url.
 	 */
 	private static function generate_og_image() {
-		$og_image = SSP_Data::$ogp['og_image'];
 
-		if ( is_attachment() ) {
+		$og_image    = ''; // 返す値
+		$basic_ogimg = SSP_Data::$ogp['og_image'];
 
-			$og_image = self::$obj->guid;
+		switch ( true ) {
+			case is_attachment():
+				$og_image = self::$obj->guid ?: $basic_ogimg;
+				break;
+			case is_singular() || ( ! is_front_page() && is_home() ):
+				$the_id     = self::$obj->ID; // 投稿ID
+				$meta_image = get_post_meta( $the_id, SSP_MetaBox::POST_META_KEYS['image'], true );
 
-		} elseif ( is_singular() || ( ! is_front_page() && is_home() ) ) {
-
-			$the_id = self::$obj->ID;
-			if ( has_post_thumbnail( $the_id ) ) {
-				$thumb_id  = get_post_thumbnail_id( $the_id );
-				$thumb_url = wp_get_attachment_image_src( $thumb_id, 'full' );
-				$og_image  = $thumb_url[0];
-			}
+				if ( $meta_image ) {
+					$og_image = $meta_image;
+				} elseif ( has_post_thumbnail( $the_id ) ) {
+					$thumb_id  = get_post_thumbnail_id( $the_id );
+					$thumb_url = wp_get_attachment_image_src( $thumb_id, 'full' );
+					$og_image  = $thumb_url[0] ?: $basic_ogimg;
+				} else {
+					$og_image = $basic_ogimg;
+				}
+				break;
+			case is_tax() || is_tag() || is_category():
+				$meta_image = get_term_meta( self::$obj->term_id, SSP_MetaBox::TERM_META_KEYS['image'], true );
+				$og_image   = $meta_image ?: $basic_ogimg;
+				break;
+			default:
+				$og_image = $basic_ogimg;
+				break;
 		}
+
 		return apply_filters( 'ssp_output_og_image', $og_image );
 	}
 
