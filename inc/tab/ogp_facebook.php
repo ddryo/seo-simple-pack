@@ -2,22 +2,21 @@
 /**
  * Facebook タブ
  */
-self::output_section( __( 'Facebook設定', 'loos-ssp' ), [
+self::output_section( __( 'Facebook settings', 'loos-ssp' ), [
 	'fb_active' => [
-		'title' => sprintf( SSP_Data::$texts['use'], __( 'Facebook用設定', 'loos-ssp' ) ),
+		'title' => sprintf( SSP_Data::$texts['use'], __( 'meta tags for Facebook', 'loos-ssp' ) ),
 		'type'  => 'switch',
-		'desc'  => __( 'Facebook用のOGPタグを出力するかどうかの設定です。', 'loos-ssp' ),
 	],
 	'fb_url' => [
-		'title' => __( 'FacebookページのURL', 'loos-ssp' ),
+		'title' => __( 'Facebook page URL', 'loos-ssp' ),
 		'desc'  => sprintf( SSP_Data::$texts['reflect'], '<code>article:publisher</code>' ),
 	],
 	'fb_app_id' => [
 		'title' => 'fb:app_id',
-		'desc'  => sprintf( SSP_Data::$texts['input'], __( 'FacebookアプリID', 'loos-ssp' ) ),
+		'desc'  => sprintf( SSP_Data::$texts['input'], __( 'Facebook app ID', 'loos-ssp' ) ),
 	],
 	'fb_admins' => [
 		'title' => 'fb:admins',
-		'desc'  => sprintf( SSP_Data::$texts['input'], __( 'アプリ管理者の FacebookID', 'loos-ssp' ) ),
+		'desc'  => sprintf( SSP_Data::$texts['input'], __( 'App administrator\'s Facebook ID', 'loos-ssp' ) ),
 	],
 ], 'ogp' );

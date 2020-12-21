@@ -104,10 +104,11 @@ class SSP_Data {
 			'use'                  => __( 'Use %s', 'loos-ssp' ), // %sを使用する
 			'nouse'                => __( 'Do not use %s', 'loos-ssp' ), // を使用しない
 			'noindex'              => __( 'Do not index %s', 'loos-ssp' ), // sをインデックスさせない
-			'noindex_help'         => __( 'If you select Yes, the default output will be <code>noindex</code>.', 'loos-ssp' ),
+			'noindex_help'         => __( 'If you select "Yes", the default output will be <code>noindex</code>.', 'loos-ssp' ),
 			'default_output'       => __( 'The default setting of %2$s to be output to %1$s.', 'loos-ssp' ),
 			'input'                => __( 'Please enter %s.', 'loos-ssp' ),
 			'reflect'              => __( 'It will be reflected in %s.', 'loos-ssp' ),
+			'archive_desc'         => __( 'This is the archive page for %s.', 'loos-ssp' ),
 		];
 
 		// 設定のデフォルト値をセット
@@ -173,25 +174,24 @@ class SSP_Data {
 			'tag_noindex'           => true,
 			'tag_title'             => '%_tag_name_% %_sep_% %_site_title_%',
 			'tag_desc'              => '%_term_description_%',
-			'post_format_disable'   => true,
+			'post_format_disable'   => false,
 			'post_format_noindex'   => true,
 			'post_format_title'     => '%_format_name_% %_sep_% %_site_title_%',
-			'post_format_desc'      => '投稿フォーマット「%_format_name_%」の一覧ページです。',
+			'post_format_desc'      => '',
 			'author_disable'        => false,
 			'author_noindex'        => true,
 			'author_title'          => '%_author_name_% %_sep_% %_site_title_%',
-			'author_desc'           => '%_author_name_% の執筆記事一覧ページです。',
+			'author_desc'           => sprintf( self::$texts['archive_desc'], '%_author_name_%' ),
 			'date_noindex'          => true,
 			'date_title'            => '%_date_% %_sep_% %_site_title_%',
-			'date_desc'             => '%_date_% の記事一覧ページです。',
+			'date_desc'             => sprintf( self::$texts['archive_desc'], '%_date_%' ),
 			'pt_archive_noindex'    => true,
 			'pt_archive_title'      => '%_post_type_% %_sep_% %_site_title_%',
-			'pt_archive_desc'       => '「%_post_type_%」の記事一覧ページです',
-			'404_title'             => 'ページが見つかりませんでした。 %_sep_% %_site_title_%',
+			'pt_archive_desc'       => sprintf( self::$texts['archive_desc'], '%_post_type_%' ),
+			'404_title'             => '404: ' . __( 'Page not found', 'loos-ssp' ) . ' %_sep_% %_site_title_%',
 			'search_title'          => '検索結果: %_search_phrase_% %_sep_% %_site_title_%',
 		];
-
-		// '%sの記事一覧ページです'
+		// ページが見つかりませんでした。
 
 		self::$default_ogp_settings = [
 			'og_image'   => '',

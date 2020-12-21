@@ -2,7 +2,7 @@
 /**
  * Googleアナリティクス タブ
  */
-self::output_section( __( 'Googleアナリティクス設定', 'loos-ssp' ), [
+self::output_section( __( 'Google Analytics settings', 'loos-ssp' ), [
 	'google_analytics_type' => [
 		'title'       => __( 'トラッキングコードの種類', 'loos-ssp' ),
 		'type'        => 'select',

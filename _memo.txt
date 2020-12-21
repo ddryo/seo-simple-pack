@@ -1,0 +1,8 @@
+投稿フォーマットのテスト時
+
+```
+add_theme_support( 'post-formats', [ 'aside', 'gallery' ] );
+```
+
+投稿フォーマットのアーカイブURL : /type/aside/
+（ is_tax() が true となる。）

@@ -4,13 +4,13 @@
  */
 
 // 著者アーカイブ
-$the_title    = __( '著者', 'loos-ssp' );
+$the_title    = __( 'Author', 'loos-ssp' );
 $quoted_title = sprintf( SSP_Data::$texts['quoted_archive_title'], $the_title );
 self::output_section( $quoted_title, [
 	'author_disable' => [
 		'title'       => sprintf( SSP_Data::$texts['nouse'], $quoted_title ),
 		'type'        => 'switch',
-		'desc'        => '「はい」を選択すると「著者アーカイブ」へアクセスしてもトップページへリダイレクトされます。',
+		'desc'        => sprintf( __( 'If you select "Yes", you will be redirected to the Home even if you access %s.', 'loos-ssp' ), $quoted_title ),
 	],
 	'author_noindex' => [
 		'title'       => sprintf( SSP_Data::$texts['noindex'], $quoted_title ),
@@ -31,7 +31,7 @@ self::output_section( $quoted_title, [
 
 
 // 日付アーカイブ
-$the_title    = __( '日付', 'loos-ssp' );
+$the_title    = __( 'Date', 'loos-ssp' );
 $quoted_title = sprintf( SSP_Data::$texts['quoted_archive_title'], $the_title );
 self::output_section( $quoted_title, [
 	'date_noindex' => [
@@ -53,7 +53,7 @@ self::output_section( $quoted_title, [
 
 
 // カスタム投稿　タイプアーカイブ
-$the_title    = __( 'カスタム投稿タイプ', 'loos-ssp' );
+$the_title    = __( 'Custom Post Type', 'loos-ssp' );
 $quoted_title = sprintf( SSP_Data::$texts['quoted_archive_title'], $the_title );
 self::output_section( $quoted_title, [
 	'pt_archive_noindex' => [

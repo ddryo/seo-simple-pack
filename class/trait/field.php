@@ -32,8 +32,8 @@ trait Field {
 			<div class="ssp-page__section__body">
 				<?php
 					foreach ( $table_rows as $name => $args ) :
-						$now_value = isset( $db[ $name ] ) ? $db[ $name ] : '';
-						self::output_field( $name, $args, $now_value );
+					$now_value = isset( $db[ $name ] ) ? $db[ $name ] : '';
+					self::output_field( $name, $args, $now_value );
 					endforeach;
 				?>
 			</div>
@@ -58,9 +58,11 @@ trait Field {
 				'item'        => '',
 			], $args );
 
-			$data_disable = '';
+			$add_data = '';
 			if ( strpos( $name, '_disable' ) !== false ) {
-			$data_disable = ' data-disable="' . esc_attr( (int) $now_value ) . '"';
+				$add_data = ' data-disable="' . esc_attr( (int) $now_value ) . '"';
+			} elseif ( strpos( $name, 'tw_active' ) !== false || strpos( $name, 'fb_active' ) !== false ) {
+				$add_data = ' data-active="' . esc_attr( (int) $now_value ) . '"';
 			}
 
 			// if ( $args['reqired'] ) {
@@ -68,7 +70,7 @@ trait Field {
 			// }
 
 		?>
-			<div class="ssp-field"<?=$data_disable?>>
+			<div class="ssp-field"<?=$add_data?>>
 				<label for="<?=esc_attr( $name )?>" class="ssp-field__title">
 					<?=esc_html( $args['title'] ) ?>
 				</label>
@@ -93,7 +95,7 @@ trait Field {
 							<div class="ssp-field__preview__content">
 								<?=wp_kses_post( self::replace_snippets_forpv( $now_value ) )?>
 							</div>
-							<a href="<?=esc_url( admin_url( 'admin.php?page=ssp_help' ) )?>" target="_blank" title="<?=esc_html__( '使用可能なスニペットタグについて', 'loos-ssp' )?>" class="ssp-helpButton">?</a>
+							<a href="<?=esc_url( admin_url( 'admin.php?page=ssp_help' ) )?>" target="_blank" title="<?=esc_html__( 'About available snippet tags', 'loos-ssp' )?>" class="ssp-helpButton">?</a>
 						</div>
 					<?php endif; ?>
 				</div>
@@ -157,12 +159,12 @@ trait Field {
 
 		$checked = ( $is_checked ) ? 'checked' : '';
 	?>
-		<span><?=esc_html__( 'はい', 'loos-ssp' )?></span>
+		<span><?=esc_html__( 'Yes', 'loos-ssp' )?></span>
 			<label class="ssp_switch_box" for="<?=esc_attr( $name )?>">
 				<input type="checkbox" name="" id="<?=esc_attr( $name )?>" <?=$checked?>>
 				<span class="ssp_switch_box__slider -round"></span>
 			</label>
-			<span><?=esc_html__( 'いいえ', 'loos-ssp' )?></span>
+			<span><?=esc_html__( 'No', 'loos-ssp' )?></span>
 			<input type="hidden" name="<?=esc_attr( $name )?>" value="<?=esc_attr( $is_checked )?>">
 	<?php
 	}
@@ -216,7 +218,7 @@ trait Field {
 				<div id="preview_<?=esc_attr( $name )?>" class="ssp-media__preview"></div>
 			<?php endif; ?>
 			<div class="ssp-media__null">
-				<?=esc_html__( 'まだ画像が設定されていません。', 'loos-ssp' )?>
+				<?=esc_html__( 'No image has been set yet.', 'loos-ssp' )?>
 			</div>
 			<div class="ssp-media__btns">
 				<button type="button" class="button button-primary" name="ssp-media-upload" data-id="<?=esc_attr( $name )?>">
@@ -239,18 +241,18 @@ trait Field {
 		$str = str_replace( '%_site_title_%', '<span>' . \SSP_Data::$site_title . '</span>', $str );
 		$str = str_replace( '%_phrase_%', '<span>' . \SSP_Data::$site_catch_phrase . '</span>', $str );
 		$str = str_replace( '%_description_%', \SSP_Data::$settings['home_desc'], $str );
-		$str = str_replace( '%_page_title_%', '<span>投稿タイトル</span>', $str );
-		$str = str_replace( '%_cat_name_%', '<span>カテゴリー名</span>', $str );
-		$str = str_replace( '%_tag_name_%', '<span>タグ名</span>', $str );
-		$str = str_replace( '%_term_name_%', '<span>ターム名</span>', $str );
-		$str = str_replace( '%_tax_name_%', '<span>タクソノミー名</span>', $str );
-		$str = str_replace( '%_author_name_%', '<span>著者名(ニックネーム)</span>', $str );
-		$str = str_replace( '%_search_phrase_%', '<span>検索ワード</span>', $str );
-		$str = str_replace( '%_post_type_%', '<span>投稿タイプ名</span>', $str );
-		$str = str_replace( '%_page_contents_%', '<span>投稿コンテンツ</span>', $str );
-		$str = str_replace( '%_date_%', '<span>日付</span>', $str );
-		$str = str_replace( '%_format_name_%', '<span>フォーマット名</span>', $str );
-		$str = str_replace( '%_term_description_%', '<span>タームの説明</span>', $str );
+		$str = str_replace( '%_page_title_%', '<span>' . __( 'Post title', 'loos-ssp' ) . '</span>', $str );
+		$str = str_replace( '%_cat_name_%', '<span>' . __( 'Category name', 'loos-ssp' ) . '</span>', $str );
+		$str = str_replace( '%_tag_name_%', '<span>' . __( 'Tag name', 'loos-ssp' ) . '</span>', $str );
+		$str = str_replace( '%_term_name_%', '<span>' . __( 'Term name', 'loos-ssp' ) . '</span>', $str );
+		$str = str_replace( '%_tax_name_%', '<span>' . __( 'Taxonomy name', 'loos-ssp' ) . '</span>', $str );
+		$str = str_replace( '%_author_name_%', '<span>' . __( 'Author name', 'loos-ssp' ) . '</span>', $str );
+		$str = str_replace( '%_search_phrase_%', '<span>' . __( 'Search word', 'loos-ssp' ) . '</span>', $str );
+		$str = str_replace( '%_post_type_%', '<span>' . __( 'Post type name', 'loos-ssp' ) . '</span>', $str );
+		$str = str_replace( '%_page_contents_%', '<span>' . __( 'Page content', 'loos-ssp' ) . '</span>', $str );
+		$str = str_replace( '%_date_%', '<span>' . __( 'Date', 'loos-ssp' ) . '</span>', $str );
+		$str = str_replace( '%_format_name_%', '<span>' . __( 'Post format name', 'loos-ssp' ) . '</span>', $str );
+		$str = str_replace( '%_term_description_%', '<span>' . __( 'Term description', 'loos-ssp' ) . '</span>', $str );
 
 		if ( strpos( $str, '%_sep_%' ) !== false ) {
 

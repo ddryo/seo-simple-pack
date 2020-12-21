@@ -113,6 +113,8 @@ class SSP_Hooks {
 			wp_safe_redirect( $home );
 			exit;
 		}
+
+		// check: /type/aside
 		if ( is_tax() && SSP_Data::$settings['post_format_disable'] ) {
 			if ( 'post_format' === get_queried_object()->taxonomy ) {
 				wp_safe_redirect( $home );

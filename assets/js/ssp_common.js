@@ -10,6 +10,8 @@
 
 			if (p.attr('data-disable') !== undefined) {
 				p.attr('data-disable', Number(val));
+			} else if (p.attr('data-active') !== undefined) {
+				p.attr('data-active', Number(val));
 			}
 		}, 10);
 	});

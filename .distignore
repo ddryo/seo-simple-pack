@@ -16,4 +16,6 @@ package.json
 package-lock.json
 postcss.config.js
 webpack.config.js
+phpcs.xml
 README.md
+_memo.txt

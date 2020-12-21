@@ -269,7 +269,7 @@ trait Output_Helper {
 			}
 		} elseif ( is_category() || is_tag() || is_tax() ) {
 
-			$str = str_replace( ['%_cat_name_%', '%_tag_name_%', '%_term_name_%' ], $obj->name, $str );
+			$str = str_replace( ['%_cat_name_%', '%_tag_name_%', '%_term_name_%', '%_format_name_%' ], $obj->name, $str );
 			$str = str_replace( '%_term_description_%', strip_shortcodes( $obj->description ), $str );
 
 			if ( false !== strpos( $str, '%_tax_name_%' ) ) {
@@ -282,11 +282,10 @@ trait Output_Helper {
 			}
 		} else {
 			// その他のページ
-			$obj_name  = ( isset( $obj->name ) ) ? $obj->name : '';
+			// $obj_name  = ( isset( $obj->name ) ) ? $obj->name : '';
 			$obj_label = ( isset( $obj->label ) ) ? $obj->label : '';
 
 			$str = str_replace( '%_post_type_%', $obj_label, $str );
-			$str = str_replace( '%_format_name_%', $obj_name, $str );
 
 			if ( strpos( $str, '%_date_%' ) !== false ) {
 

@@ -12,6 +12,11 @@
 		display: none;
 	}
 
+	&[data-active="0"] ~ .ssp-field {
+		opacity: 0.5;
+		pointer-events: none;
+	}
+
 
 	input[type="text"],
 	textarea {
@@ -20,9 +25,7 @@
 	}
 
 
-	select {
-		// min-width: 15em;
-	}
+	// select {}
 
 	.hide {
 		display: none;

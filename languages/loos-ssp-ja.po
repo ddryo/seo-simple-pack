@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: SEO SIMPLE PACK\n"
-"POT-Creation-Date: 2020-12-14 21:29+0900\n"
-"PO-Revision-Date: 2020-12-14 21:29+0900\n"
+"POT-Creation-Date: 2020-12-21 12:24+0900\n"
+"PO-Revision-Date: 2020-12-21 12:24+0900\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: ja\n"
@@ -24,78 +24,87 @@ msgstr ""
 "X-Poedit-SearchPathExcluded-2: assets\n"
 "X-Poedit-SearchPathExcluded-3: node_modules\n"
 
-#: class/data.php:174 inc/tab/top_post_type.php:60 inc/tab/top_taxonomy.php:58
+#: class/data.php:96 inc/tab/top_post_type.php:60 inc/tab/top_taxonomy.php:58
 #, php-format
 msgid "\"%s\""
 msgstr "「%s」"
 
-#: class/data.php:175
+#: class/data.php:97
 #, php-format
 msgid "\"%s\" archive page"
 msgstr "「%s」のアーカイブページ"
 
-#: class/data.php:176
+#: class/data.php:98
 #, php-format
 msgid "This content is treated as %s."
 msgstr "この内容は %s として扱われます。"
 
-#: class/data.php:177
+#: class/data.php:99
 #, php-format
 msgid "Title tag of %s"
 msgstr "%sのタイトルタグ"
 
-#: class/data.php:178
+#: class/data.php:100
 #, php-format
 msgid "Description of %s"
 msgstr "%sのディスクリプション"
 
-#: class/data.php:179
+#: class/data.php:101
 #, php-format
 msgid "Keywords of %s"
 msgstr "%sのキーワード"
 
-#: class/data.php:180
+#: class/data.php:102
 msgid "Title tag format"
 msgstr "タイトルタグの形式"
 
-#: class/data.php:181
+#: class/data.php:103
 msgid "Description format"
 msgstr "ディスクリプションの形式"
 
-#: class/data.php:182
+#: class/data.php:104
 #, php-format
 msgid "Use %s"
 msgstr "%sを使用する"
 
-#: class/data.php:183
+#: class/data.php:105
 #, php-format
 msgid "Do not use %s"
 msgstr "%sを使用しない"
 
-#: class/data.php:184
+#: class/data.php:106
 #, php-format
 msgid "Do not index %s"
 msgstr "%sをインデックスさせない"
 
-#: class/data.php:185
-msgid "If you select Yes, the default output will be <code>noindex</code>."
+#: class/data.php:107
+msgid "If you select \"Yes\", the default output will be <code>noindex</code>."
 msgstr ""
 "「はい」を選択するとデフォルトの出力が <code>noindex</code> となります。"
 
-#: class/data.php:186
+#: class/data.php:108
 #, php-format
 msgid "The default setting of %2$s to be output to %1$s."
 msgstr "%1$sに出力する %2$s のデフォルト設定。"
 
-#: class/data.php:187
+#: class/data.php:109
 #, php-format
 msgid "Please enter %s."
 msgstr "%sを入力して下さい。"
 
-#: class/data.php:188
+#: class/data.php:110
 #, php-format
 msgid "It will be reflected in %s."
 msgstr "%sに反映されます。"
+
+#: class/data.php:111
+#, php-format
+msgid "This is the archive page for %s."
+msgstr "%sの記事一覧ページです。"
+
+#: class/data.php:191
+msgid "Page not found"
+msgstr "ページが見つかりませんでした"
 
 #: class/menu.php:30 class/menu.php:39 inc/tab/top_basic.php:24
 msgid "Basic setting"
@@ -157,7 +166,7 @@ msgstr "リンクを辿らせない"
 msgid "Don't cache"
 msgstr "キャッシュさせない"
 
-#: class/metabox.php:78
+#: class/metabox.php:78 class/metabox.php:210
 msgid "SEO SIMPLE PACK Settings"
 msgstr "SEO SIMPLE PACK 設定"
 
@@ -221,47 +230,95 @@ msgstr "このタームページのタイトルタグ"
 msgid "Description of this term page"
 msgstr "このタームページのディスクリプション"
 
-#: class/trait/field.php:91
+#: class/trait/field.php:93
 msgid "Preview"
 msgstr "プレビュー"
 
-#: class/trait/field.php:96
-msgid "使用可能なスニペットタグについて"
-msgstr ""
+#: class/trait/field.php:98
+msgid "About available snippet tags"
+msgstr "使用可能なスニペットタグについて"
 
-#: class/trait/field.php:160
-msgid "はい"
-msgstr ""
+#: class/trait/field.php:162
+msgid "Yes"
+msgstr "はい"
 
-#: class/trait/field.php:165
-msgid "いいえ"
-msgstr ""
+#: class/trait/field.php:167
+msgid "No"
+msgstr "いいえ"
 
-#: class/trait/field.php:219
-msgid "まだ画像が設定されていません。"
-msgstr ""
+#: class/trait/field.php:221
+msgid "No image has been set yet."
+msgstr "まだ画像が設定されていません。"
 
-#: class/trait/field.php:223
+#: class/trait/field.php:225
 msgid "Select image"
-msgstr ""
+msgstr "画像を選択"
 
-#: class/trait/field.php:226
+#: class/trait/field.php:228
 msgid "Delete image"
-msgstr ""
+msgstr "画像を削除"
 
-#: class/trait/output_helper.php:305
+#: class/trait/field.php:244 inc/page_help.php:9
+msgid "Post title"
+msgstr "投稿のタイトル"
+
+#: class/trait/field.php:245 inc/page_help.php:10
+msgid "Category name"
+msgstr "カテゴリー名"
+
+#: class/trait/field.php:246 inc/page_help.php:11
+msgid "Tag name"
+msgstr "タグ名"
+
+#: class/trait/field.php:247 inc/page_help.php:12
+msgid "Term name"
+msgstr "ターム名"
+
+#: class/trait/field.php:248 inc/page_help.php:14
+msgid "Taxonomy name"
+msgstr "タクソノミー名"
+
+#: class/trait/field.php:249 inc/page_help.php:18
+msgid "Author name"
+msgstr "著者名"
+
+#: class/trait/field.php:250 inc/page_help.php:19
+msgid "Search word"
+msgstr "検索ワード"
+
+#: class/trait/field.php:251 inc/page_help.php:15
+msgid "Post type name"
+msgstr "投稿タイプ名"
+
+#: class/trait/field.php:252 inc/page_help.php:16
+msgid "Page content"
+msgstr "ページコンテンツ"
+
+#: class/trait/field.php:253 inc/tab/top_archive.php:34
+msgid "Date"
+msgstr "日付"
+
+#: class/trait/field.php:254 inc/page_help.php:20
+msgid "Post format name"
+msgstr "投稿フォーマット名"
+
+#: class/trait/field.php:255 inc/page_help.php:13
+msgid "Term description"
+msgstr "タームの説明"
+
+#: class/trait/output_helper.php:304
 #, php-format
 msgctxt "date"
 msgid "%2$s %3$s, %1$s"
 msgstr "%1$s年%2$s%3$s日"
 
-#: class/trait/output_helper.php:307
+#: class/trait/output_helper.php:306
 #, php-format
 msgctxt "date"
 msgid "%2$s %1$s"
 msgstr "%1$s年%2$s"
 
-#: class/trait/output_helper.php:309
+#: class/trait/output_helper.php:308
 #, php-format
 msgctxt "date"
 msgid "%s"
@@ -279,53 +336,9 @@ msgstr "サイトのキャッチフレーズ"
 msgid "Home description"
 msgstr "ホームのディスクリプション"
 
-#: inc/page_help.php:9
-msgid "Post title"
-msgstr "投稿のタイトル"
-
-#: inc/page_help.php:10
-msgid "Category name"
-msgstr "カテゴリー名"
-
-#: inc/page_help.php:11
-msgid "Tag name"
-msgstr "タグ名"
-
-#: inc/page_help.php:12
-msgid "Term name"
-msgstr "ターム名"
-
-#: inc/page_help.php:13
-msgid "Term description"
-msgstr "タームの説明"
-
-#: inc/page_help.php:14
-msgid "Taxonomy name"
-msgstr "タクソノミー名"
-
-#: inc/page_help.php:15
-msgid "Post type name"
-msgstr "投稿タイプ名"
-
-#: inc/page_help.php:16
-msgid "Page content"
-msgstr "ページコンテンツ"
-
 #: inc/page_help.php:17
 msgid "The date that is searching in the date archive"
 msgstr "日付アーカイブで検索中の日付"
-
-#: inc/page_help.php:18
-msgid "Author name"
-msgstr "著者名"
-
-#: inc/page_help.php:19
-msgid "Search word"
-msgstr "検索ワード"
-
-#: inc/page_help.php:20
-msgid "Post format name"
-msgstr "投稿フォーマット名"
 
 #: inc/page_help.php:21 inc/tab/top_basic.php:40
 msgid "Delimiter"
@@ -361,80 +374,72 @@ msgid "Save settings"
 msgstr "設定を保存する"
 
 #: inc/tab/ogp_basic.php:9
-msgid "サイト全体のデフォルト設定です。"
-msgstr ""
+msgid "This is the default setting for the entire site."
+msgstr "サイト全体のデフォルト設定です。"
 
 #: inc/tab/ogp_basic.php:10
-msgid "投稿ページでは、「アイキャッチ画像」が優先されます。"
-msgstr ""
+msgid "On the Post page, \"Featured Image\" have priority."
+msgstr "投稿ページでは、「アイキャッチ画像」が優先されます。"
 
 #: inc/tab/ogp_basic.php:11
-msgid "Facebookの推奨サイズは 1200×630px です。"
-msgstr ""
+msgid "Facebook's recommended size is 1200 x 630px."
+msgstr "Facebookの推奨サイズは 1200×630px です。"
 
 #: inc/tab/ogp_basic.php:14
-msgid "OGPタグの基本設定"
-msgstr ""
+msgid "Basic settings for OGP tags"
+msgstr "OGPタグの基本設定"
 
 #: inc/tab/ogp_basic.php:16
-msgid "og:image 画像"
-msgstr ""
+msgid "Image of \"og:image\""
+msgstr "“og:image”の画像"
 
 #: inc/tab/ogp_facebook.php:5
-msgid "Facebook設定"
-msgstr ""
+msgid "Facebook settings"
+msgstr "Facebook設定"
 
 #: inc/tab/ogp_facebook.php:7
-msgid "Facebook用設定"
-msgstr ""
+msgid "meta tags for Facebook"
+msgstr "Facebook用のメタタグ"
 
-#: inc/tab/ogp_facebook.php:9
-msgid "Facebook用のOGPタグを出力するかどうかの設定です。"
-msgstr ""
+#: inc/tab/ogp_facebook.php:11
+msgid "Facebook page URL"
+msgstr "FacebookページのURL"
 
-#: inc/tab/ogp_facebook.php:12
-msgid "FacebookページのURL"
-msgstr ""
+#: inc/tab/ogp_facebook.php:16
+msgid "Facebook app ID"
+msgstr "FacebookのアプリID"
 
-#: inc/tab/ogp_facebook.php:17
-msgid "FacebookアプリID"
-msgstr ""
-
-#: inc/tab/ogp_facebook.php:21
-msgid "アプリ管理者の FacebookID"
-msgstr ""
+#: inc/tab/ogp_facebook.php:20
+msgid "App administrator's Facebook ID"
+msgstr "アプリ管理者の Facebook ID"
 
 #: inc/tab/ogp_twitter.php:5
-msgid "Twitter設定"
-msgstr ""
+msgid "Twitter settings"
+msgstr "Twitter設定"
 
 #: inc/tab/ogp_twitter.php:7
-msgid "Twitter用設定"
-msgstr ""
-
-#: inc/tab/ogp_twitter.php:9
-msgid "Twitter用のOGPタグを出力するかどうかの設定です。"
-msgstr ""
+msgid "meta tags for Twitter"
+msgstr "Twitter用のメタタグ"
 
 #: inc/tab/ogp_twitter.php:12
-msgid "Twitterアカウント名"
-msgstr ""
+msgid "Twitter account name"
+msgstr "Twitterアカウント名"
 
 #: inc/tab/ogp_twitter.php:13
-msgid "<code>@xxx</code>の「xxx」部分"
-msgstr ""
+msgid "The \"xxx\" part of <code>@xxx</code>"
+msgstr "<code>@xxx</code>の「xxx」部分"
 
 #: inc/tab/ogp_twitter.php:16
-msgid "カードタイプ"
-msgstr ""
+msgid "Card type"
+msgstr "カードタイプ"
 
 #: inc/tab/ogp_twitter.php:23
-msgid "SNSなどでシェアした時のカードサイズが変化します。"
-msgstr ""
+msgid "The card size will change when you share it on SNS."
+msgstr "SNSなどでシェアした時のカードサイズが変化します。"
 
 #: inc/tab/top_analytics.php:5
-msgid "Googleアナリティクス設定"
-msgstr ""
+msgid "Google Analytics settings"
+msgstr "Googleアナリティクス設定"
 
 #: inc/tab/top_analytics.php:7
 msgid "トラッキングコードの種類"
@@ -463,16 +468,20 @@ msgid ""
 msgstr ""
 
 #: inc/tab/top_archive.php:7
-msgid "著者"
-msgstr ""
+msgid "Author"
+msgstr "著者"
 
-#: inc/tab/top_archive.php:34
-msgid "日付"
+#: inc/tab/top_archive.php:13 inc/tab/top_taxonomy.php:96
+#, php-format
+msgid ""
+"If you select \"Yes\", you will be redirected to the Home even if you access "
+"%s."
 msgstr ""
+"「はい」を選択すると、%sへアクセスしてもトップページへリダイレクトされます。"
 
-#: inc/tab/top_archive.php:56 inc/tab/top_post_type.php:60
-msgid "カスタム投稿タイプ"
-msgstr ""
+#: inc/tab/top_archive.php:56
+msgid "Custom Post Type"
+msgstr "カスタム投稿タイプ"
 
 #: inc/tab/top_archive.php:78
 msgid ""
@@ -540,46 +549,51 @@ msgstr ""
 msgid "固定ページ"
 msgstr ""
 
+#: inc/tab/top_post_type.php:60
+msgid "カスタム投稿タイプ"
+msgstr ""
+
 #: inc/tab/top_post_type.php:86
 msgid "メディアページ"
 msgstr ""
 
 #: inc/tab/top_taxonomy.php:7
-msgid "カテゴリー"
-msgstr ""
+msgid "Category"
+msgstr "カテゴリー"
 
 #: inc/tab/top_taxonomy.php:30
-msgid "タグ"
-msgstr ""
+msgid "Tag"
+msgstr "タグ"
 
 #: inc/tab/top_taxonomy.php:58
-msgid "タクソノミー"
-msgstr ""
+msgid "Taxonomy"
+msgstr "タクソノミー"
 
 #: inc/tab/top_taxonomy.php:90
-msgid "投稿フォーマット"
-msgstr ""
+msgid "Post Format"
+msgstr "投稿フォーマット"
 
 #: inc/tab/top_webmaster.php:7
-msgid "Googleサーチコンソール"
-msgstr ""
+msgid "Google Search Console"
+msgstr "Googleサーチコンソール"
 
 #: inc/tab/top_webmaster.php:15
-msgid "埋め込まれるコード "
-msgstr ""
+msgid "Output code "
+msgstr "出力コード"
 
 #: inc/tab/top_webmaster.php:16
-msgid "入力コード"
-msgstr ""
+msgctxt "input"
+msgid "Your code"
+msgstr "入力コード"
 
 #: inc/tab/top_webmaster.php:19
 #, php-format
-msgid "%sの認証コード"
-msgstr ""
+msgid "Authentication code for %s"
+msgstr "%sの認証コード"
 
 #: inc/tab/top_webmaster.php:24
-msgid "ウェブマスターツール認証コード"
-msgstr ""
+msgid "Webmaster Tools Certification Code"
+msgstr "ウェブマスターツール認証コード"
 
 #. Plugin Name of the plugin/theme
 msgid "SEO SIMPLE PACK"
@@ -605,6 +619,9 @@ msgstr "LOOS WEB STUDIO"
 msgid "https://loos-web-studio.com/"
 msgstr "https://loos-web-studio.com/"
 
+#~ msgid "Code to be embedded "
+#~ msgstr "埋め込まれるコード"
+
 #~ msgid "If blank, the output will be in the default format."
 #~ msgstr "空白の場合、デフォルトの形式で出力されます。"
 
@@ -614,9 +631,6 @@ msgstr "https://loos-web-studio.com/"
 #, php-format
 #~ msgid "It is the setting of %s that is output to the home page."
 #~ msgstr "ホームページに出力する %s の設定です。"
-
-#~ msgid "tag"
-#~ msgstr "タグ"
 
 #~ msgid "Keyword"
 #~ msgstr "キーワード"

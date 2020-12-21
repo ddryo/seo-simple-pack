@@ -4,7 +4,7 @@
  */
 
 // カテゴリー
-$tax_title    = __( 'カテゴリー', 'loos-ssp' );
+$tax_title    = __( 'Category', 'loos-ssp' );
 $quoted_title = sprintf( SSP_Data::$texts['quoted_archive_title'], $tax_title );
 self::output_section( $tax_title, [
 	'cat_noindex' => [
@@ -27,7 +27,7 @@ self::output_section( $tax_title, [
 
 
 // タグ
-$tax_title    = __( 'タグ', 'loos-ssp' );
+$tax_title    = __( 'Tag', 'loos-ssp' );
 $quoted_title = sprintf( SSP_Data::$texts['quoted_archive_title'], $tax_title );
 self::output_section( $tax_title, [
 	'tag_noindex' => [
@@ -55,7 +55,7 @@ $taxonomies = get_taxonomies( [
 ], 'objects', 'and' );
 foreach ( $taxonomies as $tax_obj ) {
 
-	$tax_title    = __( 'タクソノミー', 'loos-ssp' ) . ' : ' . sprintf( __( '"%s"', 'loos-ssp' ), $tax_obj->label );
+	$tax_title    = __( 'Taxonomy', 'loos-ssp' ) . ' : ' . sprintf( __( '"%s"', 'loos-ssp' ), $tax_obj->label );
 	$quoted_title = sprintf( SSP_Data::$texts['quoted_archive_title'], $tax_obj->label );
 	self::output_section( $tax_title, [
 		$tax_obj->name . '_noindex' => [
@@ -87,13 +87,13 @@ foreach ( $taxonomies as $tax_obj ) {
 
 
 // 投稿フォーマット
-$tax_title    = __( '投稿フォーマット', 'loos-ssp' );
+$tax_title    = __( 'Post Format', 'loos-ssp' );
 $quoted_title = sprintf( SSP_Data::$texts['quoted_archive_title'], $tax_title );
 self::output_section( $tax_title, [
 	'post_format_disable' => [
 		'title' => sprintf( SSP_Data::$texts['nouse'], $quoted_title ),
 		'type'  => 'switch',
-		'desc'  => '「はい」を選択すると「投稿フォーマット」のアーカイブページへアクセスしてもトップページへリダイレクトされます。',
+		'desc'  => sprintf( __( 'If you select "Yes", you will be redirected to the Home even if you access %s.', 'loos-ssp' ), $quoted_title ),
 	],
 	'post_format_noindex' => [
 		'title' => sprintf( SSP_Data::$texts['noindex'], $quoted_title ),
