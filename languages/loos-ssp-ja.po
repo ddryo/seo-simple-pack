@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: SEO SIMPLE PACK\n"
-"POT-Creation-Date: 2020-12-21 23:24+0900\n"
-"PO-Revision-Date: 2020-12-21 23:29+0900\n"
+"POT-Creation-Date: 2020-12-22 16:36+0900\n"
+"PO-Revision-Date: 2020-12-22 16:36+0900\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: ja\n"
@@ -105,6 +105,10 @@ msgstr "%sの記事一覧ページです。"
 #: class/data.php:174
 msgid "Page not found"
 msgstr "ページが見つかりませんでした"
+
+#: class/data.php:175
+msgid "Searched:"
+msgstr "検索結果:"
 
 #: class/menu.php:30 class/menu.php:39 inc/tab/top_basic.php:24
 msgid "Basic setting"
@@ -468,8 +472,7 @@ msgstr ""
 msgid "Author"
 msgstr "著者"
 
-#: inc/tab/top_archive.php:13 inc/tab/top_post_type.php:86
-#: inc/tab/top_taxonomy.php:92
+#: inc/tab/top_archive.php:13 inc/tab/top_taxonomy.php:92
 #, php-format
 msgid ""
 "If you select \"Yes\", you will be redirected to the Home even if you access "
@@ -549,6 +552,15 @@ msgstr "固定ページ"
 msgid "Media page"
 msgstr "メディアページ"
 
+#: inc/tab/top_post_type.php:86
+#, php-format
+msgid ""
+"If you select \"Yes\", you will be redirected to the Media file even if you "
+"access %s."
+msgstr ""
+"「はい」を選択すると、%sへアクセスしてもメディアファイルへリダイレクトされま"
+"す。"
+
 #: inc/tab/top_taxonomy.php:7
 msgid "Category"
 msgstr "カテゴリー"
@@ -597,19 +609,22 @@ msgstr "https://wemo.tech/1670"
 
 #. Description of the plugin/theme
 msgid ""
-"A simple SEO plugin. Meta tags and OGP tags can be easily set and customized "
-"for each page type and post."
+"A very simple SEO plugin. You can easily set and customize meta tags and OGP "
+"tags for each page."
 msgstr ""
-"シンプルなSEOプラグイン。ページ種別・投稿ごとにmetaタグやOGPタグを簡単に設"
+"とてもシンプルなSEOプラグインです。ページごとのmetaタグやOGPタグを簡単に設"
 "定・カスタマイズできます。"
 
 #. Author of the plugin/theme
-msgid "LOOS WEB STUDIO"
-msgstr "LOOS WEB STUDIO"
+msgid "LOOS,Inc."
+msgstr ""
 
 #. Author URI of the plugin/theme
 msgid "https://loos-web-studio.com/"
 msgstr "https://loos-web-studio.com/"
+
+#~ msgid "LOOS WEB STUDIO"
+#~ msgstr "LOOS WEB STUDIO"
 
 #~ msgid "Overwrite setting of \"robots\" tag(Index setting)"
 #~ msgstr "“robors”タグの上書き設定（インデックスの設定）"

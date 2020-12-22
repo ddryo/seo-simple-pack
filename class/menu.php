@@ -57,11 +57,11 @@ class SSP_Menu {
 
 		add_menu_page(
 			$top_menu_title,
-			'SEO PACK', // メニュータイトル
+			'SEO PACK',
 			'manage_options', // 必要な権限
 			$top_menu_slug,
 			$top_menu_cb,
-			'dashicons-list-view', // アイコンURL
+			'dashicons-list-view',
 			81 // 位置
 		);
 		add_submenu_page(

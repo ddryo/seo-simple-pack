@@ -83,7 +83,7 @@ self::output_section( $pt_title, [
 	'attachment_disable' => [
 		'title'       => sprintf( SSP_Data::$texts['nouse'], $quoted_title ),
 		'type'        => 'switch',
-		'desc'        => sprintf( __( 'If you select "Yes", you will be redirected to the Home even if you access %s.', 'loos-ssp' ), $quoted_title ),
+		'desc'        => sprintf( __( 'If you select "Yes", you will be redirected to the Media file even if you access %s.', 'loos-ssp' ), $quoted_title ),
 	],
 	'attachment_noindex' => [
 		'title'       => sprintf( SSP_Data::$texts['noindex'], $quoted_title ),

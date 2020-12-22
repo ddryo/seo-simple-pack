@@ -13,6 +13,7 @@ class SSP_Hooks {
 
 		add_action( 'init', [ 'SSP_Hooks', 'add_custom_settings' ], 99 ); // 確実に全部取得できるように後ろで発火
 		add_action( 'admin_enqueue_scripts', [ 'SSP_Hooks', 'include_files' ] );
+		add_action( 'admin_head', [ 'SSP_Hooks', 'hook_admin_head' ] );
 		add_action( 'template_redirect', [ 'SSP_Hooks', 'redirect' ], 1 );
 
 		// titleタグの除去
@@ -22,6 +23,14 @@ class SSP_Hooks {
 		remove_action( 'wp_head', 'rel_canonical' );
 
 		// self::set_notification(); //OFF中
+	}
+
+
+	/**
+	 * .dashicons-list-view が微妙にでかいので微調整
+	 */
+	public static function hook_admin_head() {
+		echo '<style>.toplevel_page_ssp_main_setting .dashicons-list-view{transform: scale(.9) translateX(1px)}</style>';
 	}
 
 
