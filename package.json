@@ -4,7 +4,7 @@
   "description": "WordPress プラグイン、[SEO SIMPLE PACK](https://wordpress.org/plugins/seo-simple-pack/)。",
   "main": "index.js",
   "scripts": {
-    "build": "npm run build:blocks && npm run build:js && npm run build:css",
+    "build": "run-s build:css build:js",
     "build:css": "run-s scss postcss",
     "build:js": "run-s babel:media babel:common babel:ssp",
     "watch": "run-p watchs:css watch:js watch:blocks watch:lang",
