@@ -8,7 +8,130 @@ add_theme_support( 'post-formats', [ 'aside', 'gallery' ] );
 （ is_tax() が true となる。）
 
 
----
+----------
+----------
 
-サムネイル設定を追加
-readmeをローカライズ
+とてもシンプルなSEOプラグインです。ページごとのmetaタグやOGPタグを簡単に設定・カスタマイズできます。
+
+== Description ==
+
+"SEO SIMPLE PACK" は、とてもシンプルなSEO用のプラグインです。
+
+- SEO対策に必須な基本的なメタタグを出力します。
+- ページ種別ごとに設定ができます。
+- FacebookやTwitterなどのSNSに必要なOGP情報も設定できます。
+- 投稿・ページ・タームごとにも個別にメタタグ情報をカスタマイズできます。
+- 各メタタグの出力内容は、フックで書き換えることも可能です。
+- Googleアナリティクスの計測コードや、ウェブマスターツールの認証コードも簡単に設定できます。
+
+当プラグインの詳細な説明については以下のページをご覧ください。（日本語で書かれています。）
+URL: https://wemo.tech/1670
+
+
+### Source code
+
+当プラグインのソースコードは、Githubで公開しています。
+
+URL: https://github.com/ddryo/SEO-SIMPLE-PACK
+
+
+### How to use
+
+インストール後、何もしなくても最低限必要なメタタグは出力されます。しかし、以下の設定項目は自分で設定することをお勧めします。
+
+- フロントページのdescription
+- "og:image"の画像
+- 各ページ種別のnoindex設定
+- 著者アーカイブの停止設定（著者アーカイブページにアクセスされたくなければ）
+
+#### 設定画面へのアクセス
+
+- WordPress管理画面の左メニューに「SEO PACK」という項目が追加されています。
+- クリックすると、設定ページへ移動できます。
+- 「一般設定」と「OGP設定」の2種類の管理画面にて、それぞれ設定を変更できます。
+
+
+#### ページごとの個別設定 =
+
+投稿・固定ページおよびカテゴリー・タグなどのタームページでは、それぞれ個別に以下の項目を設定することができます。
+
+- "robots" meta tag
+- "title" tag
+- "description" meta tag
+- "og:image" mera tag
+
+
+
+### 初期設定について
+
+設定を変更していない時のデフォルト設定をいくつか紹介します。
+
+- ホームの`<title>`タグ : 「サイト名 | サイトのキャッチフレーズ」
+- ホームの`<description>`タグ : 「サイトのキャッチフレーズ」
+- 投稿・固定ページの`<title>`タグ : 「そのページのタイトル | サイト名」
+- 投稿・固定ページの`<description>`タグ : 「そのページのコンテンツ（エディタ内文章）から自動生成」
+- noindex(follow)となるページ : 各種アーカイブページ・404ページ・検索結果ページ
+- リダイレクトによりアクセス禁止となるページ : メディア個別ページ
+
+
+その他については実際の設定画面をご確認ください。
+
+
+== Installation ==
+
+### 自動インストール
+
+1. プラグインの検索フィールドで「SEO SIMPLE PACK」と入力します。
+2. 当プラグインを見つけたら、"今すぐインストール"をクリックしてインストールし、有効化してください。
+
+### 手動インストール
+
+1.「seo-simple-pack」フォルダ全体を /wp-content/plugins/ ディレクトリにアップロードします。
+2.「プラグイン」メニューからプラグインを有効化します。
+
+
+== Frequently Asked Questions ==
+
+= titleタグが２重に出力されます =
+
+wp_head内( `_wp_render_title_tag` )で出力される`title`タグは削除するようにしていますが、`<head>`内に直接書き込んでいる場合は２重になってしまいます。
+
+手書きの`title`タグを削除してください。
+
+
+= 特定のページでの出力内容を上書きする方法は？ =
+
+出力されるほとんどのタグの出力にはフィルターフックを使用していますので、`add_filter`で上書きが可能です。
+
+以下のようなフックを用意しています。
+
+- 'ssp_output_title'
+- 'ssp_output_robots'
+- 'ssp_output_description'
+- 'ssp_output_canonical'
+- 'ssp_output_keyword'
+-  and more...
+
+
+== Screenshots ==
+
+1. 「基本設定」画面
+2. 「Googleアナリティクスコード」設定画面
+3. 「OGP設定」画面
+4. Help page
+5. 投稿ページの設定画面
+6. カテゴリーページの設定画面
+
+
+== Changelog ==
+
+= 2.0.0 =
+
+- You can now set "og:image" for each page.
+- Added 'ssp_output_og_site_name' hook
+- English is supported.
+- Adjusted the design of the setting page a little
+
+
+= Earlier versions =
+See: https://github.com/ddryo/SEO-SIMPLE-PACK
