@@ -77,6 +77,18 @@ class SSP_Output {
 		add_action( 'wp_head', [ 'SSP_Output', 'main' ], 5 );
 	}
 
+	/**
+	 * get_method
+	 */
+	public static function get_meta_data( $key = '' ) {
+		if ( '' !== $key ) {
+			return self::$$key;
+		} else {
+			return false;
+		}
+	}
+
+
 
 	/**
 	 * Genarate and output meta tags for current page.
