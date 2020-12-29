@@ -4,7 +4,7 @@ Donate link: https://loos-web-studio.com/
 Tags: SEO, meta, analytics, webmaster, simple, japan, meta tag
 Requires at least: 4.6
 Tested up to: 5.6
-Stable tag: 2.0.0
+Stable tag: 2.1.0
 Requires PHP: 5.6
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
@@ -120,6 +120,9 @@ The following hooks are available.
 
 
 == Changelog ==
+
+= 2.1.0 =
+Added get method: `\SSP_Output::get_meta_data( 'meta_name' )`
 
 = 2.0.0 =
 
