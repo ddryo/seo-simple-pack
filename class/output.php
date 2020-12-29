@@ -219,8 +219,8 @@ class SSP_Output {
 				if ( $meta_title ) {
 					$title = $meta_title;
 				} else {
-					$pt    = self::$obj->post_type;
-					$title = $settings[ $pt . '_title' ];
+					$pt    = isset( self::$obj->post_type ) ? self::$obj->post_type : '';
+					$title = isset( $settings[ $pt . '_title' ] ) ? $settings[ $pt . '_title' ] : '';
 				}
 				break;
 
@@ -298,8 +298,8 @@ class SSP_Output {
 				if ( $meta_robots ) {
 					$robots = $meta_robots;
 				} else {
-					$pt         = self::$obj->post_type;
-					$is_noindex = $settings[ $pt . '_noindex' ];
+					$pt         = isset( self::$obj->post_type ) ? self::$obj->post_type : '';
+					$is_noindex = isset( $settings[ $pt . '_noindex' ] ) ? $settings[ $pt . '_noindex' ] : false;
 					$robots     = $is_noindex ? 'noindex' : '';
 				}
 				break;
@@ -425,8 +425,8 @@ class SSP_Output {
 					// メタボックスが入力されていれば優先
 					$description = $metabox_desc;
 				} else {
-					$pt          = self::$obj->post_type;
-					$description = $settings[ $pt . '_desc' ];
+					$pt          = isset( self::$obj->post_type ) ? self::$obj->post_type : '';
+					$description = isset( $settings[ $pt . '_desc' ] ) ? $settings[ $pt . '_desc' ] : '';
 				}
 				break;
 
