@@ -213,6 +213,8 @@ class SSP_Output {
 				break;
 			case is_singular():
 			case is_home():
+				if ( ! isset( self::$obj->ID ) ) break;
+
 				$meta_title = get_post_meta( self::$obj->ID, SSP_MetaBox::POST_META_KEYS['title'], true );
 				if ( $meta_title ) {
 					$title = $meta_title;
@@ -223,16 +225,22 @@ class SSP_Output {
 				break;
 
 			case is_category():
+				if ( ! isset( self::$obj->term_id ) ) break;
+
 				$meta_title = get_term_meta( self::$obj->term_id, SSP_MetaBox::TERM_META_KEYS['title'], true );
 				$title      = $meta_title ?: $settings['cat_title'];
 				break;
 
 			case is_tag():
+				if ( ! isset( self::$obj->term_id ) ) break;
+
 				$meta_title = get_term_meta( self::$obj->term_id, SSP_MetaBox::TERM_META_KEYS['title'], true );
 				$title      = $meta_title ?: $settings['tag_title'];
 				break;
 
 			case is_tax():
+				if ( ! isset( self::$obj->term_id ) ) break;
+
 				$meta_title = get_term_meta( self::$obj->term_id, SSP_MetaBox::TERM_META_KEYS['title'], true );
 				$term       = self::$obj->taxonomy;
 				$title      = $meta_title ?: $settings[ $term . '_title' ];
@@ -284,6 +292,8 @@ class SSP_Output {
 
 			case is_singular():
 			case is_home():
+				if ( ! isset( self::$obj->ID ) ) break;
+
 				$meta_robots = get_post_meta( self::$obj->ID, SSP_MetaBox::POST_META_KEYS['robots'], true );
 				if ( $meta_robots ) {
 					$robots = $meta_robots;
@@ -295,6 +305,8 @@ class SSP_Output {
 				break;
 
 			case is_category():
+				if ( ! isset( self::$obj->term_id ) ) break;
+
 				$meta_robots = get_term_meta( self::$obj->term_id, SSP_MetaBox::TERM_META_KEYS['robots'], true );
 				if ( $meta_robots ) {
 					$robots = $meta_robots;
@@ -306,6 +318,8 @@ class SSP_Output {
 				break;
 
 			case is_tag():
+				if ( ! isset( self::$obj->term_id ) ) break;
+
 				$meta_robots = get_term_meta( self::$obj->term_id, SSP_MetaBox::TERM_META_KEYS['robots'], true );
 				if ( $meta_robots ) {
 					$robots = $meta_robots;
@@ -316,6 +330,8 @@ class SSP_Output {
 				break;
 
 			case is_tax():
+				if ( ! isset( self::$obj->term_id ) ) break;
+
 				$meta_robots = get_term_meta( self::$obj->term_id, SSP_MetaBox::TERM_META_KEYS['robots'], true );
 				if ( $meta_robots ) {
 					$robots = $meta_robots;
@@ -373,11 +389,12 @@ class SSP_Output {
 		} elseif ( is_singular() || ( ! is_front_page() && is_home() ) ) {
 
 			// メタボックスが入力されていれば上書きする
-			$metabox_keyword = get_post_meta( self::$obj->ID, SSP_MetaBox::POST_META_KEYS['keyword'], true );
-			if ( $metabox_keyword ) {
-				$keyword = $metabox_keyword;
+			$the_id       = isset( self::$obj->ID ) ? self::$obj->ID : 0;
+			$meta_keyword = get_post_meta( $the_id, SSP_MetaBox::POST_META_KEYS['keyword'], true );
+			if ( $meta_keyword ) {
+				$keyword = $meta_keyword;
 			}
-}
+		}
 
 		return apply_filters( 'ssp_output_keyword', $keyword );
 
@@ -400,6 +417,8 @@ class SSP_Output {
 
 			case is_singular():
 			case is_home():
+				if ( ! isset( self::$obj->ID ) ) break;
+
 				$metabox_desc = get_post_meta( self::$obj->ID, SSP_MetaBox::POST_META_KEYS['description'], true );
 
 				if ( '' !== $metabox_desc ) {
@@ -412,16 +431,22 @@ class SSP_Output {
 				break;
 
 			case is_category():
+				if ( ! isset( self::$obj->term_id ) ) break;
+
 				$meta_description = get_term_meta( self::$obj->term_id, SSP_MetaBox::TERM_META_KEYS['description'], true );
 				$description      = $meta_description ?: $settings['cat_desc'];
 				break;
 
 			case is_tag():
+				if ( ! isset( self::$obj->term_id ) ) break;
+
 				$meta_description = get_term_meta( self::$obj->term_id, SSP_MetaBox::TERM_META_KEYS['description'], true );
 				$description      = $meta_description ?: $settings['tag_desc'];
 				break;
 
 			case is_tax():
+				if ( ! isset( self::$obj->term_id ) ) break;
+
 				$meta_description = get_term_meta( self::$obj->term_id, SSP_MetaBox::TERM_META_KEYS['description'], true );
 				$description      = $meta_description ?: $settings[ self::$obj->taxonomy . '_desc' ];
 				break;
@@ -525,8 +550,7 @@ class SSP_Output {
 
 			default:
 				// is_home() もここに来る。
-				$canonical = get_permalink( self::$obj->ID );
-
+				$canonical = get_permalink( get_queried_object_id() );
 				break;
 		}
 
@@ -558,9 +582,13 @@ class SSP_Output {
 
 		switch ( true ) {
 			case is_attachment():
+				if ( ! isset( self::$obj->guid ) ) break;
+
 				$og_image = self::$obj->guid ?: $basic_ogimg;
 				break;
 			case is_singular() || ( ! is_front_page() && is_home() ):
+				if ( ! isset( self::$obj->ID ) ) break;
+
 				$the_id     = self::$obj->ID; // 投稿ID
 				$meta_image = get_post_meta( $the_id, SSP_MetaBox::POST_META_KEYS['image'], true );
 
@@ -575,6 +603,8 @@ class SSP_Output {
 				}
 				break;
 			case is_tax() || is_tag() || is_category():
+				if ( ! isset( self::$obj->term_id ) ) break;
+
 				$meta_image = get_term_meta( self::$obj->term_id, SSP_MetaBox::TERM_META_KEYS['image'], true );
 				$og_image   = $meta_image ?: $basic_ogimg;
 				break;
