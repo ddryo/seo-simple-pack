@@ -162,7 +162,7 @@ class SSP_MetaBox {
 				),
 			], $val_keyword );
 		?>
-		<div>
+		</div>
 	<?php
 		// Set nonce field
 		wp_nonce_field( SSP_Data::NONCE_ACTION, SSP_Data::NONCE_NAME );

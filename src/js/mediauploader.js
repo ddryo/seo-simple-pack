@@ -18,8 +18,8 @@ console.log('Loaded media-uploader.js.');
 		// Create a new media frame
 		customUploader = wp.media({
 			// title: '画像を選択',
-			library: { type: 'image' },
 			// button: { text: '画像を選択' },
+			library: { type: 'image' },
 			multiple: false,
 		});
 
