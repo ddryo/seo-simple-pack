@@ -16,6 +16,7 @@ class SSP_MetaBox {
 		'title'       => 'ssp_meta_title',
 		'description' => 'ssp_meta_description',
 		'keyword'     => 'ssp_meta_keyword',
+		'canonical'   => 'ssp_meta_canonical',
 		'image'       => 'ssp_meta_image',
 	];
 
@@ -26,6 +27,7 @@ class SSP_MetaBox {
 		'robots'      => 'ssp_meta_robots',
 		'title'       => 'ssp_meta_title',
 		'description' => 'ssp_meta_description',
+		'canonical'   => 'ssp_meta_canonical',
 		'image'       => 'ssp_meta_image',
 	];
 
@@ -103,6 +105,7 @@ class SSP_MetaBox {
 		$val_title       = get_post_meta( $post->ID, self::POST_META_KEYS['title'], true );
 		$val_description = get_post_meta( $post->ID, self::POST_META_KEYS['description'], true );
 		$val_keyword     = get_post_meta( $post->ID, self::POST_META_KEYS['keyword'], true );
+		$val_canonical   = get_post_meta( $post->ID, self::POST_META_KEYS['canonical'], true );
 		$val_image       = get_post_meta( $post->ID, self::POST_META_KEYS['image'], true );
 
 		// 更新に伴う調節
@@ -144,7 +147,7 @@ class SSP_MetaBox {
 			self::output_field( self::POST_META_KEYS['description'], [
 				'title'       => __( 'Description of this page', 'loos-ssp' ),
 				'type'        => 'textarea',
-				'desc'        => __( 'If blank, a description tag will be automatically generated from the content.', 'loos-ssp' ),
+				'desc'        => __( 'If blank, the description tag will be automatically generated from the content.', 'loos-ssp' ),
 			], $val_description );
 
 			// og:image
@@ -153,13 +156,19 @@ class SSP_MetaBox {
 				'type'        => 'media',
 			], $val_image );
 
+			// canonical
+			self::output_field( self::POST_META_KEYS['canonical'], [
+				'title'       => __( '"canonical" URL of this page', 'loos-ssp' ),
+				'desc'        => __( 'If blank, the canonical tag will be automatically generated.', 'loos-ssp' ),
+			], $val_canonical );
+
 			// keywords
 			self::output_field( self::POST_META_KEYS['keyword'], [
 				'title'       => __( 'Keywords of this page', 'loos-ssp' ),
-				'desc'        => sprintf(
-					__( 'If blank, the "Keyword" setting of %s is used.', 'loos-ssp' ),
-					'<a href="' . esc_url( $ssp_page_url ) . '" target="_blank">' . __( '"Basic settings"', 'loos-ssp' ) . '</a>'
-				),
+				// 'desc'        => sprintf(
+				// 	__( 'If blank, the "Keyword" setting of %s is used.', 'loos-ssp' ),
+				// 	'<a href="' . esc_url( $ssp_page_url ) . '" target="_blank">' . __( '"Basic settings"', 'loos-ssp' ) . '</a>'
+				// ),
 			], $val_keyword );
 		?>
 		</div>
@@ -217,6 +226,7 @@ class SSP_MetaBox {
 		$val_robots      = get_term_meta( $term->term_id, self::TERM_META_KEYS['robots'], true );
 		$val_title       = get_term_meta( $term->term_id, self::TERM_META_KEYS['title'], true );
 		$val_description = get_term_meta( $term->term_id, self::TERM_META_KEYS['description'], true );
+		$val_canonical   = get_term_meta( $term->term_id, self::TERM_META_KEYS['canonical'], true );
 		$val_image       = get_term_meta( $term->term_id, self::TERM_META_KEYS['image'], true );
 
 		// @codingStandardsIgnoreStart
@@ -254,6 +264,16 @@ class SSP_MetaBox {
 			</th>
 			<td>
 				<?php self::textarea( self::TERM_META_KEYS['description'], $val_description ) ?>
+			</td>
+		</tr>
+		<tr class="form-field">
+			<th>
+				<label for="<?=self::TERM_META_KEYS['canonical']?>">
+					<?=esc_html__( '"canonical" URL of this page', 'loos-ssp' )?>
+				</label>
+			</th>
+			<td>
+				<?php self::text_input( self::TERM_META_KEYS['canonical'], $val_canonical ) ?>
 			</td>
 		</tr>
 		<tr class="form-field">

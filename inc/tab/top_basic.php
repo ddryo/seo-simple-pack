@@ -63,6 +63,11 @@ self::output_section( __( 'Basic setting', 'loos-ssp' ), [
 		'class'       => '-wide',
 		'desc'        => '*' . __( 'If there are multiple, enter them separated by ",".', 'loos-ssp' ),
 	],
+	'reuse_keyword' => [
+		'class'       => '-mt-shorten',
+		'type'        => 'checkbox',
+		'label'       => __( 'Output the same keywords as above when the keywords setting of each post is empty', 'loos-ssp' ),
+	],
 ] );
 
 // 特殊ページ設定

@@ -55,6 +55,7 @@ trait Field {
 				'preview'     => false,
 				'desc'        => '',
 				'choices'     => [],
+				'label'       => '',
 				'item'        => '',
 			], $args );
 
@@ -71,16 +72,18 @@ trait Field {
 
 		?>
 			<div class="ssp-field"<?=$add_data?>>
-				<label for="<?=esc_attr( $name )?>" class="ssp-field__title">
-					<?=esc_html( $args['title'] ) ?>
-				</label>
+				<?php if ( $args['title'] ) : ?>
+					<label for="<?=esc_attr( $name )?>" class="ssp-field__title">
+						<?=esc_html( $args['title'] ) ?>
+					</label>
+				<?php endif; ?>
 				<div class="<?=esc_attr( trim( 'ssp-field__body ' . $args['class'] ) )?>">
 					<div class="ssp_item ssp-field__item -<?=$args['type']?>">
 						<?php
 							if ( $args['item'] ) :
 							echo $args['item'];
 							else :
-								self::the_setting_field( $name, $now_value, $args['type'], $args['choices'] );
+								self::the_setting_field( $name, $now_value, $args );
 							endif;
 						?>
 					</div>
@@ -106,11 +109,17 @@ trait Field {
 	/**
 	 * 設定フィールドを取得
 	 */
-	public static function the_setting_field( $name, $now_value, $type, $choices ) {
+	public static function the_setting_field( $name, $now_value, $args ) {
+
+		$type = $args['type'];
 
 		if ( 'text' === $type ) {
 
 			self::text_input( $name, $now_value );
+
+		} elseif ( 'checkbox' === $type ) {
+
+			self::checkbox( $name, $now_value, $args['label'] );
 
 		} elseif ( 'switch' === $type ) {
 
@@ -118,11 +127,11 @@ trait Field {
 
 		} elseif ( 'select' === $type ) {
 
-			self::select_box( $name, $now_value, $choices );
+			self::select_box( $name, $now_value, $args['choices'] );
 
 		} if ( 'radio_btn' === $type ) {
 
-			self::radio_btns( $name, $now_value, $choices );
+			self::radio_btns( $name, $now_value, $args['choices'] );
 
 		} if ( 'media' === $type ) {
 
@@ -166,6 +175,20 @@ trait Field {
 			</label>
 			<span><?=esc_html__( 'No', 'loos-ssp' )?></span>
 			<input type="hidden" name="<?=esc_attr( $name )?>" value="<?=esc_attr( $is_checked )?>">
+	<?php
+	}
+
+
+	/**
+	 * checkbox
+	 */
+	public static function checkbox( $name, $is_checked, $label ) {
+	?>
+		<label class="ssp_checkbox" for="<?=esc_attr( $name )?>">
+			<input type="hidden" name="<?=esc_attr( $name )?>" value="">
+			<input type="checkbox" name="<?=esc_attr( $name )?>" id="<?=esc_attr( $name )?>" value="1" <?php checked( $is_checked, '1' ); ?>>
+			<span><?=esc_html( $label )?></span>
+		</label>
 	<?php
 	}
 

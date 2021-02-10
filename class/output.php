@@ -386,18 +386,24 @@ class SSP_Output {
 
 			$keyword = SSP_Data::$settings['home_keyword'];
 
-		} elseif ( is_singular() || ( ! is_front_page() && is_home() ) ) {
+		} else {
+			if ( is_singular() || ( ! is_front_page() && is_home() ) ) {
 
-			// メタボックスが入力されていれば上書きする
-			$the_id       = isset( self::$obj->ID ) ? self::$obj->ID : 0;
-			$meta_keyword = get_post_meta( $the_id, SSP_MetaBox::POST_META_KEYS['keyword'], true );
-			if ( $meta_keyword ) {
-				$keyword = $meta_keyword;
+				// メタボックスが入力されていれば上書きする
+				$the_id       = isset( self::$obj->ID ) ? self::$obj->ID : 0;
+				$meta_keyword = get_post_meta( $the_id, SSP_MetaBox::POST_META_KEYS['keyword'], true );
+				if ( $meta_keyword ) {
+					$keyword = $meta_keyword;
+				}
+			}
+
+			// キーワードが空の時、かつ、フロントと同じキーワードを出力する指定があれば
+			if ( ! $keyword && SSP_Data::$settings['reuse_keyword'] ) {
+				$keyword = SSP_Data::$settings['home_keyword'];
 			}
 		}
 
 		return apply_filters( 'ssp_output_keyword', $keyword );
-
 	}
 
 
@@ -504,6 +510,8 @@ class SSP_Output {
 	 */
 	private static function generate_canonical() {
 
+		$canonical = '';
+
 		switch ( true ) {
 
 			case is_front_page():
@@ -511,13 +519,23 @@ class SSP_Output {
 				break;
 
 			case is_singular():
-				$canonical = get_permalink();
+				$the_id         = isset( self::$obj->ID ) ? self::$obj->ID : 0;
+				$meta_canonical = get_post_meta( $the_id, SSP_MetaBox::POST_META_KEYS['canonical'], true );
+				$canonical      = $meta_canonical ?? get_permalink();
 				break;
 
 			case is_tax() || is_tag() || is_category():
-				$term      = self::$obj;
-				$term_link = get_term_link( $term, $term->taxonomy );
-				$canonical = ( is_wp_error( $term_link ) ) ? '' : $term_link;
+				$term = self::$obj;
+				if ( ! isset( $term->term_id ) ) break;
+
+				$meta_canonical = get_term_meta( $term->term_id, SSP_MetaBox::TERM_META_KEYS['canonical'], true );
+				$canonical      = $meta_canonical ?: get_term_link( $term, $term->taxonomy );
+
+				// get_term_link() がエラーだった場合
+				if ( is_wp_error( $canonical ) ) {
+					$canonical = '';
+				}
+
 				break;
 
 			case is_post_type_archive():
@@ -550,8 +568,11 @@ class SSP_Output {
 
 			default:
 				// is_home() もここに来る。
-				$canonical = get_permalink( get_queried_object_id() );
 				break;
+		}
+
+		if ( empty( $canonical ) ) {
+			$canonical = get_permalink( get_queried_object_id() ) ?: '';
 		}
 
 		return apply_filters( 'ssp_output_canonical', $canonical );

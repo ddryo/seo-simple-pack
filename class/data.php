@@ -134,6 +134,7 @@ class SSP_Data {
 			'home_title'            => '%_site_title_% %_sep_% %_tagline_%',
 			'home_desc'             => '',
 			'home_keyword'          => '',
+			'reuse_keyword'         => '1',
 			'separator'             => 'line',
 			'webmaster_bing'        => '',
 			'webmaster_google'      => '',

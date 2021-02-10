@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: SEO SIMPLE PACK\n"
-"POT-Creation-Date: 2020-12-22 16:36+0900\n"
-"PO-Revision-Date: 2020-12-22 16:36+0900\n"
+"POT-Creation-Date: 2021-02-10 12:46+0900\n"
+"PO-Revision-Date: 2021-02-10 12:46+0900\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: ja\n"
@@ -102,11 +102,11 @@ msgstr "%sに反映されます。"
 msgid "This is the archive page for %s."
 msgstr "%sの記事一覧ページです。"
 
-#: class/data.php:174
+#: class/data.php:175
 msgid "Page not found"
 msgstr "ページが見つかりませんでした"
 
-#: class/data.php:175
+#: class/data.php:176
 msgid "Searched:"
 msgstr "検索結果:"
 
@@ -150,155 +150,155 @@ msgstr "設定を保存しました。"
 msgid "Hide this notification."
 msgstr "この通知を非表示にする。"
 
-#: class/metabox.php:45
+#: class/metabox.php:47
 msgid "Keep default settings"
 msgstr "デフォルト設定のまま"
 
-#: class/metabox.php:46
+#: class/metabox.php:48
 msgid "Index"
 msgstr "インデックスさせる"
 
-#: class/metabox.php:47
+#: class/metabox.php:49
 msgid "Don't index"
 msgstr "インデックスさせない"
 
-#: class/metabox.php:48
+#: class/metabox.php:50
 msgid "Don't follow links"
 msgstr "リンクを辿らせない"
 
-#: class/metabox.php:49
+#: class/metabox.php:51
 msgid "Don't cache"
 msgstr "キャッシュさせない"
 
-#: class/metabox.php:86 class/metabox.php:226
+#: class/metabox.php:88 class/metabox.php:236
 msgid "SEO SIMPLE PACK Settings"
 msgstr "SEO SIMPLE PACK 設定"
 
-#: class/metabox.php:125 class/metabox.php:232
+#: class/metabox.php:128 class/metabox.php:242
 msgid "\"robots\" tag of this page"
 msgstr "このページの”robots”タグ"
 
-#: class/metabox.php:129
+#: class/metabox.php:132
 #, php-format
 msgid "If you want to know the default settings, see %s."
 msgstr "デフォルト設定を確認したい場合、%s をご覧ください。"
 
-#: class/metabox.php:130
+#: class/metabox.php:133
 msgid "\"Post page\" tab in \"General Settings\""
 msgstr "「一般設定」の「投稿ページ」タブ"
 
-#: class/metabox.php:136 class/metabox.php:242
+#: class/metabox.php:139 class/metabox.php:252
 msgid "Title tag of this page"
 msgstr "このページのタイトルタグ"
 
-#: class/metabox.php:138
+#: class/metabox.php:141
 #, php-format
 msgid "%s is available."
 msgstr "%s が使用可能です。"
 
-#: class/metabox.php:139
+#: class/metabox.php:142
 msgid "Snippet tags"
 msgstr "スニペットタグ"
 
-#: class/metabox.php:145 class/metabox.php:252
+#: class/metabox.php:148 class/metabox.php:262
 msgid "Description of this page"
 msgstr "このページのディスクリプション"
 
-#: class/metabox.php:147
+#: class/metabox.php:150
 msgid ""
-"If blank, a description tag will be automatically generated from the content."
-msgstr "空白の場合、ディスクリプションタグがコンテンツから自動で生成されます。"
+"If blank, the description tag will be automatically generated from the "
+"content."
+msgstr "空白の場合、ディスクリプションタグはコンテンツから自動で生成されます。"
 
-#: class/metabox.php:152 class/metabox.php:262
+#: class/metabox.php:155 class/metabox.php:282
 msgid "\"og:image\" of this page"
 msgstr "このページの”og:image”"
 
-#: class/metabox.php:158
+#: class/metabox.php:161 class/metabox.php:272
+msgid "\"canonical\" URL of this page"
+msgstr "このページの”canonical” URL"
+
+#: class/metabox.php:162
+msgid "If blank, the canonical tag will be automatically generated."
+msgstr "空白の場合、canonicalタグは自動で生成されます。"
+
+#: class/metabox.php:167
 msgid "Keywords of this page"
 msgstr "このページのキーワード"
 
-#: class/metabox.php:160
-#, php-format
-msgid "If blank, the \"Keyword\" setting of %s is used."
-msgstr "空白の場合、%s の「キーワード」設定が使用されます。"
-
-#: class/metabox.php:161
-msgid "\"Basic settings\""
-msgstr "「基本設定」"
-
-#: class/trait/field.php:93
+#: class/trait/field.php:96
 msgid "Preview"
 msgstr "プレビュー"
 
-#: class/trait/field.php:98
+#: class/trait/field.php:101
 msgid "About available snippet tags"
 msgstr "使用可能なスニペットタグについて"
 
-#: class/trait/field.php:162
+#: class/trait/field.php:171
 msgid "Yes"
 msgstr "はい"
 
-#: class/trait/field.php:167
+#: class/trait/field.php:176
 msgid "No"
 msgstr "いいえ"
 
-#: class/trait/field.php:221
+#: class/trait/field.php:244
 msgid "No image has been set yet."
 msgstr "まだ画像が設定されていません。"
 
-#: class/trait/field.php:225
+#: class/trait/field.php:248
 msgid "Select image"
 msgstr "画像を選択"
 
-#: class/trait/field.php:228
+#: class/trait/field.php:251
 msgid "Delete image"
 msgstr "画像を削除"
 
-#: class/trait/field.php:245 inc/page_help.php:10
+#: class/trait/field.php:268 inc/page_help.php:10
 msgid "Post title"
 msgstr "投稿のタイトル"
 
-#: class/trait/field.php:246 inc/page_help.php:11
+#: class/trait/field.php:269 inc/page_help.php:11
 msgid "Category name"
 msgstr "カテゴリー名"
 
-#: class/trait/field.php:247 inc/page_help.php:12
+#: class/trait/field.php:270 inc/page_help.php:12
 msgid "Tag name"
 msgstr "タグ名"
 
-#: class/trait/field.php:248 inc/page_help.php:13
+#: class/trait/field.php:271 inc/page_help.php:13
 msgid "Term name"
 msgstr "ターム名"
 
-#: class/trait/field.php:249 inc/page_help.php:15
+#: class/trait/field.php:272 inc/page_help.php:15
 msgid "Taxonomy name"
 msgstr "タクソノミー名"
 
-#: class/trait/field.php:250 inc/page_help.php:19
+#: class/trait/field.php:273 inc/page_help.php:19
 msgid "Author name"
 msgstr "著者名"
 
-#: class/trait/field.php:251 inc/page_help.php:20
+#: class/trait/field.php:274 inc/page_help.php:20
 msgid "Search word"
 msgstr "検索ワード"
 
-#: class/trait/field.php:252 inc/page_help.php:16
+#: class/trait/field.php:275 inc/page_help.php:16
 msgid "Post type name"
 msgstr "投稿タイプ名"
 
-#: class/trait/field.php:253 inc/page_help.php:17
+#: class/trait/field.php:276 inc/page_help.php:17
 msgid "Page content"
 msgstr "ページコンテンツ"
 
-#: class/trait/field.php:254 inc/tab/top_archive.php:34
+#: class/trait/field.php:277 inc/tab/top_archive.php:34
 msgid "Date"
 msgstr "日付"
 
-#: class/trait/field.php:255 inc/page_help.php:21
+#: class/trait/field.php:278 inc/page_help.php:21
 msgid "Post format name"
 msgstr "投稿フォーマット名"
 
-#: class/trait/field.php:256 inc/page_help.php:14
+#: class/trait/field.php:279 inc/page_help.php:14
 msgid "Term description"
 msgstr "タームの説明"
 
@@ -529,14 +529,20 @@ msgid "If there are multiple, enter them separated by \",\"."
 msgstr "複数の場合は “,” 区切りで入力してください。"
 
 #: inc/tab/top_basic.php:69
+msgid ""
+"Output the same keywords as above when the keywords setting of each post is "
+"empty"
+msgstr "各投稿のキーワード設定が空の時、上記と同じキーワードを出力する"
+
+#: inc/tab/top_basic.php:74
 msgid "Search result page"
 msgstr "検索結果ページ"
 
-#: inc/tab/top_basic.php:72
+#: inc/tab/top_basic.php:77
 msgid "404 page"
 msgstr "404ページ"
 
-#: inc/tab/top_basic.php:75
+#: inc/tab/top_basic.php:80
 msgid "Particular page settings"
 msgstr "特殊ページ設定"
 
@@ -617,11 +623,18 @@ msgstr ""
 
 #. Author of the plugin/theme
 msgid "LOOS,Inc."
-msgstr ""
+msgstr "LOOS,Inc."
 
 #. Author URI of the plugin/theme
 msgid "https://loos-web-studio.com/"
 msgstr "https://loos-web-studio.com/"
+
+#, php-format
+#~ msgid "If blank, the \"Keyword\" setting of %s is used."
+#~ msgstr "空白の場合、%s の「キーワード」設定が使用されます。"
+
+#~ msgid "\"Basic settings\""
+#~ msgstr "「基本設定」"
 
 #~ msgid "LOOS WEB STUDIO"
 #~ msgstr "LOOS WEB STUDIO"
