@@ -152,10 +152,10 @@ class SSP_Data {
 			'attachment_noindex'    => true,
 			'attachment_title'      => '%_page_title_% %_sep_% %_site_title_%',
 			'attachment_desc'       => '%_page_contents_%',
-			'cat_noindex'           => true,
+			'cat_noindex'           => false,
 			'cat_title'             => '%_cat_name_% %_sep_% %_site_title_%',
 			'cat_desc'              => '%_term_description_%',
-			'tag_noindex'           => true,
+			'tag_noindex'           => false,
 			'tag_title'             => '%_tag_name_% %_sep_% %_site_title_%',
 			'tag_desc'              => '%_term_description_%',
 			'post_format_disable'   => false,
@@ -175,7 +175,6 @@ class SSP_Data {
 			'404_title'             => '404: ' . __( 'Page not found', 'loos-ssp' ) . ' %_sep_% %_site_title_%',
 			'search_title'          => __( 'Searched:', 'loos-ssp' ) . ' %_search_phrase_% %_sep_% %_site_title_%',
 		];
-		// ページが見つかりませんでした。
 
 		self::$default_ogp_settings = [
 			'og_image'   => '',

@@ -212,9 +212,6 @@
 		<!-- / 始まりの関数を許可 -->
 		<exclude name="PHPCompatibility.LanguageConstructs.NewLanguageConstructs.t_ns_separatorFound" />
 
-		<!-- ?? 演算子を許可 -->
-		<exclude name="PHPCompatibility.Operators.NewOperators.t_coalesceFound" />
-
 	</rule>
 
 </ruleset>

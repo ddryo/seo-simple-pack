@@ -521,7 +521,7 @@ class SSP_Output {
 			case is_singular():
 				$the_id         = isset( self::$obj->ID ) ? self::$obj->ID : 0;
 				$meta_canonical = get_post_meta( $the_id, SSP_MetaBox::POST_META_KEYS['canonical'], true );
-				$canonical      = $meta_canonical ?? get_permalink();
+				$canonical      = $meta_canonical ?: get_permalink();
 				break;
 
 			case is_tax() || is_tag() || is_category():
