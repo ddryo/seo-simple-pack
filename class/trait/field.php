@@ -45,7 +45,7 @@ trait Field {
 	/**
 	 * 各設定項目を出力する
 	 */
-	public static function output_field( $name, $args = [], $now_value ) {
+	public static function output_field( $name, $args, $now_value ) {
 
 			$args = array_merge( [
 				'title'       => '',
