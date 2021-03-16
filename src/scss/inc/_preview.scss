@@ -4,27 +4,68 @@
 	align-items: center;
 	width: 100%;
 	padding: 4px;
+	font-size: 13px;
 
+	@include sp_admin {
+		font-size: 12px;
+	}
 }
 
 .ssp-field__preview__label {
-	margin-right: 8px;
+
+	margin-left: 4px;
+
+	@include sp_admin {
+		display: none;
+	}
 }
 
 .ssp-field__preview__content {
 	display: inline-block;
-	margin: 0;
-	padding: 8px 12px;
+	margin-left: 8px;
+	padding: 12px;
 	background: #ececec;
-	border-radius: 2px;
+	border-radius: 3px;
 	box-shadow: inset 0 0 4px #ddd;
+
+	@include sp_admin {
+		padding: 8px;
+	}
 
 	span {
 		margin: 0 2px;
 		padding: 4px 8px;
 		color: #fff;
-		font-size: 13px;
-		background: rgb(135, 171, 135);
+		background: #87ab87;
 		border-radius: 4px;
+	}
+}
+
+
+// HELPボタン
+.ssp-helpButton {
+	display: inline-block;
+	width: 22px;
+	height: 22px;
+	margin-left: 12px;
+	padding: 0;
+	color: #fff !important;
+	font-weight: bold;
+	font-size: 12px;
+	line-height: 22px;
+	text-align: center;
+	text-decoration: none;
+	vertical-align: middle;
+	background: #87ab87;
+	border-radius: 50%;
+	box-shadow: inset 0 0 4px rgba(50, 50, 50, 0.15);
+	transition: transform 0.25s;
+
+	@include sp_admin {
+		margin-left: 12px;
+	}
+
+	&:hover {
+		transform: scale(1.1);
 	}
 }

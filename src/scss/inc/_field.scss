@@ -1,4 +1,4 @@
-// 設定フィールド
+// 設定フィールド 投稿ページのメタボックスと設定ページで共通する部分。
 .ssp-field {
 
 	& + .ssp-field {
@@ -40,7 +40,7 @@
 }
 
 .ssp-field__body {
-	padding: 0 8px;
+	padding-left: 8px;
 }
 
 .ssp-field__title {
@@ -86,13 +86,5 @@
 		border: solid 2px rgb(235, 161, 112);
 	}
 
-}
-
-
-@media screen and (max-width: 767px) {
-
-	.ssp-field__body {
-		padding: 0;
-	}
 }
 

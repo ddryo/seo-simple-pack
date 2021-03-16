@@ -2,19 +2,43 @@
 
 $color_main : #87ab87;
 
-
+@import "./mixin";
 @import "./inc/**";
 
 /* ------------------------------
  * 設定ページ
  * ------------------------------ */
+
+#wpcontent {
+	padding: 0 20px !important;
+
+	@include sp_admin {
+		padding: 0 16px !important;
+	}
+}
+
 .ssp-page {
 	box-sizing: border-box;
-	margin: 0 20px 20px 0;
+	// margin: 0 20px 20px 0;
+	margin-top: 1em;
 	padding: 8px;
+	font-size: 14px;
 
 	* {
 		box-sizing: border-box;
+	}
+
+	@include sp_admin {
+		margin-right: 0 !important;
+		padding: 0;
+	}
+
+	.form-table,
+	.form-table th,
+	.form-table td,
+	.form-table p,
+	input {
+		font-size: inherit !important;
 	}
 
 	/* 設定保存メッセージ */
@@ -22,39 +46,10 @@ $color_main : #87ab87;
 		margin: 24px 0 24px;
 	}
 
-	// field 横並びに
-	@media screen and (min-width: 768px) {
-
-		.ssp-field__body {
-			display: flex;
-			flex-wrap: wrap;
-			justify-content: space-between;
-		}
-
-		.ssp-field__item {
-			width: 40%;
-		}
-
-		.ssp-field__desc {
-			width: 57%;
-		}
-
-		.ssp-field__body.-wide {
-
-			.ssp-field__item,
-			.ssp-field__desc {
-				width: 100%;
-			}
-		}
-
-		.ssp-field__body.-mt-shorten {
-			margin-top: -24px;
-		}
-	}
-
 }
 
 h1.ssp-page__title {
+	font-weight: bold;
 	line-height: 1.5;
 }
 
@@ -96,8 +91,12 @@ h1.ssp-page__title {
 .ssp-page__section__body {
 	padding: 24px;
 	background: #fff;
-	border-radius: 3px;
-	box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05), 0 4px 4px -4px rgba(0, 0, 0, 0.1);
+	border-radius: 4px;
+	box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05), 0 4px 8px -4px rgba(0, 0, 0, 0.1);
+
+	@include sp_admin {
+		padding: 16px;
+	}
 }
 
 .ssp-page__note {
@@ -131,5 +130,52 @@ textarea[name="home_desc"] {
 		font-size: 0.9em;
 		background: $color_main;
 		border-radius: 4px;
+	}
+}
+
+
+.ssp-field__body {
+	display: flex;
+
+	@include sp_admin {
+		flex-direction: column;
+
+		.ssp-field__item {
+			order: 0;
+		}
+
+		.ssp-field__desc {
+			order: 2;
+		}
+
+		.ssp-field__preview {
+			order: 1;
+		}
+
+	}
+	// field 横並びに
+	@include pc_admin {
+		flex-wrap: wrap;
+		justify-content: space-between;
+
+		.ssp-field__item {
+			width: 40%;
+		}
+
+		.ssp-field__desc {
+			width: 57%;
+		}
+
+		&.-wide {
+
+			.ssp-field__item,
+			.ssp-field__desc {
+				width: 100%;
+			}
+		}
+
+		&.-mt-shorten {
+			margin-top: -24px;
+		}
 	}
 }

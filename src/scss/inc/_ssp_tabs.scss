@@ -2,7 +2,13 @@
 /* タブコンテンツ */
 .ssp-page {
 
+	.ssp-page__tabs {
+		padding-bottom: 6px;
+		overflow-y: auto;
+	}
+
 	.nav-tab-wrapper {
+		display: flex;
 		border-bottom: 1px solid #ddd;
 	}
 
@@ -21,7 +27,12 @@
 
 	.tab-contents {
 		display: none;
+		margin-bottom: 1em;
 		padding: 16px;
+
+		@include sp_admin {
+			padding: 0;
+		}
 
 		&.act_ {
 			display: block;

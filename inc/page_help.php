@@ -23,10 +23,11 @@ $tags = [
 ];
 
 ?>
-<div class="ssp-page">
+<div class="ssp-page wrap">
 	<h1 class="ssp-page__title">
 		<?=esc_html__( 'Help page', 'loos-ssp' )?>
 	</h1>
+	<hr class="wp-header-end">
 	<div class="ssp-page__body">
 		<div class="ssp-page__section">
 			<h2 class="ssp-page__section__title">

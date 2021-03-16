@@ -92,8 +92,8 @@ trait Field {
 					</div>
 					<?php if ( $args['preview'] ) : ?>
 						<div class="ssp-field__preview">
-							<span class="ssp-field__preview__label">
-								┗ <?=esc_html__( 'Preview', 'loos-ssp' )?> : 
+						┗ <span class="ssp-field__preview__label">
+								<?=esc_html__( 'Preview', 'loos-ssp' )?> : 
 							</span>
 							<div class="ssp-field__preview__content">
 								<?=wp_kses_post( self::replace_snippets_forpv( $now_value ) )?>

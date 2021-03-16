@@ -20,13 +20,16 @@ if ( 'POST' === $_SERVER['REQUEST_METHOD'] && isset( $_POST['is_setting_form'] )
 }
 
 ?>
-<div class="ssp-page">
+<div class="ssp-page wrap">
 	<h1 class="ssp-page__title">
 		<?=esc_html__( 'OGP settings', 'loos-ssp' )?>
 	</h1>
+	<hr class="wp-header-end">
 	<?php if ( $is_updated )  self::output_saved_message(); ?>
-	<div class="ssp-page__tabs nav-tab-wrapper">
-		<?php self::output_setting_tab( SSP_Menu::$ogp_menu_tabs ); ?>
+	<div class="ssp-page__tabs">
+		<div class="nav-tab-wrapper">
+			<?php self::output_setting_tab( SSP_Menu::$ogp_menu_tabs ); ?>
+		</div>
 	</div>
 	<div class="ssp-page__body">
 		<form action="" method="post" id="ssp_form" accept-charset="UTF-8">
