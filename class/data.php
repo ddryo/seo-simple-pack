@@ -105,12 +105,14 @@ class SSP_Data {
 			// インストール時に実行する処理
 			self::setup_at_installed();
 
-		} elseif ( (int) SSP_VERSION > (int) $installed_version ) {
+		} elseif ( SSP_VERSION !== $installed_version ) {
 
 			// 更新時に実行する処理
 			self::setup_at_updated();
+
+			// バージョンが上がった時だけの処理
+			// if (version_compare( SSP_VERSION, $installed_version, '>' ) ) {}
 		}
-		// SSP_VERSION
 
 		// サイト基本情報取得
 		self::$site_title        = esc_html( get_option( 'blogname' ) );
@@ -184,7 +186,7 @@ class SSP_Data {
 			'fb_admins'  => '',
 			'tw_active'  => true,
 			'tw_account' => '',
-			'tw_card'    => 'summary',
+			'tw_card'    => 'summary_large_image',
 		];
 
 		/**

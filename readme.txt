@@ -3,9 +3,9 @@ Contributors: looswebstudio
 Donate link: https://loos-web-studio.com/
 Tags: SEO, meta, analytics, webmaster, simple, japan, meta tag
 Requires at least: 4.6
-Tested up to: 5.7
-Stable tag: 2.2.3
-Requires PHP: 5.6
+Tested up to: 5.8
+Stable tag: 2.2.4
+Requires PHP: 7.0
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -120,6 +120,10 @@ The following hooks are available.
 
 
 == Changelog ==
+
+= 2.2.4 =
+- Support for WordPress 5.8.
+- Changed the default value of "tw_card" to `'summary_large_image'`.
 
 = 2.2.3 =
 Adjusted the design of the setting page a little

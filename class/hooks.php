@@ -44,33 +44,35 @@ class SSP_Hooks {
 		$is_editor_page = 'post.php' === $hook_suffix || 'post-new.php' === $hook_suffix;
 		$is_ssp_page    = false !== strpos( $hook_suffix, 'ssp_' );
 
+		$ver = ( defined( 'WP_DEBUG' ) && WP_DEBUG ) ? wp_date( 'mdGis' ) : SSP_VERSION;
+
 		// SSP設定ページで読み込むファイル
 		if ( $is_ssp_page ) {
 
-			wp_enqueue_style( 'ssp-css', SSP_URL . 'dist/css/ssp.css', [], SSP_VERSION );
-			wp_enqueue_script( 'ssp-script', SSP_URL . 'dist/js/ssp.js', ['jquery' ], SSP_VERSION, true );
+			wp_enqueue_style( 'ssp-css', SSP_URL . 'dist/css/ssp.css', [], $ver );
+			wp_enqueue_script( 'ssp-script', SSP_URL . 'dist/js/ssp.js', ['jquery' ], $ver, true );
 
 		} elseif ( $is_editor_page ) {
 
-			wp_enqueue_style( 'ssp-post', SSP_URL . 'dist/css/post.css', [], SSP_VERSION );
+			wp_enqueue_style( 'ssp-post', SSP_URL . 'dist/css/post.css', [], $ver );
 
 		} elseif ( $is_term ) {
 
-			wp_enqueue_style( 'ssp-term', SSP_URL . 'dist/css/term.css', [], SSP_VERSION );
+			wp_enqueue_style( 'ssp-term', SSP_URL . 'dist/css/term.css', [], $ver );
 		}
 
 		// 設定ページでの共通ファイル
 		if ( $is_editor_page || $is_ssp_page || $is_term ) {
-			wp_enqueue_style( 'ssp-common', SSP_URL . 'dist/css/common.css', [], SSP_VERSION );
+			wp_enqueue_style( 'ssp-common', SSP_URL . 'dist/css/common.css', [], $ver );
 
 			wp_enqueue_media();
-			wp_enqueue_script( 'ssp-media', SSP_URL . 'dist/js/mediauploader.js', ['jquery' ], SSP_VERSION, true );
-			wp_enqueue_script( 'ssp-common-script', SSP_URL . 'dist/js/common.js', ['jquery' ], SSP_VERSION, true );
+			wp_enqueue_script( 'ssp-media', SSP_URL . 'dist/js/mediauploader.js', ['jquery' ], $ver, true );
+			wp_enqueue_script( 'ssp-common-script', SSP_URL . 'dist/js/common.js', ['jquery' ], $ver, true );
 		}
 
 		// ダッシュボードでも読み込むファイル
 		if ( $is_index ) {
-			wp_enqueue_style( 'ssp-common', SSP_URL . 'dist/css/common.css', [], SSP_VERSION );
+			wp_enqueue_style( 'ssp-common', SSP_URL . 'dist/css/common.css', [], $ver );
 		}
 
 	}
