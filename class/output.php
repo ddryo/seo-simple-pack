@@ -515,7 +515,7 @@ class SSP_Output {
 		switch ( true ) {
 
 			case is_front_page():
-				$canonical = home_url();
+				$canonical = home_url( '/' );
 				break;
 
 			case is_singular():
@@ -563,7 +563,7 @@ class SSP_Output {
 				break;
 
 			case is_404():
-				$canonical = home_url() . '/404';
+				$canonical = home_url( '/404' );
 				break;
 
 			default:

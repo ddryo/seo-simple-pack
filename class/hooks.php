@@ -137,7 +137,7 @@ class SSP_Hooks {
 	 */
 	public static function redirect( $page ) {
 
-		$home = home_url();
+		$home = home_url( '/' );
 
 		if ( is_author() && SSP_Data::$settings['author_disable'] ) {
 			wp_safe_redirect( $home );
