@@ -4,7 +4,7 @@ Donate link: https://loos-web-studio.com/
 Tags: SEO, meta, analytics, webmaster, simple, japan, meta tag
 Requires at least: 4.9
 Tested up to: 5.8
-Stable tag: 2.2.5
+Stable tag: 2.2.6
 Requires PHP: 7.0
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
@@ -120,6 +120,9 @@ The following hooks are available.
 
 
 == Changelog ==
+
+= 2.2.6 =
+Bug fixes
 
 = 2.2.5 =
 Fix the canonical tag on front page.
