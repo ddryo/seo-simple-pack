@@ -615,13 +615,18 @@ class SSP_Output {
 
 				if ( $meta_image ) {
 					$og_image = $meta_image;
+					break;
 				} elseif ( has_post_thumbnail( $the_id ) ) {
 					$thumb_id  = get_post_thumbnail_id( $the_id );
-					$thumb_url = wp_get_attachment_image_src( $thumb_id, 'full' );
-					$og_image  = $thumb_url[0] ?: $basic_ogimg;
-				} else {
-					$og_image = $basic_ogimg;
+					$thumb_src = wp_get_attachment_image_src( $thumb_id, 'full' );
+					if ( $thumb_src ) {
+						$og_image = $thumb_src[0] ?: $basic_ogimg;
+						break;
+					}
 				}
+
+				// metaもアイキャッチもない時
+				$og_image = $basic_ogimg;
 				break;
 			case is_tax() || is_tag() || is_category():
 				if ( ! isset( self::$obj->term_id ) ) break;
