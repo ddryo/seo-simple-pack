@@ -4,7 +4,7 @@ Donate link: https://loos-web-studio.com/
 Tags: SEO, meta, analytics, webmaster, simple, japan, meta tag
 Requires at least: 4.9
 Tested up to: 5.8
-Stable tag: 2.2.6
+Stable tag: 2.2.7
 Requires PHP: 7.0
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
@@ -120,6 +120,10 @@ The following hooks are available.
 
 
 == Changelog ==
+
+= 2.2.7 =
+- Changed the number of characters when automatically generating a description.
+- Added 'ssp_description_word_count' hook.
 
 = 2.2.6 =
 Bug fixes

@@ -245,9 +245,10 @@ trait Output_Helper {
 
 			// description
 			if ( false !== strpos( $str, '%_page_contents_%' ) ) {
-				$content = wp_strip_all_tags( do_shortcode( $obj->post_content ), true ); // 改行なども削除
-				$content = mb_substr( $content, 0, 300 );
-				$str     = str_replace( '%_page_contents_%', $content, $str );
+				$word_count = apply_filters( 'ssp_description_word_count', 120 );
+				$content    = wp_strip_all_tags( do_shortcode( $obj->post_content ), true ); // 改行なども削除
+				$content    = mb_substr( $content, 0, $word_count );
+				$str        = str_replace( '%_page_contents_%', $content, $str );
 			}
 		} elseif ( is_category() || is_tag() || is_tax() ) {
 
