@@ -50,6 +50,6 @@
   },
   "browserslist": [
     "extends @wordpress/browserslist-config",
-    "ie > 11"
+    "not ie <= 11"
   ]
 }
