@@ -585,7 +585,11 @@ class SSP_Output {
 	 * @return string : The og:type.
 	 */
 	private static function generate_og_type() {
-		$og_type = is_singular() ? 'article' : 'website';
+		if ( ! is_front_page() && is_singular() ) {
+			$og_type = 'article';
+		} else {
+			$og_type = 'website';
+		}
 		return apply_filters( 'ssp_output_og_type', $og_type );
 	}
 
