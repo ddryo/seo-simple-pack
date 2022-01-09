@@ -66,8 +66,8 @@ class SSP_Hooks {
 			wp_enqueue_style( 'ssp-common', SSP_URL . 'dist/css/common.css', [], $ver );
 
 			wp_enqueue_media();
-			wp_enqueue_script( 'ssp-media', SSP_URL . 'dist/js/mediauploader.js', ['jquery' ], $ver, true );
-			wp_enqueue_script( 'ssp-common-script', SSP_URL . 'dist/js/common.js', ['jquery' ], $ver, true );
+			wp_enqueue_script( 'ssp-switch', SSP_URL . 'dist/js/switch.js', [], $ver, true );
+			wp_enqueue_script( 'ssp-media', SSP_URL . 'dist/js/mediauploader.js', [ 'jquery' ], $ver, true );
 		}
 
 		// ダッシュボードでも読み込むファイル

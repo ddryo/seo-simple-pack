@@ -6,7 +6,7 @@ module.exports = {
 
 	// メインとなるJavaScriptファイル（エントリーポイント）
 	entry: {
-		common: './src/js/common.js',
+		switch: './src/js/switch.js',
 		ssp: './src/js/ssp.js',
 		mediauploader: './src/js/mediauploader.js',
 		
