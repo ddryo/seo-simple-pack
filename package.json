@@ -15,7 +15,8 @@
     "scss:common": "node-sass src/scss/common.scss dist/css/common.css --importer node_modules/node-sass-globbing/index.js",
     "scss:post": "node-sass src/scss/post.scss dist/css/post.css",
     "scss:term": "node-sass src/scss/term.scss dist/css/term.css",
-    "postcss": "postcss dist/css/**/*.css -d dist/css"
+    "postcss": "postcss dist/css/**/*.css -d dist/css",
+    "set:composer": "composer i && composer set-wpcs"
   },
   "repository": {
     "type": "git",

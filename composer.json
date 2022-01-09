@@ -12,12 +12,17 @@
     "require-dev": {
         "squizlabs/php_codesniffer": "^3.5",
         "wp-coding-standards/wpcs": "^2.3",
-        "dealerdirect/phpcodesniffer-composer-installer": "^0.6",
+        "dealerdirect/phpcodesniffer-composer-installer": "^0.7",
         "phpcompatibility/phpcompatibility-wp": "*"
     },
     "scripts": {
         "set-wpcs": [
             "./vendor/bin/phpcs --config-set installed_paths `pwd -P`/vendor/phpcompatibility/php-compatibility,`pwd -P`/vendor/phpcompatibility/phpcompatibility-paragonie,`pwd -P`/vendor/phpcompatibility/phpcompatibility-wp,`pwd -P`/vendor/wp-coding-standards/wpcs"
         ]
+    },
+    "config": {
+        "allow-plugins": {
+            "dealerdirect/phpcodesniffer-composer-installer": true
+        }
     }
 }
