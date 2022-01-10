@@ -196,24 +196,21 @@ class SSP_MetaBox {
 		$nonce_name = $_POST[ SSP_Data::NONCE_NAME ]; // phpcs:ignore
 		if ( ! wp_verify_nonce( $nonce_name, SSP_Data::NONCE_ACTION ) ) return;
 
-		// Check the user's permissions. 現在のユーザーに編集権限があるかのチェック
-		$post_type     = isset( $_POST['post_type'] ) ? $_POST['post_type'] : ''; // phpcs:ignorex
-		$check_can_key = 'page' === $post_type ? 'edit_page' : 'edit_post';
-		if ( ! current_user_can( $check_can_key, $post_id ) ) {
-			return;
-		}
-
 		foreach ( self::POST_META_KEYS as $key => $meta_key ) {
 
 			// 保存したい情報が渡ってきているか確認
-			if ( ! isset( $_POST[ $meta_key ] ) ) return;
+			if ( ! isset( $_POST[ $meta_key ] ) ) continue;
 
 			// 入力された値をサニタイズ
-			$meta_val = sanitize_text_field( $_POST[ $meta_key ] ); // phpcs:ignorex
+			$meta_val = sanitize_text_field( wp_unslash( $_POST[ $meta_key ] ) );
 
-			// 値を保存
-			update_post_meta( $post_id, $meta_key, $meta_val );
-
+			if ( empty( $meta_val ) ) {
+				// 初期値の場合は保存しない。また、空に戻された時には削除する。
+				delete_post_meta( $post_id, $meta_key );
+			} else {
+				// 値を保存
+				update_post_meta( $post_id, $meta_key, $meta_val );
+			}
 		}
 
 	}
@@ -229,7 +226,7 @@ class SSP_MetaBox {
 		$val_canonical   = get_term_meta( $term->term_id, self::TERM_META_KEYS['canonical'], true );
 		$val_image       = get_term_meta( $term->term_id, self::TERM_META_KEYS['image'], true );
 
-		// @codingStandardsIgnoreStart
+		// phpcs:disable WordPress.Security.EscapeOutput.OutputNotEscaped
 	?>
 		<tr class="ssp_term_meta_title">
 			<td colspan="2">
@@ -243,7 +240,7 @@ class SSP_MetaBox {
 				</label>
 			</th>
 			<td>
-				<?php self::select_box( self::TERM_META_KEYS['robots'], $val_robots, self::$robots_options ) ?>
+				<?php self::select_box( self::TERM_META_KEYS['robots'], $val_robots, self::$robots_options ); ?>
 			</td>
 		</tr>
 		<tr class="form-field">
@@ -253,7 +250,7 @@ class SSP_MetaBox {
 				</label>
 			</th>
 			<td>
-				<?php self::text_input( self::TERM_META_KEYS['title'], $val_title ) ?>
+				<?php self::text_input( self::TERM_META_KEYS['title'], $val_title ); ?>
 			</td>
 		</tr>
 		<tr class="form-field">
@@ -263,7 +260,7 @@ class SSP_MetaBox {
 				</label>
 			</th>
 			<td>
-				<?php self::textarea( self::TERM_META_KEYS['description'], $val_description ) ?>
+				<?php self::textarea( self::TERM_META_KEYS['description'], $val_description ); ?>
 			</td>
 		</tr>
 		<tr class="form-field">
@@ -273,7 +270,7 @@ class SSP_MetaBox {
 				</label>
 			</th>
 			<td>
-				<?php self::text_input( self::TERM_META_KEYS['canonical'], $val_canonical ) ?>
+				<?php self::text_input( self::TERM_META_KEYS['canonical'], $val_canonical ); ?>
 			</td>
 		</tr>
 		<tr class="form-field">
@@ -283,12 +280,11 @@ class SSP_MetaBox {
 				</label>
 			</th>
 			<td>
-				<?php self::media_btns( self::TERM_META_KEYS['image'], $val_image ) ?>
+				<?php self::media_btns( self::TERM_META_KEYS['image'], $val_image ); ?>
 			</td>
 		</tr>
-
 	<?php
-		// @codingStandardsIgnoreEnd
+		// phpcs:enable WordPress.Security.EscapeOutput.OutputNotEscaped
 
 		// Set nonce field
 		wp_nonce_field( SSP_Data::NONCE_ACTION, SSP_Data::NONCE_NAME );
@@ -313,14 +309,18 @@ class SSP_MetaBox {
 		foreach ( self::TERM_META_KEYS as $key => $meta_key ) {
 
 			// 保存したい情報が渡ってきているか確認
-			if ( ! isset( $_POST[ $meta_key ] ) ) return;
+			if ( ! isset( $_POST[ $meta_key ] ) ) continue;
 
 			// 入力された値をサニタイズ
-			$meta_val = sanitize_text_field( $_POST[ $meta_key ] ); // phpcs:ignorex
+			$meta_val = sanitize_text_field( wp_unslash( $_POST[ $meta_key ] ) );
 
-			// 値を保存
-			update_term_meta( $term_id, $meta_key, $meta_val );
-
+			if ( empty( $meta_val ) ) {
+				// 初期値の場合は保存しない。また、空に戻された時には削除する。
+				delete_term_meta( $term_id, $meta_key );
+			} else {
+				// 値を保存
+				update_term_meta( $term_id, $meta_key, $meta_val );
+			}
 		}
 	}
 }
