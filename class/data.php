@@ -108,10 +108,7 @@ class SSP_Data {
 		} elseif ( SSP_VERSION !== $installed_version ) {
 
 			// 更新時に実行する処理
-			self::setup_at_updated();
-
-			// バージョンが上がった時だけの処理
-			// if (version_compare( SSP_VERSION, $installed_version, '>' ) ) {}
+			self::setup_at_updated( $installed_version );
 		}
 
 		// サイト基本情報取得
@@ -226,7 +223,43 @@ class SSP_Data {
 	/**
 	 * 更新時に実行する処理
 	 */
-	public static function setup_at_updated() {
+	public static function setup_at_updated( $installed_version ) {
+
+		// 現在のバージョン番号を保存
 		update_option( self::DB_NAME['installed'], SSP_VERSION );
+
+		// バージョンが上がった時だけの処理
+		// if (version_compare( SSP_VERSION, $installed_version, '>' ) ) {}
+
+		// 特定のバージョンより古いとこからアップデートされた時に処理する
+		if ( version_compare( $installed_version, '2.2.7', '<=' ) ) {
+			self::clean_meta();
+		}
+	}
+
+
+	/**
+	 * 更新時に実行する処理
+	 */
+	public static function clean_meta() {
+
+		// 空のカスタムフィールドを削除
+		global $wpdb;
+
+		// phpcs:disable WordPress.DB.DirectDatabaseQuery, WordPress.DB.SlowDBQuery
+		foreach ( SSP_MetaBox::POST_META_KEYS as $key => $meta_key ) {
+			$wpdb->delete( $wpdb->postmeta, [
+				'meta_key'   => $meta_key,
+				'meta_value' => '',
+			] );
+		}
+
+		foreach ( SSP_MetaBox::TERM_META_KEYS as $key => $meta_key ) {
+			$wpdb->delete( $wpdb->termmeta, [
+				'meta_key'   => $meta_key,
+				'meta_value' => '',
+			] );
+		}
+		// phpcs:enable WordPress.DB.DirectDatabaseQuery, WordPress.DB.SlowDBQuery
 	}
 }
