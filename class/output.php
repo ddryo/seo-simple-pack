@@ -207,10 +207,14 @@ class SSP_Output {
 
 		$settings = SSP_Data::$settings;
 
+		// default
+		$title = SSP_Data::$site_title;
 		switch ( true ) {
+
 			case is_front_page():
 				$title = $settings['home_title'];
 				break;
+
 			case is_singular():
 			case is_home():
 				if ( ! isset( self::$obj->ID ) ) break;
@@ -222,6 +226,10 @@ class SSP_Output {
 					$pt    = isset( self::$obj->post_type ) ? self::$obj->post_type : '';
 					$title = isset( $settings[ $pt . '_title' ] ) ? $settings[ $pt . '_title' ] : '';
 				}
+				break;
+
+			case is_search():
+				$title = $settings['search_title'];
 				break;
 
 			case is_category():
@@ -258,16 +266,11 @@ class SSP_Output {
 				$title = $settings['date_title'];
 				break;
 
-			case is_search():
-				$title = $settings['search_title'];
-				break;
-
 			case is_404():
 				$title = $settings['404_title'];
 				break;
 
 			default:
-				$title = SSP_Data::$site_title;
 				break;
 		}
 
@@ -284,6 +287,8 @@ class SSP_Output {
 
 		$settings = SSP_Data::$settings;
 
+		// default
+		$robots = '';
 		switch ( true ) {
 
 			case is_front_page():
@@ -302,6 +307,10 @@ class SSP_Output {
 					$is_noindex = isset( $settings[ $pt . '_noindex' ] ) ? $settings[ $pt . '_noindex' ] : false;
 					$robots     = $is_noindex ? 'noindex' : '';
 				}
+				break;
+
+			case is_search():
+				$robots = 'noindex';
 				break;
 
 			case is_category():
@@ -336,6 +345,8 @@ class SSP_Output {
 				if ( $meta_robots ) {
 					$robots = $meta_robots;
 				} else {
+					if ( ! isset( self::$obj->taxonomy ) ) break;
+
 					$term       = self::$obj->taxonomy;
 					$is_noindex = $settings[ $term . '_noindex' ];
 					$robots     = $is_noindex ? 'noindex' : '';
@@ -357,16 +368,11 @@ class SSP_Output {
 				$robots     = $is_noindex ? 'noindex' : '';
 				break;
 
-			case is_search():
-				$robots = 'noindex';
-				break;
-
 			case is_404():
 				$robots = 'noindex';
 				break;
 
 			default:
-				$robots = '';
 				break;
 		}
 
@@ -380,12 +386,11 @@ class SSP_Output {
 	 */
 	private static function generate_keyword() {
 
+		// default
 		$keyword = '';
 
 		if ( is_front_page() ) {
-
 			$keyword = SSP_Data::$settings['home_keyword'];
-
 		} else {
 			if ( is_singular() || ( ! is_front_page() && is_home() ) ) {
 
@@ -416,7 +421,11 @@ class SSP_Output {
 
 		$settings = SSP_Data::$settings;
 
+		// default
+		$description = $settings['home_desc'];
+
 		switch ( true ) {
+
 			case is_front_page():
 				$description = $settings['home_desc'] ?: '%_tagline_%';
 				break;
@@ -434,6 +443,9 @@ class SSP_Output {
 					$pt          = isset( self::$obj->post_type ) ? self::$obj->post_type : '';
 					$description = isset( $settings[ $pt . '_desc' ] ) ? $settings[ $pt . '_desc' ] : '';
 				}
+				break;
+
+			case is_search():
 				break;
 
 			case is_category():
@@ -470,7 +482,6 @@ class SSP_Output {
 				break;
 
 			default:
-				$description = $settings['home_desc'];
 				break;
 		}
 
@@ -510,6 +521,7 @@ class SSP_Output {
 	 */
 	private static function generate_canonical() {
 
+		// default
 		$canonical = '';
 
 		switch ( true ) {
@@ -524,6 +536,10 @@ class SSP_Output {
 				$canonical      = $meta_canonical ?: get_permalink();
 				break;
 
+			case is_search():
+				$canonical = get_search_link();
+				break;
+
 			case is_tax() || is_tag() || is_category():
 				$term = self::$obj;
 				if ( ! isset( $term->term_id ) ) break;
@@ -535,7 +551,6 @@ class SSP_Output {
 				if ( is_wp_error( $canonical ) ) {
 					$canonical = '';
 				}
-
 				break;
 
 			case is_post_type_archive():
@@ -556,10 +571,6 @@ class SSP_Output {
 				} elseif ( is_year() ) {
 					$canonical = get_year_link( get_query_var( 'year' ) );
 				}
-				break;
-
-			case is_search():
-				$canonical = get_search_link();
 				break;
 
 			case is_404():
@@ -602,8 +613,10 @@ class SSP_Output {
 	 */
 	private static function generate_og_image() {
 
-		$og_image    = ''; // 返す値
 		$basic_ogimg = SSP_Data::$ogp['og_image'];
+
+		// default
+		$og_image = $basic_ogimg;
 
 		switch ( true ) {
 			case is_attachment():
@@ -632,14 +645,18 @@ class SSP_Output {
 				// metaもアイキャッチもない時
 				$og_image = $basic_ogimg;
 				break;
+
+			case is_search():
+				break;
+
 			case is_tax() || is_tag() || is_category():
 				if ( ! isset( self::$obj->term_id ) ) break;
 
 				$meta_image = get_term_meta( self::$obj->term_id, SSP_MetaBox::TERM_META_KEYS['image'], true );
 				$og_image   = $meta_image ?: $basic_ogimg;
 				break;
+
 			default:
-				$og_image = $basic_ogimg;
 				break;
 		}
 

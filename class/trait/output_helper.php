@@ -250,6 +250,10 @@ trait Output_Helper {
 				$content    = mb_substr( $content, 0, $word_count );
 				$str        = str_replace( '%_page_contents_%', $content, $str );
 			}
+		} elseif ( is_search() ) {
+			if ( false !== strpos( $str, '%_search_phrase_%' ) ) {
+				$str = str_replace( '%_search_phrase_%', get_search_query(), $str );
+			}
 		} elseif ( is_category() || is_tag() || is_tax() ) {
 
 			// title
@@ -303,12 +307,6 @@ trait Output_Helper {
 			if ( false !== strpos( $str, '%_author_name_%' ) ) {
 
 				$str = str_replace( '%_author_name_%', get_user_meta( $obj->ID, 'nickname', true ), $str );
-
-			}
-
-			if ( false !== strpos( $str, '%_search_phrase_%' ) ) {
-
-				$str = str_replace( '%_search_phrase_%', get_search_query(), $str );
 
 			}
 		}
