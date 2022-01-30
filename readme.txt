@@ -3,8 +3,8 @@ Contributors: looswebstudio
 Donate link: https://loos-web-studio.com/
 Tags: SEO, meta, analytics, webmaster, simple, japan, meta tag
 Requires at least: 4.9
-Tested up to: 5.8
-Stable tag: 2.2.9
+Tested up to: 5.9
+Stable tag: 2.3.0
 Requires PHP: 7.0
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
@@ -120,6 +120,9 @@ The following hooks are available.
 
 
 == Changelog ==
+
+= 2.3.0 =
+- Fixed readme.txt file.
 
 = 2.2.9 =
 - Support for WordPress 5.9.
