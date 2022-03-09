@@ -274,7 +274,7 @@ class SSP_Output {
 				break;
 		}
 
-		$title = self::replace_snippets( $title );
+		$title = wp_strip_all_tags( self::replace_snippets( $title ) );
 		return apply_filters( 'ssp_output_title', $title );
 	}
 
