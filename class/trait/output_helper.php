@@ -240,15 +240,17 @@ trait Output_Helper {
 		if ( is_singular() || ( ! is_front_page() && is_home() ) ) {
 
 			// title
-			$title = get_the_title( $obj->ID );
-			$str   = str_replace( '%_page_title_%', $title, $str );
+			if ( isset( $obj->ID ) ) {
+				$title = get_the_title( $obj->ID );
+				$str   = str_replace( '%_page_title_%', $title, $str );
 
-			// description
-			if ( false !== strpos( $str, '%_page_contents_%' ) ) {
-				$word_count = apply_filters( 'ssp_description_word_count', 120 );
-				$content    = wp_strip_all_tags( do_shortcode( $obj->post_content ), true ); // 改行なども削除
-				$content    = mb_substr( $content, 0, $word_count );
-				$str        = str_replace( '%_page_contents_%', $content, $str );
+				// description
+				if ( false !== strpos( $str, '%_page_contents_%' ) ) {
+					$word_count = apply_filters( 'ssp_description_word_count', 120 );
+					$content    = wp_strip_all_tags( do_shortcode( $obj->post_content ), true ); // 改行なども削除
+					$content    = mb_substr( $content, 0, $word_count );
+					$str        = str_replace( '%_page_contents_%', $content, $str );
+				}
 			}
 		} elseif ( is_search() ) {
 			if ( false !== strpos( $str, '%_search_phrase_%' ) ) {

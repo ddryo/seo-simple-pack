@@ -297,7 +297,10 @@ class SSP_Output {
 
 			case is_singular():
 			case is_home():
-				if ( ! isset( self::$obj->ID ) ) break;
+				if ( ! isset( self::$obj->ID ) ) {
+					$robots = 'noindex'; // ?cat=ネガティブid の is_home なページ
+					break;
+				};
 
 				$meta_robots = get_post_meta( self::$obj->ID, SSP_MetaBox::POST_META_KEYS['robots'], true );
 				if ( $meta_robots ) {
@@ -530,6 +533,15 @@ class SSP_Output {
 				$canonical = home_url( '/' );
 				break;
 
+			case is_home():
+				$home_id = get_queried_object_id();
+				if ( ! $home_id ) {
+					$canonical = home_url( '/' );
+				} else {
+					$canonical = get_permalink( $home_id ) ?: '';
+				}
+				break;
+
 			case is_singular():
 				$the_id         = isset( self::$obj->ID ) ? self::$obj->ID : 0;
 				$meta_canonical = get_post_meta( $the_id, SSP_MetaBox::POST_META_KEYS['canonical'], true );
@@ -578,7 +590,6 @@ class SSP_Output {
 				break;
 
 			default:
-				// is_home() もここに来る。
 				break;
 		}
 
