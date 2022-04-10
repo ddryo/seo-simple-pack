@@ -77,6 +77,9 @@ $quoted_title__s = sprintf( SSP_Data::$texts['quoted_title'], $page_title__s );
 $page_title__404   = __( '404 page', 'loos-ssp' );
 $quoted_title__404 = sprintf( SSP_Data::$texts['quoted_title'], $page_title__404 );
 
+$feed_title         = __( 'Feed page', 'loos-ssp' );
+$quoted_title__feed = sprintf( SSP_Data::$texts['quoted_title'], $feed_title );
+
 self::output_section( __( 'Particular page settings', 'loos-ssp' ), [
 	'search_title' => [
 		'title'       => sprintf( SSP_Data::$texts['title_of'], $quoted_title__s ),
@@ -87,5 +90,10 @@ self::output_section( __( 'Particular page settings', 'loos-ssp' ), [
 		'title'       => sprintf( SSP_Data::$texts['title_of'], $quoted_title__404 ),
 		'desc'        => sprintf( SSP_Data::$texts['default_output'], $quoted_title__404, '<code>&lt;title&gt;</code>' ),
 		'preview'     => true,
+	],
+	'feed_noindex' => [
+		'title'       => sprintf( SSP_Data::$texts['noindex'], $quoted_title__feed ),
+		'type'        => 'switch',
+		// 'desc'        => SSP_Data::$texts['noindex_help'],
 	],
 ] );

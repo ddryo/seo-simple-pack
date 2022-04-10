@@ -155,6 +155,11 @@ class SSP_Hooks {
 			wp_safe_redirect( get_post()->guid );
 			exit;
 		}
+
+		// feedをインデックスさせない（noidex）
+		if ( is_feed() && SSP_Data::$settings['feed_noindex'] && headers_sent() === false ) {
+			header( 'X-Robots-Tag: noindex, follow', true );
+		}
 	}
 
 

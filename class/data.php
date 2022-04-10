@@ -173,6 +173,7 @@ class SSP_Data {
 			'pt_archive_desc'       => sprintf( self::$texts['archive_desc'], '%_post_type_%' ),
 			'404_title'             => '404: ' . __( 'Page not found', 'loos-ssp' ) . ' %_sep_% %_site_title_%',
 			'search_title'          => __( 'Searched:', 'loos-ssp' ) . ' %_search_phrase_% %_sep_% %_site_title_%',
+			'feed_noindex'          => false,
 		];
 
 		self::$default_ogp_settings = [
