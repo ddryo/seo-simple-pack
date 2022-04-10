@@ -7,7 +7,8 @@
     "build": "npm run build:css && npm run build:js",
     "build:css": "node sass-builder.js",
     "build:js": "npx webpack",
-    "set:composer": "composer i && composer set-wpcs"
+    "set:composer": "composer i && composer set-wpcs",
+    "rm:ds_store": "find . -name '.DS_Store' -type f -ls -delete"
   },
   "repository": {
     "type": "git",
