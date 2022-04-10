@@ -168,12 +168,12 @@ trait Field {
 
 		$checked = ( $is_checked ) ? 'checked' : '';
 	?>
-		<span><?=esc_html__( 'Yes', 'loos-ssp' )?></span>
+		<span><?=esc_html__( 'No', 'loos-ssp' )?></span>
 		<label class="ssp_switch" for="<?=esc_attr( $name )?>">
 			<input type="checkbox" name="" id="<?=esc_attr( $name )?>" <?=$checked?>>
 			<span class="ssp_switch__slider -round"></span>
 		</label>
-		<span><?=esc_html__( 'No', 'loos-ssp' )?></span>
+		<span><?=esc_html__( 'Yes', 'loos-ssp' )?></span>
 		<input type="hidden" name="<?=esc_attr( $name )?>" value="<?=esc_attr( $is_checked )?>">
 	<?php
 	}
