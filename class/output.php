@@ -212,6 +212,7 @@ class SSP_Output {
 		switch ( true ) {
 
 			case is_front_page():
+			case is_home() && null === self::$obj: // 「投稿ページ」しか設定されていないときのトップ
 				$title = $settings['home_title'];
 				break;
 
@@ -284,7 +285,6 @@ class SSP_Output {
 	 * @return string : The meta:robots.
 	 */
 	private static function generate_robots() {
-
 		$settings = SSP_Data::$settings;
 
 		// default
@@ -292,15 +292,20 @@ class SSP_Output {
 		switch ( true ) {
 
 			case is_front_page():
+			case is_home() && null === self::$obj: // 「投稿ページ」しか設定されていないときのトップ
+				// ?cat=ネガティブid のページかどうか調べる
+				$cat_query = (int) get_query_var( 'cat', 0 );
+				if ( is_numeric( $cat_query ) && 0 > $cat_query ) {
+					$robots = 'noindex';
+					break;
+				}
+
 				$robots = '';
 				break;
 
 			case is_singular():
 			case is_home():
-				if ( ! isset( self::$obj->ID ) ) {
-					$robots = 'noindex'; // ?cat=ネガティブid の is_home なページ
-					break;
-				};
+				if ( ! isset( self::$obj->ID ) ) break;
 
 				$meta_robots = get_post_meta( self::$obj->ID, SSP_MetaBox::POST_META_KEYS['robots'], true );
 				if ( $meta_robots ) {
@@ -430,6 +435,7 @@ class SSP_Output {
 		switch ( true ) {
 
 			case is_front_page():
+			case is_home() && null === self::$obj: // 「投稿ページ」しか設定されていないときのトップ
 				$description = $settings['home_desc'] ?: '%_tagline_%';
 				break;
 
