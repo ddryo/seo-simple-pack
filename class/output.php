@@ -89,6 +89,22 @@ class SSP_Output {
 	}
 
 
+	/**
+	 * トップページのデータだけを取得する
+	 *   （テーマや外部プラグインから構造化データ生成に使用できるようにするためのもの）
+	 */
+	public static function get_front_data( $target ) {
+		$settings = SSP_Data::$settings;
+		$return   = '';
+		if ( 'title' === $target ) {
+			$title  = $settings['home_title'];
+			$return = wp_strip_all_tags( $title );
+		} elseif ( 'description' === $target ) {
+			$return = $settings['home_desc'];
+		}
+		return self::replace_snippets( $return );
+	}
+
 
 	/**
 	 * Genarate and output meta tags for current page.
