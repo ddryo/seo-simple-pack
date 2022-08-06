@@ -1,10 +1,10 @@
 === SEO SIMPLE PACK ===
 Contributors: looswebstudio
 Donate link: https://loos-web-studio.com/
-Tags: SEO, meta, analytics, webmaster, simple, japan, meta tag
+Tags: SEO, meta, analytics, wsebmaster, simple, japan, meta tag
 Requires at least: 4.9
 Tested up to: 6.0
-Stable tag: 2.5.0
+Stable tag: 2.5.1
 Requires PHP: 7.0
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
@@ -120,6 +120,9 @@ The following hooks are available.
 
 
 == Changelog ==
+
+= 2.5.1 =
+- Replaced do_shortcode() with strip_shortcodes() when generating descriptions.
 
 = 2.5.0 =
 - Add get_front_data().
