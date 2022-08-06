@@ -247,7 +247,7 @@ trait Output_Helper {
 				// description
 				if ( false !== strpos( $str, '%_page_contents_%' ) ) {
 					$word_count = apply_filters( 'ssp_description_word_count', 120 );
-					$content    = wp_strip_all_tags( do_shortcode( $obj->post_content ), true ); // 改行なども削除
+					$content    = wp_strip_all_tags( strip_shortcodes( $obj->post_content ), true ); // 改行なども削除
 					$content    = mb_substr( $content, 0, $word_count );
 					$str        = str_replace( '%_page_contents_%', $content, $str );
 				}
@@ -262,7 +262,7 @@ trait Output_Helper {
 			$str = str_replace( ['%_cat_name_%', '%_tag_name_%', '%_term_name_%', '%_format_name_%' ], $obj->name, $str );
 
 			// description
-			$term_desc = wp_strip_all_tags( do_shortcode( $obj->description ), true ); // 改行なども削除
+			$term_desc = wp_strip_all_tags( strip_shortcodes( $obj->description ), true ); // 改行なども削除
 			$str       = str_replace( '%_term_description_%', $term_desc, $str );
 
 			// タクソノミー名
