@@ -146,7 +146,8 @@ class SSP_Hooks {
 
 		// check: /type/aside
 		if ( is_tax() && SSP_Data::$settings['post_format_disable'] ) {
-			if ( 'post_format' === get_queried_object()->taxonomy ) {
+			$obj = get_queried_object();
+			if ( isset( $obj->taxonomy ) && 'post_format' === $obj->taxonomy ) {
 				wp_safe_redirect( $home );
 				exit;
 			};
