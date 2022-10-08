@@ -2,24 +2,59 @@
 /**
  * Help page
  */
-$tags = [
-	'site_title'       => __( 'Site title', 'loos-ssp' ),
-	'tagline'          => __( 'Site catchphrase', 'loos-ssp' ),
-	'phrase'           => __( 'Site catchphrase', 'loos-ssp' ) . ' ( ' . __( 'For backward compatibility', 'loos-ssp' ) . ' )',
-	'description'      => __( 'Home description', 'loos-ssp' ),
-	'page_title'       => __( 'Post title', 'loos-ssp' ),
-	'cat_name'         => __( 'Category name', 'loos-ssp' ),
-	'tag_name'         => __( 'Tag name', 'loos-ssp' ),
-	'term_name'        => __( 'Term name', 'loos-ssp' ),
-	'term_description' => __( 'Term description', 'loos-ssp' ),
-	'tax_name'         => __( 'Taxonomy name', 'loos-ssp' ),
-	'post_type'        => __( 'Post type name', 'loos-ssp' ),
-	'page_contents'    => __( 'Page content', 'loos-ssp' ),
-	'date'             => __( 'The date that is searching in the date archive', 'loos-ssp' ),
-	'author_name'      => __( 'Author name', 'loos-ssp' ),
-	'search_phrase'    => __( 'Search word', 'loos-ssp' ),
-	'format_name'      => __( 'Post format name', 'loos-ssp' ),
-	'sep'              => __( 'Delimiter', 'loos-ssp' ),
+$SNIPPET_TAGS = [
+	'site_title' => [
+		'label' => __( 'Site title', 'loos-ssp' ),
+		'for'   => __( 'All pages', 'loos-ssp' ),
+	],
+	'tagline' => [
+		'label' => __( 'Site catchphrase', 'loos-ssp' ),
+		'for'   => __( 'All pages', 'loos-ssp' ),
+	],
+	'front_description' => [
+		'label' => __( 'Front description', 'loos-ssp' ),
+		'for'   => __( 'All pages', 'loos-ssp' ),
+	],
+	'sep' => [
+		'label' => __( 'Delimiter', 'loos-ssp' ),
+		'for'   => __( 'All pages', 'loos-ssp' ),
+	],
+	'page_title' => [
+		'label' => __( 'Post title', 'loos-ssp' ),
+		'for'   => __( 'Posts and Pages', 'loos-ssp' ),
+	],
+	'page_contents' => [
+		'label' => __( 'Page content', 'loos-ssp' ),
+		'for'   => __( 'Posts and Pages', 'loos-ssp' ),
+	],
+	'term_name' => [
+		'label' => __( 'Term name', 'loos-ssp' ),
+		'for'   => __( 'Term archives', 'loos-ssp' ),
+	],
+	'term_description' => [
+		'label' => __( 'Term description', 'loos-ssp' ),
+		'for'   => __( 'Term archives', 'loos-ssp' ),
+	],
+	'tax_name' => [
+		'label' => __( 'Taxonomy name', 'loos-ssp' ),
+		'for'   => __( 'Taxonomy archives', 'loos-ssp' ),
+	],
+	'post_type' => [
+		'label' => __( 'Post type name', 'loos-ssp' ),
+		'for'   => __( 'Post Type archives', 'loos-ssp' ),
+	],
+	'date' => [
+		'label' => __( 'The date that is searching in the date archive', 'loos-ssp' ),
+		'for'   => __( 'Date archives', 'loos-ssp' ),
+	],
+	'author_name' => [
+		'label' => __( 'Author name', 'loos-ssp' ),
+		'for'   => __( 'Author archives', 'loos-ssp' ),
+	],
+	'search_phrase' => [
+		'label' => __( 'Search word', 'loos-ssp' ),
+		'for'   => __( 'Search results', 'loos-ssp' ),
+	],
 ];
 
 ?>
@@ -43,14 +78,25 @@ $tags = [
 							<th>
 								<?=esc_html__( 'Contents to be expanded', 'loos-ssp' )?>
 							</th>
+							<th>
+								<?=esc_html__( 'Available page', 'loos-ssp' )?>
+							</th>
 						</tr>
 					</thead>
 					<tbody>
-						<?php
-							foreach ( $tags as $key => $val ) {
-							echo '<tr><th>%_' . $key . '_%</th><td>' . $val . '</td></tr>';
-							}
-						?>
+						<?php foreach ( $SNIPPET_TAGS as $name => $data ) : ?>
+							<tr>
+								<td>
+									<code>%_<?=esc_html( $name )?>_%</code>
+								</td>
+								<td>
+									<?=esc_html( $data['label'] )?>
+								</td>
+								<td>
+									<?=esc_html( $data['for'] )?>
+								</td>
+							</tr>
+						<?php endforeach; ?>
 					</tbody>
 				</table>
 

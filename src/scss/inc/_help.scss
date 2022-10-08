@@ -2,17 +2,42 @@
 /* help ページ */
 .ssp-helpTable {
 	width: 100%;
-	max-width: 560px;
+	max-width: 600px;
 	margin: 0 0 24px;
+	border-spacing: 2px 0;
 	// background: #fff;
 
-	thead {
-		background: #e3e4e3;
+	thead th {
+		background: #efefef;
 	}
 
 	td,
 	th {
-		padding: 6px 8px;
+		padding: 8px 8px;
 		text-align: left;
+	}
+
+	tbody > tr:first-child td {
+		border-top: 1px solid #efefef;
+	}
+
+	tbody td {
+		border-bottom: 1px solid #efefef;
+	}
+
+	thead::after {
+		display: block;
+		width: 100%;
+		height: 8px;
+		// padding: 4px 0;
+		content: "";
+	}
+
+	code {
+		margin: 0 1px;
+		padding: 2px 4px;
+		line-height: 1;
+		background: #eeefef;
+		border-radius: 2px;
 	}
 }
