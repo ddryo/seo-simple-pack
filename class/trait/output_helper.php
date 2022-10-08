@@ -245,13 +245,12 @@ trait Output_Helper {
 				case '%_site_title_%':
 					$replace = \SSP_Data::$site_title;
 					break;
-				case '%_phrase_%':
-					$replace = \SSP_Data::$site_catch_phrase;
-					break;
+				case '%_phrase_%': // old
 				case '%_tagline_%':
 					$replace = \SSP_Data::$site_catch_phrase;
 					break;
-				case '%_description_%':
+				case '%_description_%': // old
+				case '%_front_description_%':
 					$replace = \SSP_Data::$settings['home_desc'];
 					break;
 				case '%_search_phrase_%':
@@ -272,9 +271,9 @@ trait Output_Helper {
 					}
 					break;
 				case '%_term_name_%':
-				case '%_cat_name_%':
-				case '%_tag_name_%':
-				case '%_format_name_%':
+				case '%_cat_name_%': // old
+				case '%_tag_name_%': // old
+				case '%_format_name_%': // old
 					if ( 'WP_Term' === $obj_type ) {
 						$replace = $obj->name;
 					}

@@ -47,13 +47,12 @@ trait Field {
 	 */
 	public static function replace_old_snipets( $field_name, $field_value ) {
 		// 旧スニペット名を置換
-		if ( 'cat_title' === $field_name ) {
-			$field_value = str_replace( '%_cat_name_%', ' %_term_name_%', $field_value );
-		} elseif ( 'tag_title' === $field_name ) {
-			$field_value = str_replace( '%_tag_name_%', ' %_term_name_%', $field_value );
-		} elseif ( 'post_format_title' === $field_name ) {
-			$field_value = str_replace( '%_format_name_%', ' %_term_name_%', $field_value );
-		}
+		$field_value = str_replace( '%_cat_name_%', ' %_term_name_%', $field_value );
+		$field_value = str_replace( '%_tag_name_%', ' %_term_name_%', $field_value );
+		$field_value = str_replace( '%_format_name_%', ' %_term_name_%', $field_value );
+		$field_value = str_replace( '%_phrase_%', ' %_tagline_%', $field_value );
+		$field_value = str_replace( '%_description_%', ' %_front_description_%', $field_value );
+
 		return $field_value;
 	}
 
