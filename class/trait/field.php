@@ -43,37 +43,55 @@ trait Field {
 
 
 	/**
+	 * 旧スニペット名を置換
+	 */
+	public static function replace_old_snipets( $field_name, $field_value ) {
+		// 旧スニペット名を置換
+		if ( 'cat_title' === $field_name ) {
+			$field_value = str_replace( '%_cat_name_%', ' %_term_name_%', $field_value );
+		} elseif ( 'tag_title' === $field_name ) {
+			$field_value = str_replace( '%_tag_name_%', ' %_term_name_%', $field_value );
+		} elseif ( 'post_format_title' === $field_name ) {
+			$field_value = str_replace( '%_format_name_%', ' %_term_name_%', $field_value );
+		}
+		return $field_value;
+	}
+
+
+	/**
 	 * 各設定項目を出力する
 	 */
-	public static function output_field( $name, $args, $now_value ) {
+	public static function output_field( $field_name, $args, $field_value ) {
 
-			$args = array_merge( [
-				'title'       => '',
-				'reqired'     => false,
-				'class'       => '',
-				'type'        => 'text',
-				'preview'     => false,
-				'desc'        => '',
-				'choices'     => [],
-				'label'       => '',
-				'item'        => '',
-			], $args );
+		$args = array_merge( [
+			'title'       => '',
+			'reqired'     => false,
+			'class'       => '',
+			'type'        => 'text',
+			'preview'     => false,
+			'desc'        => '',
+			'choices'     => [],
+			'label'       => '',
+			'item'        => '',
+		], $args );
 
-			$add_data = '';
-			if ( strpos( $name, '_disable' ) !== false ) {
-				$add_data = ' data-disable="' . esc_attr( (int) $now_value ) . '"';
-			} elseif ( strpos( $name, 'tw_active' ) !== false || strpos( $name, 'fb_active' ) !== false ) {
-				$add_data = ' data-active="' . esc_attr( (int) $now_value ) . '"';
-			}
+		$field_value = self::replace_old_snipets( $field_name, $field_value );
 
-			// if ( $args['reqired'] ) {
-			// 	$table_title .= '<span class="required">*</span>';
-			// }
+		$add_data = '';
+		if ( strpos( $field_name, '_disable' ) !== false ) {
+			$add_data = ' data-disable="' . esc_attr( (int) $field_value ) . '"';
+		} elseif ( strpos( $field_name, 'tw_active' ) !== false || strpos( $field_name, 'fb_active' ) !== false ) {
+			$add_data = ' data-active="' . esc_attr( (int) $field_value ) . '"';
+		}
+
+		// if ( $args['reqired'] ) {
+		// 	$table_title .= '<span class="required">*</span>';
+		// }
 
 		?>
 			<div class="ssp-field"<?=$add_data?>>
 				<?php if ( $args['title'] ) : ?>
-					<label for="<?=esc_attr( $name )?>" class="ssp-field__title">
+					<label for="<?=esc_attr( $field_name )?>" class="ssp-field__title">
 						<?=esc_html( $args['title'] ) ?>
 					</label>
 				<?php endif; ?>
@@ -83,7 +101,7 @@ trait Field {
 							if ( $args['item'] ) :
 							echo $args['item'];
 							else :
-								self::the_setting_field( $name, $now_value, $args );
+								self::the_setting_field( $field_name, $field_value, $args );
 							endif;
 						?>
 					</div>
@@ -96,7 +114,7 @@ trait Field {
 								<?=esc_html__( 'Preview', 'loos-ssp' )?> : 
 							</span>
 							<div class="ssp-field__preview__content">
-								<?=wp_kses_post( self::replace_snippets_forpv( $now_value ) )?>
+								<?=wp_kses_post( self::replace_snippets_forpv( $field_value ) )?>
 							</div>
 							<a href="<?=esc_url( admin_url( 'admin.php?page=ssp_help' ) )?>" target="_blank" title="<?=esc_html__( 'About available snippet tags', 'loos-ssp' )?>" class="ssp-helpButton">?</a>
 						</div>
@@ -106,40 +124,41 @@ trait Field {
 		<?php
 	}
 
+
 	/**
 	 * 設定フィールドを取得
 	 */
-	public static function the_setting_field( $name, $now_value, $args ) {
+	public static function the_setting_field( $field_name, $field_value, $args ) {
 
 		$type = $args['type'];
 
 		if ( 'text' === $type ) {
 
-			self::text_input( $name, $now_value );
+			self::text_input( $field_name, $field_value );
 
 		} elseif ( 'checkbox' === $type ) {
 
-			self::checkbox( $name, $now_value, $args['label'] );
+			self::checkbox( $field_name, $field_value, $args['label'] );
 
 		} elseif ( 'switch' === $type ) {
 
-			self::switch_box( $name, $now_value );
+			self::switch_box( $field_name, $field_value );
 
 		} elseif ( 'select' === $type ) {
 
-			self::select_box( $name, $now_value, $args['choices'] );
+			self::select_box( $field_name, $field_value, $args['choices'] );
 
 		} if ( 'radio_btn' === $type ) {
 
-			self::radio_btns( $name, $now_value, $args['choices'] );
+			self::radio_btns( $field_name, $field_value, $args['choices'] );
 
 		} if ( 'media' === $type ) {
 
-			self::media_btns( $name, $now_value );
+			self::media_btns( $field_name, $field_value );
 
 		} elseif ( 'textarea' === $type ) {
 
-			self::textarea( $name, $now_value );
+			self::textarea( $field_name, $field_value );
 
 		}
 	}
@@ -148,16 +167,16 @@ trait Field {
 	/**
 	 * text_input
 	 */
-	public static function text_input( $name, $now_value ) {
-		echo '<input type="text" name="' . esc_attr( $name ) . '" id="' . esc_attr( $name ) . '" value="' . esc_attr( $now_value ) . '">';
+	public static function text_input( $name, $value ) {
+		echo '<input type="text" name="' . esc_attr( $name ) . '" id="' . esc_attr( $name ) . '" value="' . esc_attr( $value ) . '">';
 	}
 
 
 	/**
 	 * textarea
 	 */
-	public static function textarea( $name, $now_value, $rows = '4' ) {
-		echo '<textarea name="' . esc_attr( $name ) . '" rows="' . esc_attr( $rows ) . '">' . esc_html( $now_value ) . '</textarea>';
+	public static function textarea( $name, $value, $rows = '4' ) {
+		echo '<textarea name="' . esc_attr( $name ) . '" rows="' . esc_attr( $rows ) . '">' . esc_html( $value ) . '</textarea>';
 	}
 
 
@@ -196,11 +215,11 @@ trait Field {
 	/**
 	 * select_box
 	 */
-	public static function select_box( $name, $now_value, $choices ) {
+	public static function select_box( $name, $value, $choices ) {
 
 		echo '<select name="' . esc_attr( $name ) . '" id="' . esc_attr( $name ) . '">';
 		foreach ( $choices as $key => $label ) {
-			$selected = ( $key === $now_value ) ? 'selected' : '';
+			$selected = ( $key === $value ) ? 'selected' : '';
 			echo '<option value="' . esc_attr( $key ) . '" ' . $selected . '>' . esc_html( $label ) . '</option>';
 		}
 		echo '</select>';
@@ -210,11 +229,11 @@ trait Field {
 	/**
 	 * radio_btns
 	 */
-	public static function radio_btns( $name, $now_value, $choices ) {
+	public static function radio_btns( $name, $value, $choices ) {
 
 		foreach ( $choices as $key => $label ) {
 
-			$checked   = ( $key === $now_value ) ? 'checked' : '';
+			$checked   = ( $key === $value ) ? 'checked' : '';
 			$radio_key = 'radio-' . $name . '-' . $key;
 
 			echo '<input type="radio" class="ssp-field__radioInput"' .
@@ -229,13 +248,13 @@ trait Field {
 	/**
 	 * 画像アップロード
 	 */
-	public static function media_btns( $name = '', $src = '' ) {
+	public static function media_btns( $name = '', $value = '' ) {
 	?>
 		<div class="ssp-media">
-			<input type="hidden" id="src_<?=esc_attr( $name )?>" name="<?=esc_attr( $name )?>" value="<?=esc_attr( $src )?>" />
-			<?php if ( $src ) : ?>
+			<input type="hidden" id="src_<?=esc_attr( $name )?>" name="<?=esc_attr( $name )?>" value="<?=esc_attr( $value )?>" />
+			<?php if ( $value ) : ?>
 				<div id="preview_<?=esc_attr( $name )?>" class="ssp-media__preview">
-					<img src="<?=esc_url( $src )?>" alt="">
+					<img src="<?=esc_url( $value )?>" alt="">
 				</div>
 			<?php else : ?>
 				<div id="preview_<?=esc_attr( $name )?>" class="ssp-media__preview"></div>
