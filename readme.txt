@@ -4,7 +4,7 @@ Donate link: https://loos-web-studio.com/
 Tags: SEO, meta, analytics, wsebmaster, simple, japan, meta tag
 Requires at least: 4.9
 Tested up to: 6.0
-Stable tag: 2.5.1
+Stable tag:  3.0.0
 Requires PHP: 7.0
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
@@ -59,7 +59,6 @@ The following items can be set individually for Posts / Pages and Term pages suc
 - "title" tag
 - "meta description" tag
 - "meta og:image" tag
-
 
 
 ### About initial settings
@@ -120,6 +119,12 @@ The following hooks are available.
 
 
 == Changelog ==
+
+= 3.0.0 =
+- Added `'ssp_replace_snippet_{snippet_name}'` hook. (You can now define custom snippets)
+- Changed some snippet names. (The previous snippet name also works.)
+- Changed settings for Post Format archives to only show when Post Format support is enabled.
+- Refactored the code.
 
 = 2.5.1 =
 - Replaced do_shortcode() with strip_shortcodes() when generating descriptions.
