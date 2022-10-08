@@ -9,65 +9,48 @@ class SSP_Output {
 	private function __construct() {}
 
 	/**
-	 * @var object The current wp object.
+	 * @var object The current query object.
 	 */
 	private static $obj;
 
 	/**
-	 * @var string The Title holder.
+	 * @var object The type of current query object.
+	 */
+	private static $obj_type;
+
+	/**
+	 * @var string The meta data holders.
 	 */
 	private static $title;
-
-	/**
-	 * @var string The Description holder.
-	 */
 	private static $description;
-
-	/**
-	 * @var string The Description holder.
-	 */
 	private static $robots;
-
-	/**
-	 * @var string The Description holder.
-	 */
 	private static $keyword;
-
-
-	/**
-	 * @var string The canonical holder.
-	 */
 	private static $canonical;
 
 	/**
-	 * @var string The canonical holder.
+	 * @var string The ogp data holders.
 	 */
 	private static $og_tags;
-
-	/**
-	 * @var string The og:locale holder.
-	 */
 	private static $og_locale;
-
-	/**
-	 * @var string The og:type holder.
-	 */
 	private static $og_type;
-
-	/**
-	 * @var string The og:image holder.
-	 */
 	private static $og_image;
+	private static $og_title;
+	private static $og_desc;
+	private static $og_url;
+	private static $og_site_name;
 
 	/**
-	 * @var string The og:facebook holder.
+	 * @var string The ogp data holders for facebook.
 	 */
-	private static $og_facebook;
+	private static $fb_app_id;
+	private static $fb_admins;
+	private static $fb_url;
 
 	/**
-	 * @var string The og:twitter holder.
+	 * @var string The ogp data holders for twitter.
 	 */
-	private static $og_twitter;
+	private static $tw_card;
+	private static $tw_site;
 
 
 	/**
@@ -77,8 +60,9 @@ class SSP_Output {
 		add_action( 'wp_head', [ 'SSP_Output', 'main' ], 5 );
 	}
 
+
 	/**
-	 * get_method
+	 * get method
 	 */
 	public static function get_meta_data( $key = '' ) {
 		if ( '' !== $key ) {
@@ -86,6 +70,16 @@ class SSP_Output {
 		} else {
 			return false;
 		}
+	}
+
+
+	/**
+	 * $obj がどのクラスのオブジェクトかをチェック
+	 */
+	public static function get_obj_type( $obj ) {
+		if ( ! $obj || ! is_object( $obj ) ) return;
+
+		return get_class( $obj );
 	}
 
 
@@ -102,7 +96,7 @@ class SSP_Output {
 		} elseif ( 'description' === $target ) {
 			$return = $settings['home_desc'];
 		}
-		return self::replace_snippets( $return );
+		return self::replace_snippets( $return, $target );
 	}
 
 
@@ -110,6 +104,8 @@ class SSP_Output {
 	 * Genarate and output meta tags for current page.
 	 */
 	public static function main() {
+		self::$obj      = get_queried_object();
+		self::$obj_type = self::get_obj_type( self::$obj );
 
 		// Genarate
 		self::generate_meta_tags();
@@ -121,7 +117,6 @@ class SSP_Output {
 		self::output_ogp_tags();
 		self::output_codes();
 		echo '<!-- / SEO SIMPLE PACK -->' . PHP_EOL . PHP_EOL;
-
 	}
 
 
@@ -129,15 +124,41 @@ class SSP_Output {
 	 * Generate meta tags
 	 */
 	private static function generate_meta_tags() {
-
-		self::$obj         = get_queried_object();
 		self::$title       = self::generate_title();
 		self::$robots      = self::generate_robots();
 		self::$keyword     = self::generate_keyword();
 		self::$description = self::generate_description();
 		self::$canonical   = self::generate_canonical();
-
 	}
+
+
+	/**
+	 * Generate ogp tags
+	 */
+	private static function generate_ogp_tags() {
+		// Reuse meta tags
+		self::$og_title     = apply_filters( 'ssp_output_og_title', self::$title );
+		self::$og_desc      = apply_filters( 'ssp_output_og_description', self::$description );
+		self::$og_url       = apply_filters( 'ssp_output_og_url', self::$canonical );
+		self::$og_site_name = apply_filters( 'ssp_output_og_site_name', SSP_Data::$site_title );
+
+		// Generate other ogp tags
+		self::$og_locale = apply_filters( 'ssp_output_og_locale', self::get_valid_og_locale() );
+		self::$og_type   = self::generate_og_type();
+		self::$og_image  = self::generate_og_image();
+
+		// Generate SNS ogp tags
+		if ( SSP_Data::$ogp['fb_active'] ) {
+			self::$fb_app_id = apply_filters( 'ssp_output_fb_appid', SSP_Data::$ogp['fb_app_id'] );
+			self::$fb_admins = apply_filters( 'ssp_output_fb_admins', SSP_Data::$ogp['fb_admins'] );
+			self::$fb_url    = apply_filters( 'ssp_output_fb_publisher', SSP_Data::$ogp['fb_url'] );
+		}
+		if ( SSP_Data::$ogp['tw_active'] ) {
+			self::$tw_card = apply_filters( 'ssp_output_tw_card', SSP_Data::$ogp['tw_card'] );
+			self::$tw_site = apply_filters( 'ssp_output_tw_site', SSP_Data::$ogp['tw_account'] );
+		}
+	}
+
 
 	/**
 	 * Output meta tags
@@ -163,22 +184,6 @@ class SSP_Output {
 		if ( ! empty( self::$canonical ) ) {
 			echo '<link rel="canonical" href="' . esc_attr( self::$canonical ) . '">' . PHP_EOL;
 		}
-
-	}
-
-
-	/**
-	 * Generate ogp tags
-	 */
-	private static function generate_ogp_tags() {
-
-		self::$og_locale   = self::generate_og_locale();
-		self::$og_type     = self::generate_og_type();
-		self::$og_image    = self::generate_og_image();
-		self::$og_tags     = self::generate_general_ogp();
-		self::$og_facebook = self::generate_og_facebook();
-		self::$og_twitter  = self::generate_og_twitter();
-
 	}
 
 
@@ -187,30 +192,46 @@ class SSP_Output {
 	 */
 	private static function output_ogp_tags() {
 
-		if ( ! empty( self::$og_locale ) ) {
+		if ( self::$og_locale ) {
 			echo '<meta property="og:locale" content="' . esc_attr( self::$og_locale ) . '">' . PHP_EOL;
 		}
-
-		if ( ! empty( self::$og_image ) ) {
-			echo '<meta property="og:image" content="' . esc_url( self::$og_image ) . '">' . PHP_EOL;
-		}
-
-		if ( ! empty( self::$og_tags ) ) {
-			echo self::$og_tags; // phpcs:ignore
-		}
-
-		if ( ! empty( self::$og_type ) ) {
+		if ( self::$og_type ) {
 			echo '<meta property="og:type" content="' . esc_attr( self::$og_type ) . '">' . PHP_EOL;
 		}
-
-		if ( ! empty( self::$og_facebook ) ) {
-			echo self::$og_facebook; // phpcs:ignore
+		if ( self::$og_image ) {
+			echo '<meta property="og:image" content="' . esc_url( self::$og_image ) . '">' . PHP_EOL;
+		}
+		if ( self::$og_title ) {
+			echo '<meta property="og:title" content="' . esc_attr( self::$og_title ) . '">' . PHP_EOL;
+		}
+		if ( self::$og_desc ) {
+			echo '<meta property="og:description" content="' . esc_attr( self::$og_desc ) . '">' . PHP_EOL;
+		}
+		if ( self::$og_url ) {
+			echo '<meta property="og:url" content="' . esc_attr( self::$og_url ) . '">' . PHP_EOL;
+		}
+		if ( self::$og_site_name ) {
+			echo '<meta property="og:site_name" content="' . esc_attr( self::$og_site_name ) . '">' . PHP_EOL;
 		}
 
-		if ( ! empty( self::$og_twitter ) ) {
-			echo self::$og_twitter; // phpcs:ignore
+		// for Facebook
+		if ( self::$fb_app_id ) {
+			echo '<meta property="fb:app_id" content="' . esc_attr( self::$fb_app_id ) . '">' . PHP_EOL;
+		}
+		if ( self::$fb_admins ) {
+			echo '<meta property="fb:admins" content="' . esc_attr( self::$fb_admins ) . '">' . PHP_EOL;
+		}
+		if ( self::$fb_url && 'article' === self::$og_type ) {
+			echo '<meta property="article:publisher" content="' . esc_attr( self::$fb_url ) . '">' . PHP_EOL;
 		}
 
+		// for Twitter
+		if ( self::$tw_card ) {
+			echo '<meta name="twitter:card" content="' . esc_attr( self::$tw_card ) . '">' . PHP_EOL;
+		}
+		if ( self::$tw_site ) {
+			echo '<meta name="twitter:site" content="' . esc_attr( self::$tw_site ) . '">' . PHP_EOL;
+		}
 	}
 
 
@@ -225,6 +246,7 @@ class SSP_Output {
 
 		// default
 		$title = SSP_Data::$site_title;
+
 		switch ( true ) {
 
 			case is_front_page():
@@ -249,6 +271,10 @@ class SSP_Output {
 				$title = $settings['search_title'];
 				break;
 
+			case is_post_type_archive():
+				$title = $settings['pt_archive_title'];
+				break;
+
 			case is_category():
 				if ( ! isset( self::$obj->term_id ) ) break;
 
@@ -271,10 +297,6 @@ class SSP_Output {
 				$title      = $meta_title ?: $settings[ $term . '_title' ];
 				break;
 
-			case is_post_type_archive():
-				$title = $settings['pt_archive_title'];
-				break;
-
 			case is_author():
 				$title = $settings['author_title'];
 				break;
@@ -291,7 +313,7 @@ class SSP_Output {
 				break;
 		}
 
-		$title = wp_strip_all_tags( self::replace_snippets( $title ) );
+		$title = wp_strip_all_tags( self::replace_snippets( $title, 'title' ) );
 		return apply_filters( 'ssp_output_title', $title );
 	}
 
@@ -337,6 +359,11 @@ class SSP_Output {
 				$robots = 'noindex';
 				break;
 
+			case is_post_type_archive():
+				$is_noindex = $settings['pt_archive_noindex'];
+				$robots     = $is_noindex ? 'noindex' : '';
+				break;
+
 			case is_category():
 				if ( ! isset( self::$obj->term_id ) ) break;
 
@@ -377,11 +404,6 @@ class SSP_Output {
 				}
 				break;
 
-			case is_post_type_archive():
-				$is_noindex = $settings['pt_archive_noindex'];
-				$robots     = $is_noindex ? 'noindex' : '';
-				break;
-
 			case is_author():
 				$is_noindex = $settings['author_noindex'];
 				$robots     = $is_noindex ? 'noindex' : '';
@@ -416,11 +438,9 @@ class SSP_Output {
 		if ( is_front_page() ) {
 			$keyword = SSP_Data::$settings['home_keyword'];
 		} else {
-			if ( is_singular() || ( ! is_front_page() && is_home() ) ) {
-
+			if ( 'WP_Post' === self::$obj_type && isset( self::$obj->ID ) ) {
 				// メタボックスが入力されていれば上書きする
-				$the_id       = isset( self::$obj->ID ) ? self::$obj->ID : 0;
-				$meta_keyword = get_post_meta( $the_id, SSP_MetaBox::POST_META_KEYS['keyword'], true );
+				$meta_keyword = get_post_meta( self::$obj->ID, SSP_MetaBox::POST_META_KEYS['keyword'], true );
 				if ( $meta_keyword ) {
 					$keyword = $meta_keyword;
 				}
@@ -473,6 +493,10 @@ class SSP_Output {
 			case is_search():
 				break;
 
+			case is_post_type_archive():
+				$description = $settings['pt_archive_desc'];
+				break;
+
 			case is_category():
 				if ( ! isset( self::$obj->term_id ) ) break;
 
@@ -494,10 +518,6 @@ class SSP_Output {
 				$description      = $meta_description ?: $settings[ self::$obj->taxonomy . '_desc' ];
 				break;
 
-			case is_post_type_archive():
-				$description = $settings['pt_archive_desc'];
-				break;
-
 			case is_author():
 				$description = $settings['author_desc'];
 				break;
@@ -510,31 +530,8 @@ class SSP_Output {
 				break;
 		}
 
-		$description = self::replace_snippets( $description );
+		$description = self::replace_snippets( $description, 'description' );
 		return apply_filters( 'ssp_output_description', $description );
-
-	}
-
-
-	/**
-	 * Generate the general ogp tags for the current page.
-	 *
-	 * @return string : OGP tags.
-	 */
-	private static function generate_general_ogp() {
-
-		$og_title     = apply_filters( 'ssp_output_og_title', self::$title );
-		$og_desc      = apply_filters( 'ssp_output_og_description', self::$description );
-		$og_url       = apply_filters( 'ssp_output_og_url', self::$canonical );
-		$og_site_name = apply_filters( 'ssp_output_og_site_name', SSP_Data::$site_title );
-
-		$ogp  = '';
-		$ogp .= '<meta property="og:title" content="' . esc_attr( $og_title ) . '">' . PHP_EOL;
-		$ogp .= '<meta property="og:description" content="' . esc_attr( $og_desc ) . '">' . PHP_EOL;
-		$ogp .= '<meta property="og:url" content="' . esc_attr( $og_url ) . '">' . PHP_EOL;
-		$ogp .= '<meta property="og:site_name" content="' . esc_attr( $og_site_name ) . '">' . PHP_EOL;
-
-		return $ogp;
 
 	}
 
@@ -552,26 +549,28 @@ class SSP_Output {
 		switch ( true ) {
 
 			case is_front_page():
+			case is_home() && null === self::$obj: // 「投稿ページ」しか設定されていないときのトップ
 				$canonical = home_url( '/' );
 				break;
 
-			case is_home():
-				$home_id = get_queried_object_id();
-				if ( ! $home_id ) {
-					$canonical = home_url( '/' );
-				} else {
-					$canonical = get_permalink( $home_id ) ?: '';
-				}
-				break;
-
 			case is_singular():
-				$the_id         = isset( self::$obj->ID ) ? self::$obj->ID : 0;
-				$meta_canonical = get_post_meta( $the_id, SSP_MetaBox::POST_META_KEYS['canonical'], true );
+			case is_home():
+				if ( ! isset( self::$obj->ID ) ) break;
+
+				$meta_canonical = get_post_meta( self::$obj->ID, SSP_MetaBox::POST_META_KEYS['canonical'], true );
 				$canonical      = $meta_canonical ?: get_permalink();
 				break;
 
 			case is_search():
 				$canonical = get_search_link();
+				break;
+
+			case is_post_type_archive():
+				$post_type = get_query_var( 'post_type' );
+				if ( $post_type ) {
+					$post_type = ( is_array( $post_type ) ) ? reset( $post_type ) : $post_type;
+					$canonical = get_post_type_archive_link( $post_type );
+				}
 				break;
 
 			case is_tax() || is_tag() || is_category():
@@ -585,12 +584,6 @@ class SSP_Output {
 				if ( is_wp_error( $canonical ) ) {
 					$canonical = '';
 				}
-				break;
-
-			case is_post_type_archive():
-				$post_type = get_query_var( 'post_type' );
-				$post_type = ( is_array( $post_type ) ) ? reset( $post_type ) : $post_type;
-				$canonical = get_post_type_archive_link( $post_type );
 				break;
 
 			case is_author():
@@ -646,18 +639,24 @@ class SSP_Output {
 	 */
 	private static function generate_og_image() {
 
-		$basic_ogimg = SSP_Data::$ogp['og_image'];
+		$site_ogimg = SSP_Data::$ogp['og_image'];
 
 		// default
-		$og_image = $basic_ogimg;
+		$og_image = $site_ogimg;
 
 		switch ( true ) {
+			case is_front_page():
+			case is_home() && null === self::$obj:
+				break;
+
 			case is_attachment():
 				if ( ! isset( self::$obj->guid ) ) break;
-
-				$og_image = self::$obj->guid ?: $basic_ogimg;
+				$og_image = self::$obj->guid ?: $site_ogimg;
 				break;
-			case is_singular() || ( ! is_front_page() && is_home() ):
+
+			// 投稿・固定ページ
+			case is_singular():
+			case is_home():
 				if ( ! isset( self::$obj->ID ) ) break;
 
 				$the_id     = self::$obj->ID; // 投稿ID
@@ -670,23 +669,22 @@ class SSP_Output {
 					$thumb_id  = get_post_thumbnail_id( $the_id );
 					$thumb_src = wp_get_attachment_image_src( $thumb_id, 'full' );
 					if ( $thumb_src ) {
-						$og_image = $thumb_src[0] ?: $basic_ogimg;
+						$og_image = $thumb_src[0] ?: $site_ogimg;
 						break;
 					}
 				}
-
-				// metaもアイキャッチもない時
-				$og_image = $basic_ogimg;
 				break;
 
 			case is_search():
+			case is_post_type_archive():
 				break;
 
+			// ターム系
 			case is_tax() || is_tag() || is_category():
 				if ( ! isset( self::$obj->term_id ) ) break;
 
 				$meta_image = get_term_meta( self::$obj->term_id, SSP_MetaBox::TERM_META_KEYS['image'], true );
-				$og_image   = $meta_image ?: $basic_ogimg;
+				$og_image   = $meta_image ?: $site_ogimg;
 				break;
 
 			default:
@@ -694,71 +692,6 @@ class SSP_Output {
 		}
 
 		return apply_filters( 'ssp_output_og_image', $og_image );
-	}
-
-
-	/**
-	 * Generate the og:locale for the current page.
-	 *
-	 * @return string : The og:locale.
-	 */
-	private static function generate_og_locale() {
-
-		$locale = self::get_valid_og_locale();
-		return apply_filters( 'ssp_output_og_locale', $locale );
-
-	}
-
-	/**
-	 * Generate the og tags for facebook. for the current page.
-	 *
-	 * @return string : The og tags for facebook.
-	 */
-	private static function generate_og_facebook() {
-
-		if ( ! SSP_Data::$ogp['fb_active'] ) return '';
-
-		$appid     = apply_filters( 'ssp_output_fb_appid', SSP_Data::$ogp['fb_app_id'] );
-		$admins    = apply_filters( 'ssp_output_fb_admins', SSP_Data::$ogp['fb_admins'] );
-		$publisher = apply_filters( 'ssp_output_fb_publisher', SSP_Data::$ogp['fb_url'] );
-
-		$og_fb = '';
-		if ( ! empty( $appid ) ) {
-			$og_fb .= '<meta property="fb:app_id" content="' . esc_attr( $appid ) . '">' . PHP_EOL;
-		}
-		if ( ! empty( $admins ) ) {
-			$og_fb .= '<meta property="fb:admins" content="' . esc_attr( $admins ) . '">' . PHP_EOL;
-		}
-		if ( ! empty( $publisher ) && 'article' === self::$og_type ) {
-			$og_fb .= '<meta property="article:publisher" content="' . esc_attr( $publisher ) . '">' . PHP_EOL;
-		}
-
-		return $og_fb;
-
-	}
-
-
-	/**
-	 * Generate the og tags for twitter. for the current page.
-	 *
-	 * @return string : The og tags for twitter.
-	 */
-	private static function generate_og_twitter() {
-
-		if ( ! SSP_Data::$ogp['tw_active'] ) return '';
-
-		$tw_site = apply_filters( 'ssp_output_tw_site', SSP_Data::$ogp['tw_account'] );
-		$tw_card = apply_filters( 'ssp_output_tw_card', SSP_Data::$ogp['tw_card'] );
-
-		$og_tw = '';
-		if ( ! empty( $tw_card ) ) {
-			$og_tw .= '<meta name="twitter:card" content="' . esc_attr( $tw_card ) . '">' . PHP_EOL;
-		}
-		if ( ! empty( $tw_site ) ) {
-			$og_tw .= '<meta name="twitter:site" content="' . esc_attr( $tw_site ) . '">' . PHP_EOL;
-		}
-
-		return $og_tw;
 	}
 
 

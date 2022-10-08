@@ -227,100 +227,112 @@ trait Output_Helper {
 	/**
 	 * Replace snippets
 	 */
-	private static function replace_snippets( $str ) {
+	private static function replace_snippets( $str, $context = '' ) {
 
-		$obj = \SSP_Output::$obj;
+		$obj      = \SSP_Output::$obj;
+		$obj_type = \SSP_Output::$obj_type;
 
-		// 共通項目の置換
-		$str = str_replace( '%_site_title_%', \SSP_Data::$site_title, $str );
-		$str = str_replace( '%_phrase_%', \SSP_Data::$site_catch_phrase, $str );
-		$str = str_replace( '%_tagline_%', \SSP_Data::$site_catch_phrase, $str );
-		$str = str_replace( '%_description_%', \SSP_Data::$settings['home_desc'], $str );
+		// get snippets
+		$snipets = preg_match_all( '/%_([^%]+)_%/', $str, $matched, PREG_SET_ORDER );
+		if ( ! $snipets ) return $str;
 
-		if ( is_singular() || ( ! is_front_page() && is_home() ) ) {
+		// replace each snippets
+		foreach ( $matched as $snipet ) {
+			$snipet_tag  = $snipet[0];
+			$snipet_name = $snipet[1];
+			$replace     = '';
+			switch ( $snipet_tag ) {
+				case '%_site_title_%':
+					$replace = \SSP_Data::$site_title;
+					break;
+				case '%_phrase_%':
+					$replace = \SSP_Data::$site_catch_phrase;
+					break;
+				case '%_tagline_%':
+					$replace = \SSP_Data::$site_catch_phrase;
+					break;
+				case '%_description_%':
+					$replace = \SSP_Data::$settings['home_desc'];
+					break;
+				case '%_search_phrase_%':
+					$replace = get_search_query();
+					break;
+				case '%_post_type_%':
+					$replace = post_type_archive_title( '', false );
+					break;
+				case '%_page_title_%':
+					// is_home() を考慮して get_the_title() ではなく single_post_title()
+					$replace = single_post_title( '', false );
+					break;
+				case '%_page_contents_%':
+					if ( 'WP_Post' === $obj_type ) {
+						$word_count = apply_filters( 'ssp_description_word_count', 120 );
+						$content    = wp_strip_all_tags( strip_shortcodes( $obj->post_content ), true ); // 改行なども削除
+						$replace    = mb_substr( $content, 0, $word_count );
+					}
+					break;
+				case '%_term_name_%':
+				case '%_cat_name_%':
+				case '%_tag_name_%':
+				case '%_format_name_%':
+					if ( 'WP_Term' === $obj_type ) {
+						$replace = $obj->name;
+					}
+					break;
+				case '%_term_description_%':
+					if ( 'WP_Term' === $obj_type ) {
+						$replace = wp_strip_all_tags( strip_shortcodes( $obj->description ), true ); // 改行なども削除
+					}
+					break;
+				case '%_tax_name_%':
+					if ( 'WP_Term' === $obj_type && isset( $obj->taxonomy ) ) {
+						$taxonomy_slug = $obj->taxonomy;
+						$taxonomy_data = get_taxonomy( $taxonomy_slug );
+						$replace       = ( $taxonomy_data ) ? $taxonomy_data->label : '';
+					}
+					break;
+				case '%_author_name_%':
+					if ( is_author() && 'WP_User' === $obj_type ) {
+						$replace = get_user_meta( $obj->ID, 'nickname', true );
+					}
+					break;
+				case '%_sep_%':
+					// 区切り文字の置換
+					$replace = \SSP_Data::SEPARATORS[ \SSP_Data::$settings['separator'] ];
+					break;
+				case '%_date_%':
+					$year     = get_query_var( 'year' );
+					$monthnum = get_query_var( 'monthnum' );
+					$day      = get_query_var( 'day' );
 
-			// title
-			if ( isset( $obj->ID ) ) {
-				$title = get_the_title( $obj->ID );
-				$str   = str_replace( '%_page_title_%', $title, $str );
+					$month = '';
+					if ( $monthnum ) {
+						global $wp_locale;
+						$month = $wp_locale->get_month( $monthnum );
+					}
 
-				// description
-				if ( false !== strpos( $str, '%_page_contents_%' ) ) {
-					$word_count = apply_filters( 'ssp_description_word_count', 120 );
-					$content    = wp_strip_all_tags( strip_shortcodes( $obj->post_content ), true ); // 改行なども削除
-					$content    = mb_substr( $content, 0, $word_count );
-					$str        = str_replace( '%_page_contents_%', $content, $str );
-				}
+					if ( is_day() ) {
+						$replace = sprintf( _x( '%2$s %3$s, %1$s', 'date', 'loos-ssp' ), $year, $month, $day ); // phpcs:ignore
+					} elseif ( is_month() ) {
+						$replace = sprintf( _x( '%2$s %1$s', 'date', 'loos-ssp' ), $year, $month ); // phpcs:ignore
+					} elseif ( is_year() ) {
+						$replace = sprintf( _x( '%s', 'date', 'loos-ssp' ), $year ); // phpcs:ignore
+					}
+
+					break;
+				default:
+					// その他、SSP側で用意していないスニペットがある時、フィルターで置換できるようにする
+					$filter_name = "ssp_replace_snippet_$snipet_name";
+					if ( has_filter( $filter_name ) ) {
+						$replace = apply_filters( $filter_name, '', $context );
+					}
+					break;
 			}
-		} elseif ( is_search() ) {
-			if ( false !== strpos( $str, '%_search_phrase_%' ) ) {
-				$str = str_replace( '%_search_phrase_%', get_search_query(), $str );
-			}
-		} elseif ( is_category() || is_tag() || is_tax() ) {
 
-			// title
-			$str = str_replace( ['%_cat_name_%', '%_tag_name_%', '%_term_name_%', '%_format_name_%' ], $obj->name, $str );
+			$str = str_replace( $snipet_tag, $replace, $str );
+		} // end foreach
 
-			// description
-			$term_desc = wp_strip_all_tags( strip_shortcodes( $obj->description ), true ); // 改行なども削除
-			$str       = str_replace( '%_term_description_%', $term_desc, $str );
-
-			// タクソノミー名
-			if ( false !== strpos( $str, '%_tax_name_%' ) ) {
-
-				$taxonomy_slug  = ( isset( $obj->taxonomy ) ) ? $obj->taxonomy : '';
-				$taxonomy_var   = get_taxonomy( $taxonomy_slug );
-				$taxonomy_label = ( $taxonomy_var ) ? $taxonomy_var->label : '';
-
-				$str = str_replace( '%_tax_name_%', $taxonomy_label, $str );
-			}
-		} else {
-			// その他のページ
-			// $obj_name  = ( isset( $obj->name ) ) ? $obj->name : '';
-			$obj_label = ( isset( $obj->label ) ) ? $obj->label : '';
-
-			$str = str_replace( '%_post_type_%', $obj_label, $str );
-
-			if ( strpos( $str, '%_date_%' ) !== false ) {
-
-				$date_str = '';
-				$year     = get_query_var( 'year' );
-				$month    = '';
-				$monthnum = get_query_var( 'monthnum' );
-				$day      = get_query_var( 'day' );
-
-				if ( $monthnum ) {
-					global $wp_locale;
-					$month = $wp_locale->get_month( $monthnum );
-				}
-
-				if ( is_day() ) {
-					$date_str = sprintf( _x( '%2$s %3$s, %1$s', 'date', 'loos-ssp' ), $year, $month, $day ); // phpcs:ignore
-				} elseif ( is_month() ) {
-					$date_str = sprintf( _x( '%2$s %1$s', 'date', 'loos-ssp' ), $year, $month ); // phpcs:ignore
-				} elseif ( is_year() ) {
-					$date_str = sprintf( _x( '%s', 'date', 'loos-ssp' ), $year ); // phpcs:ignore
-				}
-
-				$str = str_replace( '%_date_%', $date_str, $str );
-
-			}
-
-			if ( false !== strpos( $str, '%_author_name_%' ) ) {
-
-				$str = str_replace( '%_author_name_%', get_user_meta( $obj->ID, 'nickname', true ), $str );
-
-			}
-		}
-
-		if ( false !== strpos( $str, '%_sep_%' ) ) {
-
-			$sep_key = \SSP_Data::$settings['separator'];
-			$sep_val = \SSP_Data::SEPARATORS[ $sep_key ];
-			$str     = str_replace( '%_sep_%', $sep_val, $str );
-
-		}
-
+		$str = trim( $str );
 		return $str;
 	}
 
