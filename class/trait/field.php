@@ -45,15 +45,15 @@ trait Field {
 	/**
 	 * 旧スニペット名を置換
 	 */
-	public static function replace_old_snipets( $field_name, $field_value ) {
+	public static function replace_old_snipets( $str ) {
 		// 旧スニペット名を置換
-		$field_value = str_replace( '%_cat_name_%', ' %_term_name_%', $field_value );
-		$field_value = str_replace( '%_tag_name_%', ' %_term_name_%', $field_value );
-		$field_value = str_replace( '%_format_name_%', ' %_term_name_%', $field_value );
-		$field_value = str_replace( '%_phrase_%', ' %_tagline_%', $field_value );
-		$field_value = str_replace( '%_description_%', ' %_front_description_%', $field_value );
+		$str = str_replace( '%_cat_name_%', '%_term_name_%', $str );
+		$str = str_replace( '%_tag_name_%', '%_term_name_%', $str );
+		$str = str_replace( '%_format_name_%', '%_term_name_%', $str );
+		$str = str_replace( '%_phrase_%', '%_tagline_%', $str );
+		$str = str_replace( '%_description_%', '%_front_description_%', $str );
 
-		return $field_value;
+		return $str;
 	}
 
 
@@ -74,7 +74,7 @@ trait Field {
 			'item'        => '',
 		], $args );
 
-		$field_value = self::replace_old_snipets( $field_name, $field_value );
+		$field_value = self::replace_old_snipets( $field_value );
 
 		$add_data = '';
 		if ( strpos( $field_name, '_disable' ) !== false ) {
@@ -278,32 +278,23 @@ trait Field {
 	 * プレビュー機能用のスニペット変換
 	 */
 	public static function replace_snippets_forpv( $str ) {
-
 		$str = str_replace( '%_site_title_%', '<span>' . \SSP_Data::$site_title . '</span>', $str );
-		$str = str_replace( '%_phrase_%', '<span>' . \SSP_Data::$site_catch_phrase . '</span>', $str );
 		$str = str_replace( '%_tagline_%', '<span>' . \SSP_Data::$site_catch_phrase . '</span>', $str );
-		$str = str_replace( '%_description_%', \SSP_Data::$settings['home_desc'], $str );
+		$str = str_replace( '%_front_description_%', '<span>' . __( 'Front description', 'loos-ssp' ) . '</span>', $str );
 		$str = str_replace( '%_page_title_%', '<span>' . __( 'Post title', 'loos-ssp' ) . '</span>', $str );
-		$str = str_replace( '%_cat_name_%', '<span>' . __( 'Category name', 'loos-ssp' ) . '</span>', $str );
-		$str = str_replace( '%_tag_name_%', '<span>' . __( 'Tag name', 'loos-ssp' ) . '</span>', $str );
+		$str = str_replace( '%_page_contents_%', '<span>' . __( 'Page content', 'loos-ssp' ) . '</span>', $str );
 		$str = str_replace( '%_term_name_%', '<span>' . __( 'Term name', 'loos-ssp' ) . '</span>', $str );
+		$str = str_replace( '%_term_description_%', '<span>' . __( 'Term description', 'loos-ssp' ) . '</span>', $str );
 		$str = str_replace( '%_tax_name_%', '<span>' . __( 'Taxonomy name', 'loos-ssp' ) . '</span>', $str );
 		$str = str_replace( '%_author_name_%', '<span>' . __( 'Author name', 'loos-ssp' ) . '</span>', $str );
 		$str = str_replace( '%_search_phrase_%', '<span>' . __( 'Search word', 'loos-ssp' ) . '</span>', $str );
 		$str = str_replace( '%_post_type_%', '<span>' . __( 'Post type name', 'loos-ssp' ) . '</span>', $str );
-		$str = str_replace( '%_page_contents_%', '<span>' . __( 'Page content', 'loos-ssp' ) . '</span>', $str );
 		$str = str_replace( '%_date_%', '<span>' . __( 'Date', 'loos-ssp' ) . '</span>', $str );
-		$str = str_replace( '%_format_name_%', '<span>' . __( 'Post format name', 'loos-ssp' ) . '</span>', $str );
-		$str = str_replace( '%_term_description_%', '<span>' . __( 'Term description', 'loos-ssp' ) . '</span>', $str );
-
 		if ( strpos( $str, '%_sep_%' ) !== false ) {
-
 			$sep_key = \SSP_Data::$settings['separator'];
 			$sep_val = \SSP_Data::SEPARATORS[ $sep_key ];
 			$str     = str_replace( '%_sep_%', '<span>' . $sep_val . '</span>', $str );
-
 		}
-
 		return $str;
 	}
 }
