@@ -46,7 +46,6 @@ if ( 'ja' === determine_locale() ) {
 require_once SSP_PATH . 'class/trait/field.php';
 require_once SSP_PATH . 'class/trait/output_helper.php';
 
-
 /**
  * Reading class files
  */
@@ -55,6 +54,7 @@ require_once SSP_PATH . 'class/data.php';
 require_once SSP_PATH . 'class/hooks.php';
 require_once SSP_PATH . 'class/menu.php';
 require_once SSP_PATH . 'class/output.php';
+require_once SSP_PATH . 'class/output_helper.php';
 require_once SSP_PATH . 'class/metabox.php';
 require_once SSP_PATH . 'class/activate.php';
 

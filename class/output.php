@@ -1,4 +1,7 @@
 <?php
+
+use \LOOS\SSP\Output_Helper;
+
 class SSP_Output {
 
 	use \SSP\Output_Helper;
@@ -733,4 +736,134 @@ class SSP_Output {
 			}
 		}
 	}
+
+
+	/**
+	 * Replace snippets
+	 */
+	public static function replace_snippets( $str, $context = '' ) {
+
+		$obj       = self::$obj;
+		$obj_type  = self::$obj_type;
+		$separator = \SSP_Data::SEPARATORS[ \SSP_Data::$settings['separator'] ];
+
+		// タイトルにページ数を追加する ( %_page_% の位置が明示的に示されていなければ )
+		if ( 'title' === $context && false === strpos( $str, '%_page_%' ) ) {
+			$str = Output_Helper::add_page_num_to_title( $str, $separator );
+		}
+
+		// get snippets
+		$snipets = preg_match_all( '/%_([^%]+)_%/', $str, $matched, PREG_SET_ORDER );
+		if ( ! $snipets ) return $str;
+
+		// replace each snippets
+		foreach ( $matched as $snipet ) {
+			$snipet_tag  = $snipet[0];
+			$snipet_name = $snipet[1];
+			$replace     = '';
+			switch ( $snipet_tag ) {
+				case '%_site_title_%':
+					$replace = \SSP_Data::$site_title;
+					break;
+				case '%_phrase_%': // old
+				case '%_tagline_%':
+					$replace = \SSP_Data::$site_catch_phrase;
+					break;
+				case '%_description_%': // old
+				case '%_front_description_%':
+					$replace = \SSP_Data::$settings['home_desc'];
+					break;
+				case '%_search_phrase_%':
+					$replace = get_search_query();
+					break;
+				case '%_post_type_%':
+					$replace = post_type_archive_title( '', false );
+					break;
+				case '%_page_title_%':
+					// is_home() を考慮して get_the_title() ではなく single_post_title()
+					$replace = single_post_title( '', false );
+					break;
+				case '%_page_contents_%':
+					if ( 'WP_Post' === $obj_type ) {
+						$word_count = apply_filters( 'ssp_description_word_count', 120 );
+						$content    = wp_strip_all_tags( strip_shortcodes( $obj->post_content ), true ); // 改行なども削除
+						$replace    = mb_substr( $content, 0, $word_count );
+					}
+					break;
+				case '%_term_name_%':
+				case '%_cat_name_%': // old
+				case '%_tag_name_%': // old
+				case '%_format_name_%': // old
+					if ( 'WP_Term' === $obj_type ) {
+						$replace = $obj->name;
+					}
+					break;
+				case '%_term_description_%':
+					if ( 'WP_Term' === $obj_type ) {
+						$replace = wp_strip_all_tags( strip_shortcodes( $obj->description ), true ); // 改行なども削除
+					}
+					break;
+				case '%_tax_name_%':
+					if ( 'WP_Term' === $obj_type && isset( $obj->taxonomy ) ) {
+						$taxonomy_slug = $obj->taxonomy;
+						$taxonomy_data = get_taxonomy( $taxonomy_slug );
+						$replace       = ( $taxonomy_data ) ? $taxonomy_data->label : '';
+					}
+					break;
+				case '%_author_name_%':
+					if ( is_author() && 'WP_User' === $obj_type ) {
+						$replace = get_user_meta( $obj->ID, 'nickname', true );
+					}
+					break;
+				case '%_sep_%':
+					// 区切り文字の置換
+					$replace = $separator;
+					break;
+				case '%_date_%':
+					$year     = get_query_var( 'year' );
+					$monthnum = get_query_var( 'monthnum' );
+					$day      = get_query_var( 'day' );
+
+					$month = '';
+					if ( $monthnum ) {
+						global $wp_locale;
+						$month = $wp_locale->get_month( $monthnum );
+					}
+
+					if ( is_day() ) {
+						$replace = sprintf( _x( '%2$s %3$s, %1$s', 'date', 'loos-ssp' ), $year, $month, $day ); // phpcs:ignore
+					} elseif ( is_month() ) {
+						$replace = sprintf( _x( '%2$s %1$s', 'date', 'loos-ssp' ), $year, $month ); // phpcs:ignore
+					} elseif ( is_year() ) {
+						$replace = sprintf( _x( '%s', 'date', 'loos-ssp' ), $year ); // phpcs:ignore
+					}
+					break;
+				case '%_page_%':
+					$page    = Output_Helper::get_paged_text();
+					$replace = $page ? "$separator $page" : '';
+					break;
+				default:
+					// その他、SSP側で用意していないスニペットがある時、フィルターで置換できるようにする
+					$filter_name = "ssp_replace_snippet_$snipet_name";
+					if ( has_filter( $filter_name ) ) {
+						$replace = apply_filters( $filter_name, '', $context );
+					}
+					break;
+			}
+
+			$str = str_replace( $snipet_tag, $replace, $str );
+		} // end foreach
+
+		// 区切り文字が続いてしまう場合は削除
+		if ( 'title' === $context ) {
+			$str = str_replace( "$separator $separator", $separator, $str );
+		}
+
+		// 空白が続いてる場合は1つに
+		// $str = str_replace( '  ', ' ', $str );
+
+		$str = trim( $str );
+		return $str;
+	}
+
 }

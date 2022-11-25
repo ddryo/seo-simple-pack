@@ -55,6 +55,10 @@ $SNIPPET_TAGS = [
 		'label' => __( 'Search word', 'loos-ssp' ),
 		'for'   => __( 'Search results', 'loos-ssp' ),
 	],
+	'page' => [
+		'label' => __( 'Number of pages', 'loos-ssp' ),
+		'for'   => __( 'All pages', 'loos-ssp' ),
+	],
 ];
 
 ?>
