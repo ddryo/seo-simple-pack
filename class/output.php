@@ -4,8 +4,6 @@ use \LOOS\SSP\Output_Helper;
 
 class SSP_Output {
 
-	use \SSP\Output_Helper;
-
 	/**
 	 * 外部からのインスタンス化を防ぐ
 	 */
@@ -146,7 +144,7 @@ class SSP_Output {
 		self::$og_site_name = apply_filters( 'ssp_output_og_site_name', SSP_Data::$site_title );
 
 		// Generate other ogp tags
-		self::$og_locale = apply_filters( 'ssp_output_og_locale', self::get_valid_og_locale() );
+		self::$og_locale = apply_filters( 'ssp_output_og_locale', Output_Helper::get_valid_og_locale() );
 		self::$og_type   = self::generate_og_type();
 		self::$og_image  = self::generate_og_image();
 
@@ -727,11 +725,11 @@ class SSP_Output {
 
 			if ( 'gtag' === $settings['google_analytics_type'] ) {
 
-				self::echo_gtag( $gaid );
+				Output_Helper::echo_gtag( $gaid );
 
 			} elseif ( 'analytics' === $settings['google_analytics_type'] ) {
 
-				self::echo_analytics( $gaid );
+				Output_Helper::echo_analytics( $gaid );
 
 			}
 		}

@@ -44,7 +44,6 @@ if ( 'ja' === determine_locale() ) {
  * Reading trait files
  */
 require_once SSP_PATH . 'class/trait/field.php';
-require_once SSP_PATH . 'class/trait/output_helper.php';
 
 /**
  * Reading class files
