@@ -559,7 +559,7 @@ class SSP_Output {
 				if ( ! isset( self::$obj->ID ) ) break;
 
 				$meta_canonical = get_post_meta( self::$obj->ID, SSP_MetaBox::POST_META_KEYS['canonical'], true );
-				$canonical      = $meta_canonical ?: get_permalink();
+				$canonical      = $meta_canonical ?: get_permalink( self::$obj->ID );
 				break;
 
 			case is_search():
