@@ -20,12 +20,12 @@ class SSP_Data {
 	/**
 	 * DB[ssp_settings]用変数
 	 */
-	public static $settings = '';
+	public static $settings = null;
 
 	/**
 	 * DB[spp_ogp]用変数
 	 */
-	public static $ogp = '';
+	public static $ogp = null;
 
 	/**
 	 * サイト基本情報
@@ -101,79 +101,70 @@ class SSP_Data {
 		$installed_version = get_option( self::DB_NAME['installed'] );
 
 		if ( false === $installed_version ) {
-
 			// インストール時に実行する処理
 			self::setup_at_installed();
 
 		} elseif ( SSP_VERSION !== $installed_version ) {
-
-			// 更新時に実行する処理
-			self::setup_at_updated( $installed_version );
+			// バージョン更新時に実行する処理
+			\LOOS\SSP\Update_Action::setup_at_updated( $installed_version );
 		}
 
-		// サイト基本情報取得
-		self::$site_title        = esc_html( get_option( 'blogname' ) );
-		self::$site_catch_phrase = esc_html( get_option( 'blogdescription' ) );
-
-		// 一般設定データ
-		$saved_settings = get_option( self::DB_NAME['settings'] ) ?: [];
-		self::$settings = array_merge( self::$default_settings, $saved_settings );
-
-		// OGP設定
-		$saved_ogp_settings = get_option( self::DB_NAME['ogp'] ) ?: [];
-		self::$ogp          = array_merge( self::$default_ogp_settings, $saved_ogp_settings );
-
+		// データセット
+		self::setup_data();
 	}
+
 
 	/**
 	 * デフォルト値をセット
 	 */
 	public static function set_default() {
 		self::$default_settings = [
-			'home_title'            => '%_site_title_% %_sep_% %_tagline_%',
-			'home_desc'             => '',
-			'home_keyword'          => '',
-			'reuse_keyword'         => '1',
-			'separator'             => 'line',
-			'webmaster_bing'        => '',
-			'webmaster_google'      => '',
-			'webmaster_baidu'       => '',
-			'webmaster_yandex'      => '',
-			'google_analytics_type' => 'gtag',
-			'google_analytics_id'   => '',
-			'post_noindex'          => false,
-			'post_title'            => '%_page_title_% %_sep_% %_site_title_%',
-			'post_desc'             => '%_page_contents_%',
-			'page_noindex'          => false,
-			'page_title'            => '%_page_title_% %_sep_% %_site_title_%',
-			'page_desc'             => '%_page_contents_%',
-			'attachment_disable'    => true,
-			'attachment_noindex'    => true,
-			'attachment_title'      => '%_page_title_% %_sep_% %_site_title_%',
-			'attachment_desc'       => '%_page_contents_%',
-			'cat_noindex'           => false,
-			'cat_title'             => '%_term_name_% %_sep_% %_site_title_%',
-			'cat_desc'              => '%_term_description_%',
-			'tag_noindex'           => false,
-			'tag_title'             => '%_term_name_% %_sep_% %_site_title_%',
-			'tag_desc'              => '%_term_description_%',
-			'post_format_disable'   => false,
-			'post_format_noindex'   => true,
-			'post_format_title'     => '%_term_name_% %_sep_% %_site_title_%',
-			'post_format_desc'      => '',
-			'author_disable'        => false,
-			'author_noindex'        => true,
-			'author_title'          => '%_author_name_% %_sep_% %_site_title_%',
-			'author_desc'           => sprintf( self::$texts['archive_desc'], '%_author_name_%' ),
-			'date_noindex'          => true,
-			'date_title'            => '%_date_% %_sep_% %_site_title_%',
-			'date_desc'             => sprintf( self::$texts['archive_desc'], '%_date_%' ),
-			'pt_archive_noindex'    => true,
-			'pt_archive_title'      => '%_post_type_% %_sep_% %_site_title_%',
-			'pt_archive_desc'       => sprintf( self::$texts['archive_desc'], '%_post_type_%' ),
-			'404_title'             => '404: ' . __( 'Page not found', 'loos-ssp' ) . ' %_sep_% %_site_title_%',
-			'search_title'          => __( 'Searched:', 'loos-ssp' ) . ' %_search_phrase_% %_sep_% %_site_title_%',
-			'feed_noindex'          => false,
+			'home_title'               => '%_site_title_% %_sep_% %_tagline_%',
+			'home_desc'                => '',
+			'home_keyword'             => '',
+			'reuse_keyword'            => '1',
+			'separator'                => 'line',
+			'webmaster_bing'           => '',
+			'webmaster_google'         => '',
+			'webmaster_baidu'          => '',
+			'webmaster_yandex'         => '',
+			// 'google_analytics_type'    => 'gtag',
+			// 'google_analytics_id'      => '',
+			'google_g_id'              => '',
+			'google_ua_id'             => '',
+			'post_noindex'             => false,
+			'post_title'               => '%_page_title_% %_sep_% %_site_title_%',
+			'post_desc'                => '%_page_contents_%',
+			'page_noindex'             => false,
+			'page_title'               => '%_page_title_% %_sep_% %_site_title_%',
+			'page_desc'                => '%_page_contents_%',
+			'attachment_disable'       => true,
+			'attachment_noindex'       => true,
+			'attachment_title'         => '%_page_title_% %_sep_% %_site_title_%',
+			'attachment_desc'          => '%_page_contents_%',
+			'cat_noindex'              => false,
+			'cat_title'                => '%_term_name_% %_sep_% %_site_title_%',
+			'cat_desc'                 => '%_term_description_%',
+			'tag_noindex'              => false,
+			'tag_title'                => '%_term_name_% %_sep_% %_site_title_%',
+			'tag_desc'                 => '%_term_description_%',
+			'post_format_disable'      => false,
+			'post_format_noindex'      => true,
+			'post_format_title'        => '%_term_name_% %_sep_% %_site_title_%',
+			'post_format_desc'         => '',
+			'author_disable'           => false,
+			'author_noindex'           => true,
+			'author_title'             => '%_author_name_% %_sep_% %_site_title_%',
+			'author_desc'              => sprintf( self::$texts['archive_desc'], '%_author_name_%' ),
+			'date_noindex'             => true,
+			'date_title'               => '%_date_% %_sep_% %_site_title_%',
+			'date_desc'                => sprintf( self::$texts['archive_desc'], '%_date_%' ),
+			'pt_archive_noindex'       => true,
+			'pt_archive_title'         => '%_post_type_% %_sep_% %_site_title_%',
+			'pt_archive_desc'          => sprintf( self::$texts['archive_desc'], '%_post_type_%' ),
+			'404_title'                => '404: ' . __( 'Page not found', 'loos-ssp' ) . ' %_sep_% %_site_title_%',
+			'search_title'             => __( 'Searched:', 'loos-ssp' ) . ' %_search_phrase_% %_sep_% %_site_title_%',
+			'feed_noindex'             => false,
 		];
 
 		self::$default_ogp_settings = [
@@ -206,6 +197,45 @@ class SSP_Data {
 		];
 	}
 
+	/**
+	 * データを変数にセット
+	 */
+	public static function setup_data() {
+		// サイト基本情報取得
+		self::$site_title        = get_option( 'blogname' );
+		self::$site_catch_phrase = get_option( 'blogdescription' );
+
+		// 一般設定データ
+		$saved_settings = get_option( self::DB_NAME['settings'] ) ?: [];
+		self::$settings = $saved_settings;
+		// self::$settings = array_merge( self::$default_settings, $saved_settings );
+
+		// OGP設定
+		$saved_ogp_settings = get_option( self::DB_NAME['ogp'] ) ?: [];
+		self::$ogp          = $saved_ogp_settings;
+		// self::$ogp = array_merge( self::$default_ogp_settings, $saved_ogp_settings );
+	}
+
+
+	/**
+	 * 設定値の取得
+	 */
+	public static function get( $db_name, $key ) {
+		if ( 'settings' === $db_name ) {
+			$data = self::$settings;
+		} elseif ( 'ogp' === $db_name ) {
+			$data = self::$ogp;
+		} else {
+			return;
+		}
+
+		if ( isset( $data[ $key ] ) ) {
+			return $data[ $key ];
+		} else {
+			return false;
+		}
+	}
+
 
 	/**
 	 * インストール時に実行する処理
@@ -218,49 +248,23 @@ class SSP_Data {
 		// デフォルト設定を保存
 		update_option( self::DB_NAME['settings'], self::$default_settings );
 		update_option( self::DB_NAME['ogp'], self::$default_ogp_settings );
-
-	}
-
-	/**
-	 * 更新時に実行する処理
-	 */
-	public static function setup_at_updated( $installed_version ) {
-
-		// 現在のバージョン番号を保存
-		update_option( self::DB_NAME['installed'], SSP_VERSION );
-
-		// バージョンが上がった時だけの処理
-		// if (version_compare( SSP_VERSION, $installed_version, '>' ) ) {}
-
-		// 特定のバージョンより古いとこからアップデートされた時に処理する
-		if ( version_compare( $installed_version, '2.2.7', '<=' ) ) {
-			self::clean_meta();
-		}
 	}
 
 
 	/**
-	 * 更新時に実行する処理
+	 * 設定保存時の処理ではなく、コードによる更新
+	 * $db_name: 'settings' or 'ogp'
 	 */
-	public static function clean_meta() {
+	public static function update_data( $db_name, $new_data, $delete_data = [] ) {
 
-		// 空のカスタムフィールドを削除
-		global $wpdb;
+		$now_data = get_option( self::DB_NAME[ $db_name ] ) ?: [];
+		$new_data = array_merge( $now_data, $new_data );
 
-		// phpcs:disable WordPress.DB.DirectDatabaseQuery, WordPress.DB.SlowDBQuery
-		foreach ( SSP_MetaBox::POST_META_KEYS as $key => $meta_key ) {
-			$wpdb->delete( $wpdb->postmeta, [
-				'meta_key'   => $meta_key,
-				'meta_value' => '',
-			] );
+		// 不要になったデータを削除
+		foreach ( $delete_data as $key ) {
+			if ( isset( $new_data[ $key ] ) ) unset( $new_data[ $key ] );
 		}
 
-		foreach ( SSP_MetaBox::TERM_META_KEYS as $key => $meta_key ) {
-			$wpdb->delete( $wpdb->termmeta, [
-				'meta_key'   => $meta_key,
-				'meta_value' => '',
-			] );
-		}
-		// phpcs:enable WordPress.DB.DirectDatabaseQuery, WordPress.DB.SlowDBQuery
+		update_option( self::DB_NAME[ $db_name ], $new_data );
 	}
 }

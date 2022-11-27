@@ -2,21 +2,26 @@
 /**
  * Googleアナリティクス タブ
  */
+$gid_desc = sprintf( SSP_Data::$texts['input'], __( 'Measurement ID (<code>G-XXXX...</code>)', 'loos-ssp' ) ) .
+'(' . __( 'Please include <code>G-</code>.', 'loos-ssp' ) . ')';
+
+$uaid_desc = sprintf( SSP_Data::$texts['input'], __( 'Tracking ID (<code>UA-XXXX...</code>)', 'loos-ssp' ) ) .
+'(' . __( 'Please include <code>UA-</code>.', 'loos-ssp' ) . ')' .
+'<br>' . __( 'Note: The UA will be discontinued on July 1, 2023.', 'loos-ssp' );
+
+if ( 'ja' === get_locale() ) {
+	$gid_desc .= '<br>「測定ID」は、Googleアナリティクスの「管理」（画面左下の歯車アイコン）→ プロパティ列の「データストリーム」→ ストリーム名を選択することで確認できます。';
+}
+
 self::output_section( __( 'Google Analytics settings', 'loos-ssp' ), [
-	'google_analytics_type' => [
-		'title'       => __( 'Tracking code type', 'loos-ssp' ),
-		'type'        => 'select',
-		'choices'     => [
-			'gtag'      => __( 'gtag.js', 'loos-ssp' ),
-			'analytics' => __( 'analytics.js', 'loos-ssp' ),
-		],
-		'desc'        => '※ ' . __( '<code>gtag.js</code> is recommended unless you have a specific reason.', 'loos-ssp' ),
+	'google_g_id' => [
+		'title' => __( '"Measurement ID" for GA4', 'loos-ssp' ),
+		'class' => '-wide',
+		'desc'  => $gid_desc,
 	],
-	'google_analytics_id' => [
-		'title' => __( '"Tracking ID" or "Measurement ID"', 'loos-ssp' ),
-		'desc'  => sprintf(
-			SSP_Data::$texts['input'],
-			__( 'Tracking ID (<code>UA-XXXX...</code>) or Measurement ID (<code>G-XXX...</code>)', 'loos-ssp' )
-		),
+	'google_ua_id' => [
+		'title' => __( '"Tracking ID" for UA', 'loos-ssp' ),
+		'class' => '-wide',
+		'desc'  => $uaid_desc,
 	],
 ] );

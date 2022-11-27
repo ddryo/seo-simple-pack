@@ -11,7 +11,7 @@ class Output_Helper {
 	/**
 	 *  gtagコード出力
 	 */
-	public static function echo_gtag( $gaid ) {
+	public static function output_gtag( $gaid ) {
 	?>
 <!-- Google Analytics (gtag.js) -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=<?=esc_attr( $gaid )?>"></script>
@@ -27,7 +27,7 @@ class Output_Helper {
 	/**
 	 *  旧アナリティクスコード出力
 	 */
-	public static function echo_analytics( $gaid ) {
+	public static function output_uatag( $gaid ) {
 	?>
 <!-- Google Analytics -->
 <script>

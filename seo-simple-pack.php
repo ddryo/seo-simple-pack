@@ -50,6 +50,7 @@ require_once SSP_PATH . 'class/trait/field.php';
  */
 require_once SSP_PATH . 'class/utility.php';
 require_once SSP_PATH . 'class/data.php';
+require_once SSP_PATH . 'class/update_action.php';
 require_once SSP_PATH . 'class/hooks.php';
 require_once SSP_PATH . 'class/menu.php';
 require_once SSP_PATH . 'class/output.php';
