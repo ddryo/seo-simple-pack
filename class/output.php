@@ -716,28 +716,20 @@ class SSP_Output {
 			}
 		}
 
-		// Google analytics - GA4
-		$g_id = SSP_Data::get( 'settings', 'google_g_id' );
+		// Google analytics
+		$ga_ids = [];
+		$g_id   = SSP_Data::get( 'settings', 'google_g_id' );
 		if ( $g_id ) {
-			Output_Helper::output_gtag( $g_id );
+			$ga_ids[] = $g_id;
 		}
 
 		// Google analytics - UA
 		$ua_id = SSP_Data::get( 'settings', 'google_ua_id' );
 		if ( $ua_id ) {
-			Output_Helper::output_uatag( $ua_id );
+			$ga_ids[] = $ua_id;
 		}
 
-		// アップデート時に無事にデータ移行できてれば不要だが、念の為残す ?
-		// $ga_id = SSP_Data::get( 'settings', 'google_analytics_id' );
-		// if ( $ga_id ) {
-		// 	$ga_type = SSP_Data::get( 'settings', 'google_analytics_type' );
-		// 	if ( 'gtag' === $ga_type ) {
-		// 		Output_Helper::output_gtag( $ga_id );
-		// 	} elseif ( 'analytics' === $ga_type ) {
-		// 		Output_Helper::output_uatag( $ga_id );
-		// 	}
-		// }
+		Output_Helper::output_gtag( $ga_ids );
 	}
 
 

@@ -128,8 +128,8 @@ class SSP_Data {
 			'webmaster_google'         => '',
 			'webmaster_baidu'          => '',
 			'webmaster_yandex'         => '',
-			// 'google_analytics_type'    => 'gtag',
-			// 'google_analytics_id'      => '',
+			'google_analytics_type'    => 'gtag',
+			'google_analytics_id'      => '',
 			'google_g_id'              => '',
 			'google_ua_id'             => '',
 			'post_noindex'             => false,
@@ -207,13 +207,11 @@ class SSP_Data {
 
 		// 一般設定データ
 		$saved_settings = get_option( self::DB_NAME['settings'] ) ?: [];
-		self::$settings = $saved_settings;
-		// self::$settings = array_merge( self::$default_settings, $saved_settings );
+		self::$settings = array_merge( self::$default_settings, $saved_settings );
 
 		// OGP設定
 		$saved_ogp_settings = get_option( self::DB_NAME['ogp'] ) ?: [];
-		self::$ogp          = $saved_ogp_settings;
-		// self::$ogp = array_merge( self::$default_ogp_settings, $saved_ogp_settings );
+		self::$ogp          = array_merge( self::$default_ogp_settings, $saved_ogp_settings );
 	}
 
 

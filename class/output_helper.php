@@ -11,18 +11,25 @@ class Output_Helper {
 	/**
 	 *  gtagコード出力
 	 */
-	public static function output_gtag( $gaid ) {
+	public static function output_gtag( $ids ) {
+		if ( empty( $ids ) ) return;
+		$id1 = $ids[0];
+		$id2 = isset( $ids[1] ) ? $ids[1] : '';
 	?>
 <!-- Google Analytics (gtag.js) -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=<?=esc_attr( $gaid )?>"></script>
+<script async src="https://www.googletagmanager.com/gtag/js?id=<?=esc_attr( $id1 )?>"></script>
 <script>
 	window.dataLayer = window.dataLayer || [];
 	function gtag(){dataLayer.push(arguments);}
 	gtag("js", new Date());
-	gtag("config", "<?=esc_attr( $gaid )?>");
+	gtag("config", "<?=esc_attr( $id1 )?>");
+<?php if ( $id2 ) : ?>
+	gtag("config", "<?=esc_attr( $id2 )?>");
+<?php endif; ?>
 </script>
 	<?php
 	}
+
 
 	/**
 	 *  旧アナリティクスコード出力

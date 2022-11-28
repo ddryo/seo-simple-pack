@@ -62,19 +62,19 @@ class Update_Action extends \SSP_Data {
 	 * アナリティクスをUA,GA4両方出力できるように変更するためのデータ置換
 	 */
 	public static function migrate_ga_data() {
-		$old_type = self::get( 'settings', 'google_analytics_type' );
-		$old_code = self::get( 'settings', 'google_analytics_id' );
+		$old_id = self::get( 'settings', 'google_analytics_id' );
+		if ( ! $old_id ) return;
 
-		if ( ! $old_type || ! $old_code ) return;
+		$is_UA = 0 === strpos( $old_id, 'UA' );
 
-		if ( 'gtag' === $old_type ) {
-			$new_code_key = 'google_g_id';
-		} elseif ( 'analytics' === $old_type ) {
+		if ( $is_UA ) {
 			$new_code_key = 'google_ua_id';
+		} else {
+			$new_code_key = 'google_g_id';
 		}
 
 		self::update_data( 'settings', [
-			"$new_code_key" => $old_code,
-		], [ 'google_analytics_type', 'google_analytics_id' ]);
+			"$new_code_key" => $old_id,
+		]);
 	}
 }

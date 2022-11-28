@@ -119,7 +119,7 @@ The following hooks are available.
 
 
 == Changelog ==
-　
+
 = 3.1.0 =
 - For Google Analytics, both GA4 and UA can now be set.
 - Fixed a bug that prevented page numbers from being displayed in the title tag.
