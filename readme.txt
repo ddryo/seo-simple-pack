@@ -4,7 +4,7 @@ Donate link: https://loos-web-studio.com/
 Tags: SEO, meta, analytics, wsebmaster, simple, japan, meta tag
 Requires at least: 4.9
 Tested up to: 6.0
-Stable tag:  3.1.0
+Stable tag:  3.1.1
 Requires PHP: 7.0
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
@@ -119,6 +119,9 @@ The following hooks are available.
 
 
 == Changelog ==
+
+= 3.1.1 =
+- Minor bug fixes.
 
 = 3.1.0 =
 - For Google Analytics, both GA4 and UA can now be set.
