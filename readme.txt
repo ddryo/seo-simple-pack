@@ -4,7 +4,7 @@ Donate link: https://loos-web-studio.com/
 Tags: SEO, meta, analytics, wsebmaster, simple, japan, meta tag
 Requires at least: 4.9
 Tested up to: 6.0
-Stable tag:  3.0.0
+Stable tag:  3.1.0
 Requires PHP: 7.0
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
@@ -22,16 +22,16 @@ This is a very simple SEO plugin. You can easily set and customize meta tags and
 - The output content of each meta tag can also be rewritten with a hook.
 - You can easily set the Google Analytics measurement code and Webmaster Tools verification code.
 
-Please see the following page for a detailed explanation of this plugin. (Written in Japanese.)
+Please see the following page for a detailed explanation of this plugin.
 
-URL: https://wemo.tech/1670
+URL: [https://loos.co.jp/en/documents/seo-simple-pack/](https://loos.co.jp/en/documents/seo-simple-pack/)
 
 
 ### Source code
 
 The source code of this plugin is available on Github.
 
-URL: https://github.com/ddryo/SEO-SIMPLE-PACK
+URL: [https://github.com/ddryo/SEO-SIMPLE-PACK](https://github.com/ddryo/SEO-SIMPLE-PACK)
 
 
 ### How to use
@@ -119,6 +119,11 @@ The following hooks are available.
 
 
 == Changelog ==
+　
+= 3.1.0 =
+- For Google Analytics, both GA4 and UA can now be set.
+- Fixed a bug that prevented page numbers from being displayed in the title tag.
+- Fixed a bug regarding canonical for the Page specified in the "Posts page".
 
 = 3.0.0 =
 - Added `'ssp_replace_snippet_{snippet_name}'` hook. (You can now define custom snippets)
