@@ -8,6 +8,7 @@
     "build:css": "node sass-builder.js",
     "build:js": "npx webpack",
     "set:composer": "composer i && composer set-wpcs",
+    "update": "bash ./bin/zip.sh",
     "rm:ds_store": "find . -name '.DS_Store' -type f -ls -delete"
   },
   "repository": {

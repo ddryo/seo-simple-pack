@@ -9,10 +9,10 @@ version=$1
 cd ..
 
 #zプラグインファイルをip化
-zip -r seo-simple-pack.zip seo-simple-pack -x "*._*" "*__MACOSX*" "*.DS_Store" "*.git*" "*.vscode*" "*/_nouse/*" "*/bin/*" "*/node_modules/*" "*/vendor/*"
+zip -r seo-simple-pack-${version}.zip seo-simple-pack -x "*._*" "*__MACOSX*" "*.DS_Store" "*.git*" "*.vscode*" "*/_nouse/*" "*/bin/*" "*/node_modules/*" "*/vendor/*"
 
 #設定ファイル系削除
 zip --delete seo-simple-pack.zip  "seo-simple-pack/.*"
 
 #zipファイルを移動
-mv seo-simple-pack.zip ./zip/seo-simple-pack-${version}.zip
+# mv seo-simple-pack.zip ./zip/seo-simple-pack-${version}.zip
