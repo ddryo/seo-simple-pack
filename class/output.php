@@ -146,7 +146,7 @@ class SSP_Output {
 		// Generate other ogp tags
 		self::$og_locale = apply_filters( 'ssp_output_og_locale', Output_Helper::get_valid_og_locale() );
 		self::$og_type   = self::generate_og_type();
-		self::$og_image  = self::generate_og_image();
+		self::$og_image  = apply_filters( 'ssp_output_og_image', self::generate_og_image() );
 
 		// Generate SNS ogp tags
 		if ( SSP_Data::$ogp['fb_active'] ) {
