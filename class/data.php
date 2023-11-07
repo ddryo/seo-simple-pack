@@ -175,7 +175,7 @@ class SSP_Data {
 			'fb_admins'  => '',
 			'tw_active'  => true,
 			'tw_account' => '',
-			'tw_card'    => 'summary_large_image',
+			'tw_card'    => 'summary',
 		];
 
 		/**
