@@ -781,8 +781,13 @@ class SSP_Output {
 				case '%_page_contents_%':
 					if ( 'WP_Post' === $obj_type ) {
 						$word_count = apply_filters( 'ssp_description_word_count', 120 );
-						$content    = wp_strip_all_tags( strip_shortcodes( $obj->post_content ), true ); // 改行なども削除
-						$replace    = mb_substr( $content, 0, $word_count );
+						if ( post_password_required( $obj ) ) {
+							// パスワード保護されている場合は本文取得しない
+							$content = apply_filters( 'ssp_protected_description', '' );
+						} else {
+							$content = wp_strip_all_tags( strip_shortcodes( $obj->post_content ), true ); // 改行なども削除
+						}
+						$replace = mb_substr( $content, 0, $word_count );
 					}
 					break;
 				case '%_term_name_%':
