@@ -4,7 +4,7 @@ Donate link: https://loos-web-studio.com/
 Tags: SEO, meta, analytics, wsebmaster, simple, japan, meta tag
 Requires at least: 4.9
 Tested up to: 6.5
-Stable tag:  3.3.0
+Stable tag:  3.3.1
 Requires PHP: 7.0
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
@@ -119,6 +119,12 @@ The following hooks are available.
 
 
 == Changelog ==
+
+= 3.3.1 =
+- Fixed readme.txt file.
+
+= 3.3.0 =
+- Fixed an issue where the first part of the content of a password protected article was included in the og:description.
 
 = 3.2.0 =
 - Added 'ssp_output_og_image' hook.
