@@ -3,8 +3,8 @@ Contributors: looswebstudio
 Donate link: https://loos-web-studio.com/
 Tags: SEO, meta, analytics, wsebmaster, simple, japan, meta tag
 Requires at least: 4.9
-Tested up to: 6.4
-Stable tag:  3.2.1
+Tested up to: 6.5
+Stable tag:  3.3.0
 Requires PHP: 7.0
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
