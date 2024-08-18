@@ -78,7 +78,7 @@ class SEO_SIMPLE_PACK {
  */
 // register_activation_hook( __FILE__, ['SSP_Activate', 'plugin_activate' ] );
 // register_deactivation_hook( __FILE__, ['SSP_Activate', 'plugin_deactivate' ] );
-register_uninstall_hook( __FILE__, ['SSP_Activate', 'plugin_uninstall' ] );
+register_uninstall_hook( __FILE__, [ 'SSP_Activate', 'plugin_uninstall' ] );
 
 
 /**

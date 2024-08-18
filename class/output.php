@@ -181,7 +181,7 @@ class SSP_Output {
 	private static function output_meta_tags() {
 
 		// if ( ! wp_is_block_theme() && ! empty( self::$title ) ) {
-		// 	echo '<title>' . esc_html( self::$title ) . '</title>' . PHP_EOL;
+		//  echo '<title>' . esc_html( self::$title ) . '</title>' . PHP_EOL;
 		// }
 
 		if ( ! empty( self::$robots ) ) {
@@ -547,7 +547,6 @@ class SSP_Output {
 
 		$description = self::replace_snippets( $description, 'description' );
 		return apply_filters( 'ssp_output_description', $description );
-
 	}
 
 
@@ -879,5 +878,4 @@ class SSP_Output {
 		$str = trim( $str );
 		return $str;
 	}
-
 }

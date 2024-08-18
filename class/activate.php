@@ -31,5 +31,4 @@ class SSP_Activate {
 			delete_option( $db_name );
 		}
 	}
-
 }

@@ -58,7 +58,7 @@ class SSP_MetaBox {
 
 		// term meta追加 -> init:99 で $custom_taxonomies セットしているのでそれよりあとで実行
 		add_action( 'wp_loaded', function() {
-			$tax_names = array_merge( ['category', 'post_tag' ], array_keys( SSP_Data::$custom_taxonomies ) );
+			$tax_names = array_merge( [ 'category', 'post_tag' ], array_keys( SSP_Data::$custom_taxonomies ) );
 			foreach ( $tax_names as $tax_name ) {
 				add_action( $tax_name . '_edit_form_fields', [ 'SSP_MetaBox', 'add_term_edit_fields' ], 20 );
 				// add_action( $tax_name . '_add_form_fields', [ 'SSP_MetaBox', 'add_term_fields' ] );
@@ -68,7 +68,6 @@ class SSP_MetaBox {
 			add_action( 'edited_terms', [ 'SSP_MetaBox', 'save_term_metas' ] );
 			// add_action( 'created_term', [ 'SSP_MetaBox', 'save_term_metas' ] );
 		});
-
 	}
 
 
@@ -81,12 +80,12 @@ class SSP_MetaBox {
 			'_builtin' => false,
 		];
 		$post_types = get_post_types( $args, 'names', 'and' );
-		$screens    = array_merge( ['post', 'page' ], $post_types );
+		$screens    = array_merge( [ 'post', 'page' ], $post_types );
 
 		add_meta_box(
 			'ssp_metabox',                            // メタボックスのID名(html)
 			__( 'SEO SIMPLE PACK Settings', 'loos-ssp' ),  // メタボックスのタイトル
-			['SSP_MetaBox', 'ssp_metabox_callback' ], // htmlを出力する関数名
+			[ 'SSP_MetaBox', 'ssp_metabox_callback' ], // htmlを出力する関数名
 			$screens,                                 // 表示する投稿タイプ
 			'normal',                                 // 表示場所 : 'normal', 'advanced', 'side'
 			'default',                                // 表示優先度 : 'high', 'core', 'default' または 'low'
@@ -125,10 +124,10 @@ class SSP_MetaBox {
 		<?php
 			// robots
 			self::output_field( self::POST_META_KEYS['robots'], [
-				'title'       => __( '"robots" tag of this page', 'loos-ssp' ),
-				'type'        => 'select',
-				'choices'     => self::$robots_options,
-				'desc'        => sprintf(
+				'title'   => __( '"robots" tag of this page', 'loos-ssp' ),
+				'type'    => 'select',
+				'choices' => self::$robots_options,
+				'desc'    => sprintf(
 					__( 'If you want to know the default settings, see %s.', 'loos-ssp' ),
 					'<a href="' . esc_url( $ssp_page_url_pt ) . '" target="_blank">' . __( '"Post page" tab in "General Settings"', 'loos-ssp' ) . '</a>'
 				),
@@ -136,8 +135,8 @@ class SSP_MetaBox {
 
 			// title
 			self::output_field( self::POST_META_KEYS['title'], [
-				'title'       => __( 'Title tag of this page', 'loos-ssp' ),
-				'desc'        => sprintf(
+				'title' => __( 'Title tag of this page', 'loos-ssp' ),
+				'desc'  => sprintf(
 					__( '%s is available.', 'loos-ssp' ),
 					'<a href="' . esc_url( $help_page_url ) . '" target="_blank">' . __( 'Snippet tags', 'loos-ssp' ) . '</a>'
 				),
@@ -145,29 +144,29 @@ class SSP_MetaBox {
 
 			// description
 			self::output_field( self::POST_META_KEYS['description'], [
-				'title'       => __( 'Description of this page', 'loos-ssp' ),
-				'type'        => 'textarea',
-				'desc'        => __( 'If blank, the description tag will be automatically generated from the content.', 'loos-ssp' ),
+				'title' => __( 'Description of this page', 'loos-ssp' ),
+				'type'  => 'textarea',
+				'desc'  => __( 'If blank, the description tag will be automatically generated from the content.', 'loos-ssp' ),
 			], $val_description );
 
 			// og:image
 			self::output_field( self::POST_META_KEYS['image'], [
-				'title'       => __( '"og:image" of this page', 'loos-ssp' ),
-				'type'        => 'media',
+				'title' => __( '"og:image" of this page', 'loos-ssp' ),
+				'type'  => 'media',
 			], $val_image );
 
 			// canonical
 			self::output_field( self::POST_META_KEYS['canonical'], [
-				'title'       => __( '"canonical" URL of this page', 'loos-ssp' ),
-				'desc'        => __( 'If blank, the canonical tag will be automatically generated.', 'loos-ssp' ),
+				'title' => __( '"canonical" URL of this page', 'loos-ssp' ),
+				'desc'  => __( 'If blank, the canonical tag will be automatically generated.', 'loos-ssp' ),
 			], $val_canonical );
 
 			// keywords
 			self::output_field( self::POST_META_KEYS['keyword'], [
-				'title'       => __( 'Keywords of this page', 'loos-ssp' ),
+				'title' => __( 'Keywords of this page', 'loos-ssp' ),
 				// 'desc'        => sprintf(
-				// 	__( 'If blank, the "Keyword" setting of %s is used.', 'loos-ssp' ),
-				// 	'<a href="' . esc_url( $ssp_page_url ) . '" target="_blank">' . __( '"Basic settings"', 'loos-ssp' ) . '</a>'
+				//  __( 'If blank, the "Keyword" setting of %s is used.', 'loos-ssp' ),
+				//  '<a href="' . esc_url( $ssp_page_url ) . '" target="_blank">' . __( '"Basic settings"', 'loos-ssp' ) . '</a>'
 				// ),
 			], $val_keyword );
 		?>
@@ -212,7 +211,6 @@ class SSP_MetaBox {
 				update_post_meta( $post_id, $meta_key, $meta_val );
 			}
 		}
-
 	}
 
 

@@ -50,7 +50,7 @@ class SSP_Hooks {
 		if ( $is_ssp_page ) {
 
 			wp_enqueue_style( 'ssp-css', SSP_URL . 'dist/css/ssp.css', [], $ver );
-			wp_enqueue_script( 'ssp-script', SSP_URL . 'dist/js/ssp.js', ['jquery' ], $ver, true );
+			wp_enqueue_script( 'ssp-script', SSP_URL . 'dist/js/ssp.js', [ 'jquery' ], $ver, true );
 
 		} elseif ( $is_editor_page ) {
 
@@ -74,7 +74,6 @@ class SSP_Hooks {
 		if ( $is_index ) {
 			wp_enqueue_style( 'ssp-common', SSP_URL . 'dist/css/common.css', [], $ver );
 		}
-
 	}
 
 
@@ -128,7 +127,6 @@ class SSP_Hooks {
 		if ( $added_new_data ) {
 			update_option( SSP_Data::DB_NAME['settings'], SSP_Data::$settings );
 		}
-
 	}
 
 
@@ -150,7 +148,7 @@ class SSP_Hooks {
 			if ( isset( $obj->taxonomy ) && 'post_format' === $obj->taxonomy ) {
 				wp_safe_redirect( $home );
 				exit;
-			};
+			}
 		}
 		if ( is_attachment() && SSP_Data::$settings['attachment_disable'] ) {
 			wp_safe_redirect( get_post()->guid );
@@ -200,7 +198,5 @@ class SSP_Hooks {
 				<?php
 			} );
 		}
-
 	}
-
 }

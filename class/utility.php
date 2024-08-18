@@ -90,5 +90,4 @@ class SSP_Utility {
 		// Update
 		update_option( $db_name, $P );
 	}
-
 }

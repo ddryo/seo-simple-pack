@@ -1,7 +1,7 @@
 {
-    "name": "loos/ssp",
+    "name": "loos/wp",
     "description": "",
-    "type": "wordpress-plugin",
+    "type": "loos-wordpress",
     "license": "GPL-2.0-or-later",
     "authors": [
         {
@@ -10,15 +10,13 @@
         }
     ],
     "require-dev": {
-        "squizlabs/php_codesniffer": "^3.5",
-        "wp-coding-standards/wpcs": "^2.3",
         "dealerdirect/phpcodesniffer-composer-installer": "^0.7",
-        "phpcompatibility/phpcompatibility-wp": "*"
+        "phpcompatibility/phpcompatibility-wp": "*",
+        "wp-coding-standards/wpcs": "^3.1",
+        "squizlabs/php_codesniffer": "^3.10"
     },
     "scripts": {
-        "set-wpcs": [
-            "./vendor/bin/phpcs --config-set installed_paths `pwd -P`/vendor/phpcompatibility/php-compatibility,`pwd -P`/vendor/phpcompatibility/phpcompatibility-paragonie,`pwd -P`/vendor/phpcompatibility/phpcompatibility-wp,`pwd -P`/vendor/wp-coding-standards/wpcs"
-        ]
+        "phpcs": "vendor/bin/phpcs"
     },
     "config": {
         "allow-plugins": {

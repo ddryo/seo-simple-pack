@@ -41,7 +41,7 @@ class SSP_Menu {
 			'twitter'  => 'Twitter',
 		];
 
-		add_action( 'admin_menu', ['SSP_Menu', 'add_menus' ] );
+		add_action( 'admin_menu', [ 'SSP_Menu', 'add_menus' ] );
 	}
 
 
@@ -53,7 +53,7 @@ class SSP_Menu {
 		// トップレベルメニュー
 		$top_menu_title = 'SEO SIMPLE PACK'; // ページのタイトルタグに表示されるテキスト
 		$top_menu_slug  = 'ssp_main_setting'; // このメニューを参照するスラッグ名
-		$top_menu_cb    = ['SSP_Menu', 'ssp_top_menu' ]; // 呼び出す関数名
+		$top_menu_cb    = [ 'SSP_Menu', 'ssp_top_menu' ]; // 呼び出す関数名
 
 		add_menu_page(
 			$top_menu_title,
@@ -80,7 +80,7 @@ class SSP_Menu {
 			__( 'OGP settings', 'loos-ssp' ), // 'OGP設定',
 			'administrator',
 			'ssp_ogp_setting',
-			['SSP_Menu', 'ssp_ogp_menu' ]
+			[ 'SSP_Menu', 'ssp_ogp_menu' ]
 		);
 
 		// サブメニュー:HELP
@@ -90,7 +90,7 @@ class SSP_Menu {
 			'HELP',
 			'administrator',
 			'ssp_help',
-			['SSP_Menu', 'ssp_help_menu' ]
+			[ 'SSP_Menu', 'ssp_help_menu' ]
 		);
 	}
 
@@ -159,5 +159,4 @@ class SSP_Menu {
 			echo '</div>';
 		}
 	}
-
 }
