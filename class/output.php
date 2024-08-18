@@ -58,6 +58,16 @@ class SSP_Output {
 	 * init
 	 */
 	public static function init() {
+		// meatタグの内容を生成
+		// Note: 優先度0で実行しているのはクラシックテーマでもブロックテーマでも、 pre_get_document_title の前に genarete() を実行するため
+		add_action( 'wp_head', [ 'SSP_Output', 'generate' ], 0 );
+
+		// pre_get_document_title へタイトルを渡す
+		add_filter( 'pre_get_document_title', function() {
+			return self::$title;
+		} );
+
+		// metaタグを出力
 		add_action( 'wp_head', [ 'SSP_Output', 'main' ], 5 );
 	}
 
@@ -102,17 +112,21 @@ class SSP_Output {
 
 
 	/**
-	 * Genarate and output meta tags for current page.
+	 * Genarate meta tags for current page.
 	 */
-	public static function main() {
+	public static function generate() {
 		self::$obj      = get_queried_object();
 		self::$obj_type = self::get_obj_type( self::$obj );
 
 		// Genarate
 		self::generate_meta_tags();
 		self::generate_ogp_tags();
+	}
 
-		// Output
+	/**
+	 * Output meta tags for current page.
+	 */
+	public static function main() {
 		echo PHP_EOL . '<!-- SEO SIMPLE PACK ' . SSP_VERSION . ' -->' . PHP_EOL; // phpcs:ignore
 		self::output_meta_tags();
 		self::output_ogp_tags();
@@ -166,9 +180,9 @@ class SSP_Output {
 	 */
 	private static function output_meta_tags() {
 
-		if ( ! empty( self::$title ) ) {
-			echo '<title>' . esc_html( self::$title ) . '</title>' . PHP_EOL;
-		}
+		// if ( ! wp_is_block_theme() && ! empty( self::$title ) ) {
+		// 	echo '<title>' . esc_html( self::$title ) . '</title>' . PHP_EOL;
+		// }
 
 		if ( ! empty( self::$robots ) ) {
 			echo '<meta name="robots" content="' . esc_attr( self::$robots ) . '">' . PHP_EOL;

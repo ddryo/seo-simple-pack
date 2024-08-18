@@ -17,7 +17,7 @@ class SSP_Hooks {
 		add_action( 'template_redirect', [ 'SSP_Hooks', 'redirect' ], 1 );
 
 		// titleタグの除去
-		remove_action( 'wp_head', '_wp_render_title_tag', 1 );
+		// if ( ! wp_is_block_theme() ) remove_action( 'wp_head', '_wp_render_title_tag', 1 );
 
 		// canonicalの削除
 		remove_action( 'wp_head', 'rel_canonical' );
