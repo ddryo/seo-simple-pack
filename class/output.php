@@ -180,9 +180,9 @@ class SSP_Output {
 	 */
 	private static function output_meta_tags() {
 
-		// if ( ! wp_is_block_theme() && ! empty( self::$title ) ) {
-		//  echo '<title>' . esc_html( self::$title ) . '</title>' . PHP_EOL;
-		// }
+		if ( ! wp_is_block_theme() && ! current_theme_supports( 'title-tag' ) && ! empty( self::$title ) ) {
+			echo '<title>' . esc_html( self::$title ) . '</title>' . PHP_EOL;
+		}
 
 		if ( ! empty( self::$robots ) ) {
 			echo '<meta name="robots" content="' . esc_attr( self::$robots ) . '">' . PHP_EOL;
