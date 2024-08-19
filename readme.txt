@@ -4,7 +4,7 @@ Donate link: https://loos-web-studio.com/
 Tags: SEO, meta, analytics, wsebmaster, simple, japan, meta tag
 Requires at least: 4.9
 Tested up to: 6.6
-Stable tag: 3.5.0
+Stable tag: 3.5.1
 Requires PHP: 7.0
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
@@ -119,6 +119,9 @@ The following hooks are available.
 
 
 == Changelog ==
+
+= 3.5.1 =
+- Fixed an issue where title tag was not output even for themes that did not support title-tag.
 
 = 3.5.0 =
 - Fixed an issue where duplicate title tags were being output in block themes.
