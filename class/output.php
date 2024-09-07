@@ -180,7 +180,9 @@ class SSP_Output {
 	 */
 	private static function output_meta_tags() {
 
-		if ( ! wp_is_block_theme() && ! current_theme_supports( 'title-tag' ) && ! empty( self::$title ) ) {
+		$is_block_theme = function_exists( 'wp_is_block_theme' ) && wp_is_block_theme();
+
+		if ( ! $is_block_theme && ! current_theme_supports( 'title-tag' ) && ! empty( self::$title ) ) {
 			echo '<title>' . esc_html( self::$title ) . '</title>' . PHP_EOL;
 		}
 
