@@ -75,7 +75,7 @@ class Output_Helper {
 		}
 
 		/* translators: 1: current page number, 2: total number of pages. */
-		return sprintf( __( 'Page %1$d of %2$d', 'loos-ssp' ), $nums['now'], $nums['max'] );
+		return sprintf( __( 'Page %1$d of %2$d', 'seo-simple-pack' ), $nums['now'], $nums['max'] );
 	}
 
 	private static function get_pagenumbers() {

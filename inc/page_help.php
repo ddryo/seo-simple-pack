@@ -3,87 +3,87 @@
  * Help page
  */
 $SNIPPET_TAGS = [
-	'site_title' => [
-		'label' => __( 'Site title', 'loos-ssp' ),
-		'for'   => __( 'All pages', 'loos-ssp' ),
+	'site_title'        => [
+		'label' => __( 'Site title', 'seo-simple-pack' ),
+		'for'   => __( 'All pages', 'seo-simple-pack' ),
 	],
-	'tagline' => [
-		'label' => __( 'Site catchphrase', 'loos-ssp' ),
-		'for'   => __( 'All pages', 'loos-ssp' ),
+	'tagline'           => [
+		'label' => __( 'Site catchphrase', 'seo-simple-pack' ),
+		'for'   => __( 'All pages', 'seo-simple-pack' ),
 	],
 	'front_description' => [
-		'label' => __( 'Front description', 'loos-ssp' ),
-		'for'   => __( 'All pages', 'loos-ssp' ),
+		'label' => __( 'Front description', 'seo-simple-pack' ),
+		'for'   => __( 'All pages', 'seo-simple-pack' ),
 	],
-	'sep' => [
-		'label' => __( 'Delimiter', 'loos-ssp' ),
-		'for'   => __( 'All pages', 'loos-ssp' ),
+	'sep'               => [
+		'label' => __( 'Delimiter', 'seo-simple-pack' ),
+		'for'   => __( 'All pages', 'seo-simple-pack' ),
 	],
-	'page_title' => [
-		'label' => __( 'Post title', 'loos-ssp' ),
-		'for'   => __( 'Posts and Pages', 'loos-ssp' ),
+	'page_title'        => [
+		'label' => __( 'Post title', 'seo-simple-pack' ),
+		'for'   => __( 'Posts and Pages', 'seo-simple-pack' ),
 	],
-	'page_contents' => [
-		'label' => __( 'Page content', 'loos-ssp' ),
-		'for'   => __( 'Posts and Pages', 'loos-ssp' ),
+	'page_contents'     => [
+		'label' => __( 'Page content', 'seo-simple-pack' ),
+		'for'   => __( 'Posts and Pages', 'seo-simple-pack' ),
 	],
-	'term_name' => [
-		'label' => __( 'Term name', 'loos-ssp' ),
-		'for'   => __( 'Term archives', 'loos-ssp' ),
+	'term_name'         => [
+		'label' => __( 'Term name', 'seo-simple-pack' ),
+		'for'   => __( 'Term archives', 'seo-simple-pack' ),
 	],
-	'term_description' => [
-		'label' => __( 'Term description', 'loos-ssp' ),
-		'for'   => __( 'Term archives', 'loos-ssp' ),
+	'term_description'  => [
+		'label' => __( 'Term description', 'seo-simple-pack' ),
+		'for'   => __( 'Term archives', 'seo-simple-pack' ),
 	],
-	'tax_name' => [
-		'label' => __( 'Taxonomy name', 'loos-ssp' ),
-		'for'   => __( 'Taxonomy archives', 'loos-ssp' ),
+	'tax_name'          => [
+		'label' => __( 'Taxonomy name', 'seo-simple-pack' ),
+		'for'   => __( 'Taxonomy archives', 'seo-simple-pack' ),
 	],
-	'post_type' => [
-		'label' => __( 'Post type name', 'loos-ssp' ),
-		'for'   => __( 'Post Type archives', 'loos-ssp' ),
+	'post_type'         => [
+		'label' => __( 'Post type name', 'seo-simple-pack' ),
+		'for'   => __( 'Post Type archives', 'seo-simple-pack' ),
 	],
-	'date' => [
-		'label' => __( 'The date that is searching in the date archive', 'loos-ssp' ),
-		'for'   => __( 'Date archives', 'loos-ssp' ),
+	'date'              => [
+		'label' => __( 'The date that is searching in the date archive', 'seo-simple-pack' ),
+		'for'   => __( 'Date archives', 'seo-simple-pack' ),
 	],
-	'author_name' => [
-		'label' => __( 'Author name', 'loos-ssp' ),
-		'for'   => __( 'Author archives', 'loos-ssp' ),
+	'author_name'       => [
+		'label' => __( 'Author name', 'seo-simple-pack' ),
+		'for'   => __( 'Author archives', 'seo-simple-pack' ),
 	],
-	'search_phrase' => [
-		'label' => __( 'Search word', 'loos-ssp' ),
-		'for'   => __( 'Search results', 'loos-ssp' ),
+	'search_phrase'     => [
+		'label' => __( 'Search word', 'seo-simple-pack' ),
+		'for'   => __( 'Search results', 'seo-simple-pack' ),
 	],
-	'page' => [
-		'label' => __( 'Number of pages', 'loos-ssp' ),
-		'for'   => __( 'All pages', 'loos-ssp' ),
+	'page'              => [
+		'label' => __( 'Number of pages', 'seo-simple-pack' ),
+		'for'   => __( 'All pages', 'seo-simple-pack' ),
 	],
 ];
 
 ?>
 <div class="ssp-page wrap">
 	<h1 class="ssp-page__title">
-		<?=esc_html__( 'Help page', 'loos-ssp' )?>
+		<?=esc_html__( 'Help page', 'seo-simple-pack' )?>
 	</h1>
 	<hr class="wp-header-end">
 	<div class="ssp-page__body">
 		<div class="ssp-page__section">
 			<h2 class="ssp-page__section__title">
-				<?=esc_html__( 'About available "snippet tags"', 'loos-ssp' )?>
+				<?=esc_html__( 'About available "snippet tags"', 'seo-simple-pack' )?>
 			</h2>
 			<div class="ssp-page__section__body">
 				<table class="ssp-helpTable">
 					<thead>
 						<tr>
 							<th>
-								<?=esc_html__( 'Snippet tag', 'loos-ssp' )?>
+								<?=esc_html__( 'Snippet tag', 'seo-simple-pack' )?>
 							</th>
 							<th>
-								<?=esc_html__( 'Contents to be expanded', 'loos-ssp' )?>
+								<?=esc_html__( 'Contents to be expanded', 'seo-simple-pack' )?>
 							</th>
 							<th>
-								<?=esc_html__( 'Available page', 'loos-ssp' )?>
+								<?=esc_html__( 'Available page', 'seo-simple-pack' )?>
 							</th>
 						</tr>
 					</thead>
@@ -106,9 +106,9 @@ $SNIPPET_TAGS = [
 
 				<p class="ssp-page__note">
 					<?php
-						echo sprintf(
-							esc_html__( 'See %s for more information about "SEO SIMPLE PACK".', 'loos-ssp' ),
-							'<a href="https://wemo.tech/1670" target="_blank">' . esc_html__( '"How to use the plugin"', 'loos-ssp' ) . '</a>'
+						printf(
+							esc_html__( 'See %s for more information about "SEO SIMPLE PACK".', 'seo-simple-pack' ),
+							'<a href="https://wemo.tech/1670" target="_blank">' . esc_html__( '"How to use the plugin"', 'seo-simple-pack' ) . '</a>'
 						);
 					?>
 				</p>

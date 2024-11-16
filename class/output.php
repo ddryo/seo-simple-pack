@@ -852,11 +852,11 @@ class SSP_Output {
 					}
 
 					if ( is_day() ) {
-						$replace = sprintf( _x( '%2$s %3$s, %1$s', 'date', 'loos-ssp' ), $year, $month, $day ); // phpcs:ignore
+						$replace = sprintf( _x( '%2$s %3$s, %1$s', 'date', 'seo-simple-pack' ), $year, $month, $day ); // phpcs:ignore
 					} elseif ( is_month() ) {
-						$replace = sprintf( _x( '%2$s %1$s', 'date', 'loos-ssp' ), $year, $month ); // phpcs:ignore
+						$replace = sprintf( _x( '%2$s %1$s', 'date', 'seo-simple-pack' ), $year, $month ); // phpcs:ignore
 					} elseif ( is_year() ) {
-						$replace = sprintf( _x( '%s', 'date', 'loos-ssp' ), $year ); // phpcs:ignore
+						$replace = sprintf( _x( '%s', 'date', 'seo-simple-pack' ), $year ); // phpcs:ignore
 					}
 					break;
 				case '%_page_%':

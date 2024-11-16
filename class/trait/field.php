@@ -63,15 +63,15 @@ trait Field {
 	public static function output_field( $field_name, $args, $field_value ) {
 
 		$args = array_merge( [
-			'title'       => '',
-			'reqired'     => false,
-			'class'       => '',
-			'type'        => 'text',
-			'preview'     => false,
-			'desc'        => '',
-			'choices'     => [],
-			'label'       => '',
-			'item'        => '',
+			'title'   => '',
+			'reqired' => false,
+			'class'   => '',
+			'type'    => 'text',
+			'preview' => false,
+			'desc'    => '',
+			'choices' => [],
+			'label'   => '',
+			'item'    => '',
 		], $args );
 
 		$field_value = self::replace_old_snipets( $field_value );
@@ -84,7 +84,7 @@ trait Field {
 		}
 
 		// if ( $args['reqired'] ) {
-		// 	$table_title .= '<span class="required">*</span>';
+		//  $table_title .= '<span class="required">*</span>';
 		// }
 
 		?>
@@ -110,12 +110,12 @@ trait Field {
 					<?php if ( $args['preview'] ) : ?>
 						<div class="ssp-field__preview">
 						┗ <span class="ssp-field__preview__label">
-								<?=esc_html__( 'Preview', 'loos-ssp' )?> : 
+								<?=esc_html__( 'Preview', 'seo-simple-pack' )?> : 
 							</span>
 							<div class="ssp-field__preview__content">
 								<?=wp_kses_post( self::replace_snippets_forpv( $field_value ) )?>
 							</div>
-							<a href="<?=esc_url( admin_url( 'admin.php?page=ssp_help' ) )?>" target="_blank" title="<?=esc_html__( 'About available snippet tags', 'loos-ssp' )?>" class="ssp-helpButton">?</a>
+							<a href="<?=esc_url( admin_url( 'admin.php?page=ssp_help' ) )?>" target="_blank" title="<?=esc_html__( 'About available snippet tags', 'seo-simple-pack' )?>" class="ssp-helpButton">?</a>
 						</div>
 					<?php endif; ?>
 				</div>
@@ -186,12 +186,12 @@ trait Field {
 
 		$checked = ( $is_checked ) ? 'checked' : '';
 	?>
-		<span><?=esc_html__( 'No', 'loos-ssp' )?></span>
+		<span><?=esc_html__( 'No', 'seo-simple-pack' )?></span>
 		<label class="ssp_switch" for="<?=esc_attr( $name )?>">
 			<input type="checkbox" name="" id="<?=esc_attr( $name )?>" <?=$checked?>>
 			<span class="ssp_switch__slider -round"></span>
 		</label>
-		<span><?=esc_html__( 'Yes', 'loos-ssp' )?></span>
+		<span><?=esc_html__( 'Yes', 'seo-simple-pack' )?></span>
 		<input type="hidden" name="<?=esc_attr( $name )?>" value="<?=esc_attr( $is_checked )?>">
 	<?php
 	}
@@ -259,14 +259,14 @@ trait Field {
 				<div id="preview_<?=esc_attr( $name )?>" class="ssp-media__preview"></div>
 			<?php endif; ?>
 			<div class="ssp-media__null">
-				<?=esc_html__( 'No image has been set yet.', 'loos-ssp' )?>
+				<?=esc_html__( 'No image has been set yet.', 'seo-simple-pack' )?>
 			</div>
 			<div class="ssp-media__btns">
 				<button type="button" class="button button-primary" name="ssp-media-upload" data-id="<?=esc_attr( $name )?>">
-					<?=esc_html__( 'Select image', 'loos-ssp' )?>
+					<?=esc_html__( 'Select image', 'seo-simple-pack' )?>
 				</button>
 				<button type="button" class="button" name="ssp-media-clear" data-id="<?=esc_attr( $name )?>">
-					<?=esc_html__( 'Delete image', 'loos-ssp' )?>
+					<?=esc_html__( 'Delete image', 'seo-simple-pack' )?>
 				</button>
 			</div>
 		</div>
@@ -280,16 +280,16 @@ trait Field {
 	public static function replace_snippets_forpv( $str ) {
 		$str = str_replace( '%_site_title_%', '<span>' . \SSP_Data::$site_title . '</span>', $str );
 		$str = str_replace( '%_tagline_%', '<span>' . \SSP_Data::$site_catch_phrase . '</span>', $str );
-		$str = str_replace( '%_front_description_%', '<span>' . __( 'Front description', 'loos-ssp' ) . '</span>', $str );
-		$str = str_replace( '%_page_title_%', '<span>' . __( 'Post title', 'loos-ssp' ) . '</span>', $str );
-		$str = str_replace( '%_page_contents_%', '<span>' . __( 'Page content', 'loos-ssp' ) . '</span>', $str );
-		$str = str_replace( '%_term_name_%', '<span>' . __( 'Term name', 'loos-ssp' ) . '</span>', $str );
-		$str = str_replace( '%_term_description_%', '<span>' . __( 'Term description', 'loos-ssp' ) . '</span>', $str );
-		$str = str_replace( '%_tax_name_%', '<span>' . __( 'Taxonomy name', 'loos-ssp' ) . '</span>', $str );
-		$str = str_replace( '%_author_name_%', '<span>' . __( 'Author name', 'loos-ssp' ) . '</span>', $str );
-		$str = str_replace( '%_search_phrase_%', '<span>' . __( 'Search word', 'loos-ssp' ) . '</span>', $str );
-		$str = str_replace( '%_post_type_%', '<span>' . __( 'Post type name', 'loos-ssp' ) . '</span>', $str );
-		$str = str_replace( '%_date_%', '<span>' . __( 'Date', 'loos-ssp' ) . '</span>', $str );
+		$str = str_replace( '%_front_description_%', '<span>' . __( 'Front description', 'seo-simple-pack' ) . '</span>', $str );
+		$str = str_replace( '%_page_title_%', '<span>' . __( 'Post title', 'seo-simple-pack' ) . '</span>', $str );
+		$str = str_replace( '%_page_contents_%', '<span>' . __( 'Page content', 'seo-simple-pack' ) . '</span>', $str );
+		$str = str_replace( '%_term_name_%', '<span>' . __( 'Term name', 'seo-simple-pack' ) . '</span>', $str );
+		$str = str_replace( '%_term_description_%', '<span>' . __( 'Term description', 'seo-simple-pack' ) . '</span>', $str );
+		$str = str_replace( '%_tax_name_%', '<span>' . __( 'Taxonomy name', 'seo-simple-pack' ) . '</span>', $str );
+		$str = str_replace( '%_author_name_%', '<span>' . __( 'Author name', 'seo-simple-pack' ) . '</span>', $str );
+		$str = str_replace( '%_search_phrase_%', '<span>' . __( 'Search word', 'seo-simple-pack' ) . '</span>', $str );
+		$str = str_replace( '%_post_type_%', '<span>' . __( 'Post type name', 'seo-simple-pack' ) . '</span>', $str );
+		$str = str_replace( '%_date_%', '<span>' . __( 'Date', 'seo-simple-pack' ) . '</span>', $str );
 		if ( strpos( $str, '%_sep_%' ) !== false ) {
 			$sep_key = \SSP_Data::$settings['separator'];
 			$sep_val = \SSP_Data::SEPARATORS[ $sep_key ];

@@ -8,7 +8,7 @@
  * Author URI: https://loos-web-studio.com/
  * License: GPL2 or later
  * License URI: https://www.gnu.org/licenses/gpl-2.0.html
- * Text Domain: loos-ssp
+ * Text Domain: seo-simple-pack
  * Domain Path: /languages
  */
 defined( 'ABSPATH' ) || exit;
@@ -30,14 +30,6 @@ if ( ! defined( 'SSP_VERSION' ) ) {
 }
 
 
-/**
- * 翻訳ファイルを登録 ( 自前の翻訳ファイルを読み込む )
- */
-if ( 'ja' === determine_locale() ) {
-	load_textdomain( 'loos-ssp', SSP_PATH . 'languages/loos-ssp-ja.mo' );
-} else {
-	load_plugin_textdomain( 'loos-ssp' );
-}
 
 
 /**
@@ -64,7 +56,18 @@ require_once SSP_PATH . 'class/activate.php';
  */
 class SEO_SIMPLE_PACK {
 	public function __construct() {
-		SSP_Data::init();
+		add_action( 'init', function() {
+			// 翻訳ファイルを登録 ( 日本語の場合は自前の翻訳ファイルを読み込む )
+			if ( 'ja' === determine_locale() ) {
+				load_textdomain( 'seo-simple-pack', SSP_PATH . 'languages/loos-ssp-ja.mo' );
+			} else {
+				load_plugin_textdomain( 'seo-simple-pack' );
+			}
+
+			// Dataセット
+			SSP_Data::init();
+		}, 0 );
+
 		SSP_Hooks::init();
 		SSP_Menu::init();
 		SSP_MetaBox::init();

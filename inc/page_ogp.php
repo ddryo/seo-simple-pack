@@ -22,7 +22,7 @@ if ( 'POST' === $_SERVER['REQUEST_METHOD'] && isset( $_POST['is_setting_form'] )
 ?>
 <div class="ssp-page wrap">
 	<h1 class="ssp-page__title">
-		<?=esc_html__( 'OGP settings', 'loos-ssp' )?>
+		<?=esc_html__( 'OGP settings', 'seo-simple-pack' )?>
 	</h1>
 	<hr class="wp-header-end">
 	<?php if ( $is_updated )  self::output_saved_message(); ?>
@@ -42,7 +42,7 @@ if ( 'POST' === $_SERVER['REQUEST_METHOD'] && isset( $_POST['is_setting_form'] )
 			?>
 			<input type="hidden" name="is_setting_form" value="1">
 			<input type="hidden" name="db_name" value="<?php echo esc_attr( SSP_Data::DB_NAME['ogp'] ); ?>">
-			<button type="submit" class="button button-primary"><?=esc_html__( 'Save settings', 'loos-ssp' )?></button>
+			<button type="submit" class="button button-primary"><?=esc_html__( 'Save settings', 'seo-simple-pack' )?></button>
 		</form>
 	</div>
 </div>

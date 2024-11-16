@@ -25,22 +25,6 @@ class SSP_Menu {
 	 * init
 	 */
 	public static function init() {
-
-		self::$top_menu_tabs = [
-			'basic'     => __( 'Basic setting', 'loos-ssp' ),    // 基本設定
-			'post_type' => __( 'Post page', 'loos-ssp' ),        // 投稿ページ
-			'taxonomy'  => __( 'Taxonomy archive', 'loos-ssp' ), // タクソノミーアーカイブ
-			'archive'   => __( 'Other archives', 'loos-ssp' ),   // その他アーカイブ
-			'analytics' => __( 'Google Analytics', 'loos-ssp' ), // Googleアナリティクス
-			'webmaster' => __( 'Webmaster tools', 'loos-ssp' ),  // ウェブマスターツール
-		];
-
-		self::$ogp_menu_tabs = [
-			'basic'    => __( 'Basic setting', 'loos-ssp' ),
-			'facebook' => 'Facebook',
-			'twitter'  => 'Twitter',
-		];
-
 		add_action( 'admin_menu', [ 'SSP_Menu', 'add_menus' ] );
 	}
 
@@ -49,6 +33,21 @@ class SSP_Menu {
 	 * メニューの追加
 	 */
 	public static function add_menus() {
+
+		self::$top_menu_tabs = [
+			'basic'     => __( 'Basic setting', 'seo-simple-pack' ),    // 基本設定
+			'post_type' => __( 'Post page', 'seo-simple-pack' ),        // 投稿ページ
+			'taxonomy'  => __( 'Taxonomy archive', 'seo-simple-pack' ), // タクソノミーアーカイブ
+			'archive'   => __( 'Other archives', 'seo-simple-pack' ),   // その他アーカイブ
+			'analytics' => __( 'Google Analytics', 'seo-simple-pack' ), // Googleアナリティクス
+			'webmaster' => __( 'Webmaster tools', 'seo-simple-pack' ),  // ウェブマスターツール
+		];
+
+		self::$ogp_menu_tabs = [
+			'basic'    => __( 'Basic setting', 'seo-simple-pack' ),
+			'facebook' => 'Facebook',
+			'twitter'  => 'Twitter',
+		];
 
 		// トップレベルメニュー
 		$top_menu_title = 'SEO SIMPLE PACK'; // ページのタイトルタグに表示されるテキスト
@@ -67,7 +66,7 @@ class SSP_Menu {
 		add_submenu_page(
 			$top_menu_slug,
 			$top_menu_title,
-			__( 'General settings', 'loos-ssp' ), // サブ側の名前
+			__( 'General settings', 'seo-simple-pack' ), // サブ側の名前
 			'administrator',       // 権限
 			$top_menu_slug,
 			$top_menu_cb
@@ -76,8 +75,8 @@ class SSP_Menu {
 		// サブメニュー:OGP設定
 		add_submenu_page(
 			'ssp_main_setting',
-			__( 'OGP settings', 'loos-ssp' ), // 'OGP設定',
-			__( 'OGP settings', 'loos-ssp' ), // 'OGP設定',
+			__( 'OGP settings', 'seo-simple-pack' ), // 'OGP設定',
+			__( 'OGP settings', 'seo-simple-pack' ), // 'OGP設定',
 			'administrator',
 			'ssp_ogp_setting',
 			[ 'SSP_Menu', 'ssp_ogp_menu' ]
@@ -121,10 +120,10 @@ class SSP_Menu {
 		?>
 			<div class="ssp-page__savedMessage updated notice is-dismissible">
 				<p>
-					<strong><?php esc_html_e( 'Your settings have been saved.', 'loos-ssp' ); ?></strong>
+					<strong><?php esc_html_e( 'Your settings have been saved.', 'seo-simple-pack' ); ?></strong>
 				</p>
 				<button type="button" class="notice-dismiss">
-					<span class="screen-reader-text"><?php esc_html_e( 'Hide this notification.', 'loos-ssp' ); ?></span>
+					<span class="screen-reader-text"><?php esc_html_e( 'Hide this notification.', 'seo-simple-pack' ); ?></span>
 				</button>
 			</div>
 		<?php

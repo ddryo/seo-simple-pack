@@ -42,16 +42,6 @@ class SSP_MetaBox {
 	 */
 	public static function init() {
 
-		// Set choices
-		self::$robots_options = [
-			''                 => __( 'Keep default settings', 'loos-ssp' ), // デフォルト設定のまま
-			'index,follow'     => __( 'Index', 'loos-ssp' ), // インデックスさせる
-			'noindex'          => __( 'Don\'t index', 'loos-ssp' ) . '(noindex)', // インデックスさせない
-			'nofollow'         => __( 'Don\'t follow links', 'loos-ssp' ) . '(nofollow)', // リンクを辿らせない
-			'noarchive'        => __( 'Don\'t cache', 'loos-ssp' ) . '(noarchive)', // キャッシュさせない
-			'noindex,nofollow' => 'noindex,nofollow',
-		];
-
 		// post meta追加
 		add_action( 'add_meta_boxes', [ 'SSP_MetaBox', 'add_ssp_metabox' ], 1 );
 		add_action( 'save_post', [ 'SSP_MetaBox', 'save_post_metas' ] );
@@ -82,9 +72,19 @@ class SSP_MetaBox {
 		$post_types = get_post_types( $args, 'names', 'and' );
 		$screens    = array_merge( [ 'post', 'page' ], $post_types );
 
+		// Set choices
+		self::$robots_options = [
+			''                 => __( 'Keep default settings', 'seo-simple-pack' ), // デフォルト設定のまま
+			'index,follow'     => __( 'Index', 'seo-simple-pack' ), // インデックスさせる
+			'noindex'          => __( 'Don\'t index', 'seo-simple-pack' ) . '(noindex)', // インデックスさせない
+			'nofollow'         => __( 'Don\'t follow links', 'seo-simple-pack' ) . '(nofollow)', // リンクを辿らせない
+			'noarchive'        => __( 'Don\'t cache', 'seo-simple-pack' ) . '(noarchive)', // キャッシュさせない
+			'noindex,nofollow' => 'noindex,nofollow',
+		];
+
 		add_meta_box(
 			'ssp_metabox',                            // メタボックスのID名(html)
-			__( 'SEO SIMPLE PACK Settings', 'loos-ssp' ),  // メタボックスのタイトル
+			__( 'SEO SIMPLE PACK Settings', 'seo-simple-pack' ),  // メタボックスのタイトル
 			[ 'SSP_MetaBox', 'ssp_metabox_callback' ], // htmlを出力する関数名
 			$screens,                                 // 表示する投稿タイプ
 			'normal',                                 // 表示場所 : 'normal', 'advanced', 'side'
@@ -124,49 +124,49 @@ class SSP_MetaBox {
 		<?php
 			// robots
 			self::output_field( self::POST_META_KEYS['robots'], [
-				'title'   => __( '"robots" tag of this page', 'loos-ssp' ),
+				'title'   => __( '"robots" tag of this page', 'seo-simple-pack' ),
 				'type'    => 'select',
 				'choices' => self::$robots_options,
 				'desc'    => sprintf(
-					__( 'If you want to know the default settings, see %s.', 'loos-ssp' ),
-					'<a href="' . esc_url( $ssp_page_url_pt ) . '" target="_blank">' . __( '"Post page" tab in "General Settings"', 'loos-ssp' ) . '</a>'
+					__( 'If you want to know the default settings, see %s.', 'seo-simple-pack' ),
+					'<a href="' . esc_url( $ssp_page_url_pt ) . '" target="_blank">' . __( '"Post page" tab in "General Settings"', 'seo-simple-pack' ) . '</a>'
 				),
 			], $val_robots );
 
 			// title
 			self::output_field( self::POST_META_KEYS['title'], [
-				'title' => __( 'Title tag of this page', 'loos-ssp' ),
+				'title' => __( 'Title tag of this page', 'seo-simple-pack' ),
 				'desc'  => sprintf(
-					__( '%s is available.', 'loos-ssp' ),
-					'<a href="' . esc_url( $help_page_url ) . '" target="_blank">' . __( 'Snippet tags', 'loos-ssp' ) . '</a>'
+					__( '%s is available.', 'seo-simple-pack' ),
+					'<a href="' . esc_url( $help_page_url ) . '" target="_blank">' . __( 'Snippet tags', 'seo-simple-pack' ) . '</a>'
 				),
 			], $val_title );
 
 			// description
 			self::output_field( self::POST_META_KEYS['description'], [
-				'title' => __( 'Description of this page', 'loos-ssp' ),
+				'title' => __( 'Description of this page', 'seo-simple-pack' ),
 				'type'  => 'textarea',
-				'desc'  => __( 'If blank, the description tag will be automatically generated from the content.', 'loos-ssp' ),
+				'desc'  => __( 'If blank, the description tag will be automatically generated from the content.', 'seo-simple-pack' ),
 			], $val_description );
 
 			// og:image
 			self::output_field( self::POST_META_KEYS['image'], [
-				'title' => __( '"og:image" of this page', 'loos-ssp' ),
+				'title' => __( '"og:image" of this page', 'seo-simple-pack' ),
 				'type'  => 'media',
 			], $val_image );
 
 			// canonical
 			self::output_field( self::POST_META_KEYS['canonical'], [
-				'title' => __( '"canonical" URL of this page', 'loos-ssp' ),
-				'desc'  => __( 'If blank, the canonical tag will be automatically generated.', 'loos-ssp' ),
+				'title' => __( '"canonical" URL of this page', 'seo-simple-pack' ),
+				'desc'  => __( 'If blank, the canonical tag will be automatically generated.', 'seo-simple-pack' ),
 			], $val_canonical );
 
 			// keywords
 			self::output_field( self::POST_META_KEYS['keyword'], [
-				'title' => __( 'Keywords of this page', 'loos-ssp' ),
+				'title' => __( 'Keywords of this page', 'seo-simple-pack' ),
 				// 'desc'        => sprintf(
-				//  __( 'If blank, the "Keyword" setting of %s is used.', 'loos-ssp' ),
-				//  '<a href="' . esc_url( $ssp_page_url ) . '" target="_blank">' . __( '"Basic settings"', 'loos-ssp' ) . '</a>'
+				//  __( 'If blank, the "Keyword" setting of %s is used.', 'seo-simple-pack' ),
+				//  '<a href="' . esc_url( $ssp_page_url ) . '" target="_blank">' . __( '"Basic settings"', 'seo-simple-pack' ) . '</a>'
 				// ),
 			], $val_keyword );
 		?>
@@ -228,13 +228,13 @@ class SSP_MetaBox {
 	?>
 		<tr class="ssp_term_meta_title">
 			<td colspan="2">
-				<h2><?=esc_html__( 'SEO SIMPLE PACK Settings', 'loos-ssp' )?></h2>
+				<h2><?=esc_html__( 'SEO SIMPLE PACK Settings', 'seo-simple-pack' )?></h2>
 			</td>
 		</tr>
 		<tr class="form-field">
 			<th>
 				<label for="<?=self::TERM_META_KEYS['robots']?>">
-					<?=esc_html__( '"robots" tag of this page', 'loos-ssp' )?>
+					<?=esc_html__( '"robots" tag of this page', 'seo-simple-pack' )?>
 				</label>
 			</th>
 			<td>
@@ -244,7 +244,7 @@ class SSP_MetaBox {
 		<tr class="form-field">
 			<th>
 				<label for="<?=self::TERM_META_KEYS['title']?>">
-					<?=esc_html__( 'Title tag of this page', 'loos-ssp' )?>
+					<?=esc_html__( 'Title tag of this page', 'seo-simple-pack' )?>
 				</label>
 			</th>
 			<td>
@@ -254,7 +254,7 @@ class SSP_MetaBox {
 		<tr class="form-field">
 			<th>
 				<label for="<?=self::TERM_META_KEYS['description']?>">
-					<?=esc_html__( 'Description of this page', 'loos-ssp' )?>
+					<?=esc_html__( 'Description of this page', 'seo-simple-pack' )?>
 				</label>
 			</th>
 			<td>
@@ -264,7 +264,7 @@ class SSP_MetaBox {
 		<tr class="form-field">
 			<th>
 				<label for="<?=self::TERM_META_KEYS['canonical']?>">
-					<?=esc_html__( '"canonical" URL of this page', 'loos-ssp' )?>
+					<?=esc_html__( '"canonical" URL of this page', 'seo-simple-pack' )?>
 				</label>
 			</th>
 			<td>
@@ -274,7 +274,7 @@ class SSP_MetaBox {
 		<tr class="form-field">
 			<th>
 				<label for="<?=self::TERM_META_KEYS['image']?>">
-					<?=esc_html__( '"og:image" of this page', 'loos-ssp' )?>
+					<?=esc_html__( '"og:image" of this page', 'seo-simple-pack' )?>
 				</label>
 			</th>
 			<td>
