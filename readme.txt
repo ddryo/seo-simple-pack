@@ -4,7 +4,7 @@ Donate link: https://loos-web-studio.com/
 Tags: SEO, meta, analytics, wsebmaster, meta tag
 Requires at least: 4.9
 Tested up to: 6.7
-Stable tag: 3.6.1
+Stable tag: 3.6.2
 Requires PHP: 7.0
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
@@ -119,6 +119,10 @@ The following hooks are available.
 
 
 == Changelog ==
+
+= 3.6.2 =
+- Fixed a bug where some items were not displayed on the taxonomy editing page.
+
 
 = 3.6.0 =
 - Support for WordPress 6.7.
