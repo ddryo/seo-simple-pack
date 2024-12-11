@@ -25,15 +25,6 @@ class SSP_Menu {
 	 * init
 	 */
 	public static function init() {
-		add_action( 'admin_menu', [ 'SSP_Menu', 'add_menus' ] );
-	}
-
-
-	/**
-	 * メニューの追加
-	 */
-	public static function add_menus() {
-
 		self::$top_menu_tabs = [
 			'basic'     => __( 'Basic setting', 'seo-simple-pack' ),    // 基本設定
 			'post_type' => __( 'Post page', 'seo-simple-pack' ),        // 投稿ページ
@@ -48,6 +39,20 @@ class SSP_Menu {
 			'facebook' => 'Facebook',
 			'twitter'  => 'Twitter',
 		];
+	}
+
+	/**
+	 * create
+	 */
+	public static function create() {
+		add_action( 'admin_menu', [ 'SSP_Menu', 'add_menus' ] );
+	}
+
+
+	/**
+	 * メニューの追加
+	 */
+	public static function add_menus() {
 
 		// トップレベルメニュー
 		$top_menu_title = 'SEO SIMPLE PACK'; // ページのタイトルタグに表示されるテキスト

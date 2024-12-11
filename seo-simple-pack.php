@@ -66,11 +66,13 @@ class SEO_SIMPLE_PACK {
 
 			// Dataセット
 			SSP_Data::init();
+			SSP_Menu::init();
+			SSP_MetaBox::init();
 		}, 0 );
 
+		SSP_Menu::create();
+		SSP_MetaBox::create();
 		SSP_Hooks::init();
-		SSP_Menu::init();
-		SSP_MetaBox::init();
 		SSP_Output::init();
 	}
 }

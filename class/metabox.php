@@ -41,6 +41,22 @@ class SSP_MetaBox {
 	 * init
 	 */
 	public static function init() {
+		// Set choices options
+		self::$robots_options = [
+			''                 => __( 'Keep default settings', 'seo-simple-pack' ), // デフォルト設定のまま
+			'index,follow'     => __( 'Index', 'seo-simple-pack' ), // インデックスさせる
+			'noindex'          => __( 'Don\'t index', 'seo-simple-pack' ) . '(noindex)', // インデックスさせない
+			'nofollow'         => __( 'Don\'t follow links', 'seo-simple-pack' ) . '(nofollow)', // リンクを辿らせない
+			'noarchive'        => __( 'Don\'t cache', 'seo-simple-pack' ) . '(noarchive)', // キャッシュさせない
+			'noindex,nofollow' => 'noindex,nofollow',
+		];
+	}
+
+
+	/**
+	 * create
+	 */
+	public static function create() {
 
 		// post meta追加
 		add_action( 'add_meta_boxes', [ 'SSP_MetaBox', 'add_ssp_metabox' ], 1 );
@@ -71,16 +87,6 @@ class SSP_MetaBox {
 		];
 		$post_types = get_post_types( $args, 'names', 'and' );
 		$screens    = array_merge( [ 'post', 'page' ], $post_types );
-
-		// Set choices
-		self::$robots_options = [
-			''                 => __( 'Keep default settings', 'seo-simple-pack' ), // デフォルト設定のまま
-			'index,follow'     => __( 'Index', 'seo-simple-pack' ), // インデックスさせる
-			'noindex'          => __( 'Don\'t index', 'seo-simple-pack' ) . '(noindex)', // インデックスさせない
-			'nofollow'         => __( 'Don\'t follow links', 'seo-simple-pack' ) . '(nofollow)', // リンクを辿らせない
-			'noarchive'        => __( 'Don\'t cache', 'seo-simple-pack' ) . '(noarchive)', // キャッシュさせない
-			'noindex,nofollow' => 'noindex,nofollow',
-		];
 
 		add_meta_box(
 			'ssp_metabox',                            // メタボックスのID名(html)
