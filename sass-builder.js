@@ -1,70 +1,52 @@
 /* eslint no-console: 0 */
-// console.log('start sass-builder.js ...');
 
 const path = require('path');
 const fs = require('fs');
+const { globSync } = require('glob');
 
-// node-sass
-const sass = require('node-sass');
-const nodeSassGlobbing = require('node-sass-globbing');
+// sass (Dart Sass)
+const sass = require('sass');
 
 // postcss
 const postcss = require('postcss');
 const autoprefixer = require('autoprefixer');
 const cssnano = require('cssnano');
-const mqpacker = require('css-mqpacker');
+const sortMediaQueries = require('postcss-sort-media-queries');
 
 // consoleの色付け
-const red = '\u001b[31m';
 const green = '\u001b[32m';
-
-const writeCSS = (filePath, css) => {
-	const dir = path.dirname(filePath);
-
-	// ディレクトリがなければ作成
-	if (!fs.existsSync(dir)) {
-		fs.mkdirSync(dir, { recursive: true });
-	}
-
-	// css書き出し
-	fs.writeFileSync(filePath, css);
-};
+const red = '\u001b[31m';
 
 // パス
 const src = 'src/scss';
 const dist = 'dist/css';
-const files = [
-	'ssp',
-	'common',
-	'post',
-	'term',
-];
+const ignore = ['**/_*.scss'];
+const files = globSync(src + '/**/*.scss', { ignore });
 
-files.forEach((fileName) => {
-	// renderSyncだとimporter使えない
-	sass.render(
-		{
-			file: path.resolve(__dirname, src, `${fileName}.scss`),
-			outputStyle: 'compressed',
-			importer: nodeSassGlobbing,
-		},
-		function (err, sassResult) {
-			if (err) {
-				console.error(red + err);
-			} else {
-				const css = sassResult.css.toString();
-				const filePath = path.resolve(__dirname, dist, `${fileName}.css`);
+files.forEach((filePath) => {
+	const fileName = filePath.replace(src + '/', '');
+	const srcPath = path.resolve(__dirname, src, fileName);
+	const distPath = path.resolve(__dirname, dist, fileName).replace('.scss', '.css');
 
-				// postcss実行
-				postcss([autoprefixer, mqpacker, cssnano])
-					.process(css, { from: undefined })
-					.then((postcssResult) => {
-						console.log(green + 'Wrote CSS to ' + filePath);
-						writeCSS(filePath, postcssResult.css);
+	try {
+		const result = sass.compile(srcPath, {
+			style: 'compressed',
+			silenceDeprecations: ['import'],
+		});
 
-						// if (postcssResult.map) {fs.writeFile('dest/app.css.map', postcssResult.map.toString(), () => true);}
-					});
-			}
-		}
-	);
+		// postcss実行
+		postcss([autoprefixer, sortMediaQueries, cssnano])
+			.process(result.css, { from: undefined })
+			.then((postcssResult) => {
+				// ディレクトリがなければ作成
+				fs.mkdirSync(path.dirname(distPath), { recursive: true });
+				fs.writeFileSync(distPath, postcssResult.css);
+				console.log(green + 'Wrote CSS to ' + distPath);
+			})
+			.catch((err) => {
+				console.error(red + 'PostCSS error: ' + err);
+			});
+	} catch (err) {
+		console.error(red + 'Sass error: ' + err);
+	}
 });

@@ -1,46 +1,43 @@
 {
-  "name": "seo-simple-pack",
-  "version": "1.0.0",
-  "description": "WordPress プラグイン、[SEO SIMPLE PACK](https://wordpress.org/plugins/seo-simple-pack/)。",
-  "main": "index.js",
-  "scripts": {
-    "build": "npm run build:css && npm run build:js",
-    "build:css": "node sass-builder.js",
-    "build:js": "npx webpack",
-    "set:composer": "composer i && composer set-wpcs",
-    "update": "bash ./bin/zip.sh",
-    "rm:ds_store": "find . -name '.DS_Store' -type f -ls -delete"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://ddryo@github.com/ddryo/SEO-SIMPLE-PACK.git"
-  },
-  "author": "",
-  "license": "ISC",
-  "dependencies": {
-    "node-sass": "^5.0.0"
-  },
-  "devDependencies": {
-    "@babel/core": "^7.12.10",
-    "@babel/polyfill": "^7.12.1",
-    "@babel/preset-env": "^7.12.11",
-    "@wordpress/browserslist-config": "^2.7.0",
-    "autoprefixer": "^9.8.6",
-    "babel-loader": "^8.2.2",
-    "core-js": "^3.8.1",
-    "css-mqpacker": "^7.0.0",
-    "cssnano": "^4.1.10",
-    "node-sass-globbing": "0.0.23",
-    "postcss-cli": "^8.3.0",
-    "prettier": "^2.2.1",
-    "stylelint": "^13.8.0",
-    "stylelint-config-rational-order": "^0.1.2",
-    "stylelint-config-wordpress": "^17.0.0",
-    "webpack": "^5.11.0",
-    "webpack-cli": "^4.2.0"
-  },
-  "browserslist": [
-    "extends @wordpress/browserslist-config",
-    "not ie <= 11"
-  ]
+	"name": "seo-simple-pack",
+	"version": "1.0.0",
+	"description": "WordPress プラグイン、[SEO SIMPLE PACK](https://wordpress.org/plugins/seo-simple-pack/)。",
+	"main": "index.js",
+	"scripts": {
+		"build": "pnpm build:css && pnpm build:js",
+		"build:css": "node sass-builder.js",
+		"build:js": "webpack",
+		"set:composer": "composer i && composer set-wpcs",
+		"update": "bash ./bin/zip.sh",
+		"rm:ds_store": "find . -name '.DS_Store' -type f -ls -delete"
+	},
+	"repository": {
+		"type": "git",
+		"url": "git+https://ddryo@github.com/ddryo/SEO-SIMPLE-PACK.git"
+	},
+	"author": "",
+	"license": "ISC",
+	"devDependencies": {
+		"@wordpress/browserslist-config": "^6.42.0",
+		"@wordpress/stylelint-config": "^23.34.0",
+		"autoprefixer": "^10.4.27",
+		"cssnano": "^7.1.4",
+		"glob": "^13.0.6",
+		"postcss": "^8.5.8",
+		"postcss-sort-media-queries": "^6.3.3",
+		"prettier": "^3.8.1",
+		"sass": "^1.98.0",
+		"stylelint": "^16.18.0",
+		"webpack": "^5.105.0",
+		"webpack-cli": "^5.1.4"
+	},
+	"browserslist": [
+		"extends @wordpress/browserslist-config",
+		"not ie <= 11"
+	],
+	"pnpm": {
+		"onlyBuiltDependencies": [
+			"@parcel/watcher"
+		]
+	}
 }

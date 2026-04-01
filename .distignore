@@ -4,18 +4,25 @@
 /node_modules
 /bin
 /vendor
+/src
 
 .distignore
 .gitignore
+.editorconfig
 .eslintignore
 .eslintrc.js
+.npmrc
 .prettierrc.js
+.prettierignore
 .stylelintrc.js
-gulpfile.js
+.wp-env.json
+sass-builder.js
 package.json
-package-lock.json
+pnpm-lock.yaml
 postcss.config.js
 webpack.config.js
 phpcs.xml
+composer.json
+composer.lock
 README.md
 _memo.txt

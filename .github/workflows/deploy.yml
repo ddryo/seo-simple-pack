@@ -8,14 +8,18 @@ jobs:
     name: New tag
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@master
-    - uses: actions/setup-node@v1
+    - uses: actions/checkout@v4
+    - uses: pnpm/action-setup@v5
       with:
-        node-version: 12.x
+        version: 10
+    - uses: actions/setup-node@v4
+      with:
+        node-version: 20
+        cache: pnpm
     - name: Build
       run: |
-        npm install
-        npm run build
+        pnpm install --frozen-lockfile
+        pnpm build
     - name: WordPress Plugin Deploy
       uses: 10up/action-wordpress-plugin-deploy@stable
       env:

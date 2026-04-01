@@ -3,7 +3,12 @@
 $color_main : #87ab87;
 
 @import "./mixin";
-@import "./inc/**";
+@import "./inc/field";
+@import "./inc/preview";
+@import "./inc/ssp_page";
+@import "./inc/ssp_tabs";
+@import "./inc/switch";
+@import "./inc/help";
 
 /* ------------------------------
  * 設定ページ
