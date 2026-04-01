@@ -25,4 +25,4 @@ phpcs.xml
 composer.json
 composer.lock
 README.md
-_memo.txt
+_memo.md
