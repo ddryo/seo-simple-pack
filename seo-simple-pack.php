@@ -1,8 +1,8 @@
 <?php
 /**
- * Plugin Name: SEO SIMPLE PACK
+ * Plugin Name: SEO SIMPLE PACK with REST API
  * Plugin URI: https://wemo.tech/1670
- * Description: A very simple SEO plugin. You can easily set and customize meta tags and OGP tags for each page.
+ * Description: A very simple SEO plugin with REST API support. You can easily set and customize meta tags and OGP tags for each page.
  * Version: 3.6.3
  * Author: LOOS,Inc.
  * Author URI: https://loos-web-studio.com/
@@ -49,6 +49,7 @@ require_once SSP_PATH . 'class/output.php';
 require_once SSP_PATH . 'class/output_helper.php';
 require_once SSP_PATH . 'class/metabox.php';
 require_once SSP_PATH . 'class/activate.php';
+require_once SSP_PATH . 'class/rest_api.php';
 
 
 /**
@@ -74,6 +75,7 @@ class SEO_SIMPLE_PACK {
 		SSP_MetaBox::create();
 		SSP_Hooks::init();
 		SSP_Output::init();
+		SSP_RestAPI::init();
 	}
 }
 
