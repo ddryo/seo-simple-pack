@@ -3,9 +3,9 @@
  * Plugin Name: SEO SIMPLE PACK
  * Plugin URI: https://wemo.tech/1670
  * Description: A very simple SEO plugin. You can easily set and customize meta tags and OGP tags for each page.
- * Version: 3.6.3
- * Author: LOOS,Inc.
- * Author URI: https://loos-web-studio.com/
+ * Version: 3.7.0
+ * Author: LOOS Inc.
+ * Author URI: https://loos.co.jp/
  * License: GPL2 or later
  * License URI: https://www.gnu.org/licenses/gpl-2.0.html
  * Text Domain: seo-simple-pack
