@@ -23,7 +23,7 @@
 		"autoprefixer": "^10.4.27",
 		"cssnano": "^7.1.4",
 		"glob": "^13.0.6",
-		"postcss": "^8.5.8",
+		"postcss": "^8.5.18",
 		"postcss-sort-media-queries": "^6.3.3",
 		"prettier": "^3.8.1",
 		"sass": "^1.98.0",
